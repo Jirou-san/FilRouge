@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace FilRougeLibrary
 {
-    class Program
+    class Quizz
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
