@@ -15,7 +15,8 @@ namespace FilRougeLibrary
         private int _Active;
         private static int _compteurTechno = 0;
 
-        #endregion          
+        #endregion  
+        
         public Technologies(string ipTechnoname, string ipActive)
         {
             _compteurTechno++;
