@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace FilRougeLibrary
 {
+
     public sealed class Technologies
     {
-        #region Propoerties
+        #region Properties
 
         private int _TechnoID;
         private string _TechnoName;
         private int _Active;
         private static int _compteurTechno = 0;
 
-        #endregion  
-        
+        #endregion        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Technologies"/> class.
+        /// </summary>
+        /// <param name="ipTechnoname">The ip technoname.</param>
+        /// <param name="ipActive">The ip active.</param>
         public Technologies(string ipTechnoname, string ipActive)
         {
             _compteurTechno++;
@@ -28,6 +33,7 @@ namespace FilRougeLibrary
             else _Active = -1;
         }
         #region Accesseurs
+        //Setters / Getters
         public int Active
         {
             get { return _Active; }
@@ -46,7 +52,13 @@ namespace FilRougeLibrary
             set { _TechnoID = value; }
         }
         #endregion
-        #region Methods
+        #region Methods        
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return string.Format("Technologie n° {0} \nNom : {1} \nActive : {2} (1 signifie Oui, 0 signifie Non, -1 signifie une erreur.)", TechnoID, TechnoName, Active);

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace FilRougeLibrary
 {
-    /// <summary>
-    /// Classe Contact permettant de créer soit un Admin soit un Agent.
-    /// </summary>
+
     public class Contact
     {
+        #region Proporties
         private int _UserID;
         private string _Name;
         private string _Prenom;
@@ -19,6 +18,15 @@ namespace FilRougeLibrary
         private string _Type;
         private static int _compteurContact = 0;
 
+        #endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Contact"/> class.
+        /// </summary>
+        /// <param name="ipname">The ipname.</param>
+        /// <param name="ipprenom">The ipprenom.</param>
+        /// <param name="iptel">The iptel.</param>
+        /// <param name="ipemail">The ipemail.</param>
+        /// <param name="iptype">The iptype.</param>
         public Contact(string ipname, string ipprenom, string iptel, string ipemail, string iptype)
         {
             _compteurContact++;
@@ -33,6 +41,8 @@ namespace FilRougeLibrary
         /// <summary>
         /// Getters / Setters
         /// </summary>
+        /// 
+        #region Accesseurs
         public string Type
         {
             get { return _Type; }
@@ -73,14 +83,16 @@ namespace FilRougeLibrary
             get { return _UserID; }
             set { _UserID = value; }
         }
-
+        #endregion
         /// <summary>
         /// Surcharge de ToString afin d'afficher les informations d'un Agent ou d'un Admin.
         /// </summary>
+        ///  
+        #region Methods
         public override string ToString()
         {
             return string.Format("Utilisateur n° : {0} \nNom et Prénom : {1} {2} \nTel : {3} \nEmail : {4} \nType : {5}", UserID, Name, Prenom, Tel, Email, Type);
         }
-
+        #endregion
     }
 }
