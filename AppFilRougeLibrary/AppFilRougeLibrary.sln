@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AppFilRougeLibrary", "AppFilRougeLibrary\AppFilRougeLibrary.shproj", "{771D0635-94BE-4897-9B08-F2C402E22B63}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		AppFilRougeLibrary\AppFilRougeLibrary.projitems*{771d0635-94be-4897-9b08-f2c402e22b63}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E12498FD-C9D4-4CB6-9C9B-C2AE0EFC07DD}
+	EndGlobalSection
+EndGlobal
