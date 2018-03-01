@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizz
+namespace FilRougeLibrary
 {
     /// <summary>
     /// Classe Contact permettant de créer soit un Admin soit un Agent.
