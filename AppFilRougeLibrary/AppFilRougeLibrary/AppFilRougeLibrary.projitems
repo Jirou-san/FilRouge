@@ -9,5 +9,8 @@
     <Import_RootNamespace>AppFilRougeLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Program.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Technologies.cs" />
   </ItemGroup>
 </Project>
