@@ -20,6 +20,10 @@ namespace FilRouge.Testing
             Console.WriteLine(cSharp.ToString());
             Console.ReadLine();
 
+            Quizz pQuizz = new Quizz("Extreme", 1, 1, "crapaud", "jean-michel", false, 50);
+            Console.WriteLine(pQuizz.ToString());
+            Console.ReadLine();
+
         }
     }
 }

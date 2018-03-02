@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace FilRouge.Library
         {
             _compteurContact++;
             UserID = _compteurContact;
-            Name = ipname;
-            Prenom = ipprenom;
+            Name = ipname.ToUpper();
+            Prenom = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ipprenom);
             Tel = iptel;
             Email = ipemail;
             Type = iptype;
