@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRougeLibrary", "FilRougeLibrary\FilRougeLibrary.csproj", "{26A802CC-F50E-4BE0-91D9-470C77FA6540}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Library", "FilRougeLibrary\FilRouge.Library.csproj", "{26A802CC-F50E-4BE0-91D9-470C77FA6540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRougeTesting", "FilRoueTesting\FilRougeTesting.csproj", "{7FE5EDC5-3FCC-465B-A1EE-EEC622A085D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Testing", "FilRoueTesting\FilRouge.Testing.csproj", "{7FE5EDC5-3FCC-465B-A1EE-EEC622A085D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

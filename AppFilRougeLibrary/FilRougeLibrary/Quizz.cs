@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilRougeLibrary
+namespace FilRouge.Library
 {
-    class Quizz
+    public class Quizz
     {
         #region Properties
         private int _QuizzID;
