@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FilRougeLibrary\FilRougeLibrary.csproj">
+      <Project>{26a802cc-f50e-4be0-91d9-470c77fa6540}</Project>
+      <Name>FilRougeLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,20 +10,31 @@ namespace FilRougeLibrary
     {
         #region Properties
         private int _QuizzID;
-        private DateTime _Timer; //Timer en minutes pour la duréer du quizz
+        private DateTime _Timer; //Timer en minutes pour la durée du quizz
         private int _etatQuizz; //Indique si le quizz non-fait, en cours ou terminé
         private string _Difficulty;
         private int _technoId;
         private int _userId;
         private string _nomUser;
         private string _prenomUser;
-        private bool _questionLibre;//true oui oui et false pour non
-        private int _nombreQuestion;//nombre de questions à intégrer au quizz
+        private bool _questionLibre; //true oui oui et false pour non
+        private int _nombreQuestion; //nombre de questions à intégrer au quizz
+        private static int nombreQuizz = 0;
         #endregion        
 
-        public Quizz()
+        public Quizz(string difficulty, Technologies technoID, Contact user, string nomUser, string prenomUser, bool questionLibre, int nbQuestion)
         {
-
+            nombreQuizz++;
+            _QuizzID = nombreQuizz;
+            _Timer = DateTime.Today; //A Modifier
+            _etatQuizz = 0;
+            _Difficulty = difficulty;
+            _technoId = technoID.TechnoID;
+            _userId = user.UserID;
+            _nomUser = nomUser;
+            _prenomUser = prenomUser;
+            _questionLibre = questionLibre;
+            _nombreQuestion = nbQuestion;
         }
 
         #region Accesseurs
@@ -38,6 +49,7 @@ namespace FilRougeLibrary
         public bool QuestionLibre { get => _questionLibre; set => _questionLibre = value; }
         public int NombreQuestion { get => _nombreQuestion; set => _nombreQuestion = value; }
         #endregion
+
         #region Methods
         #endregion
     }
