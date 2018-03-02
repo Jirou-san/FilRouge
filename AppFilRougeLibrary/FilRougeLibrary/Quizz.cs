@@ -22,15 +22,15 @@ namespace FilRougeLibrary
         private static int nombreQuizz = 0;
         #endregion        
 
-        public Quizz(string difficulty, Technologies technoID, Contact user, string nomUser, string prenomUser, bool questionLibre, int nbQuestion)
+        public Quizz(string difficulty, int technoID, int user, string nomUser, string prenomUser, bool questionLibre, int nbQuestion)
         {
             nombreQuizz++;
             _QuizzID = nombreQuizz;
             _Timer = DateTime.Today; //A Modifier
             _etatQuizz = 0;
             _Difficulty = difficulty;
-            _technoId = technoID.TechnoID;
-            _userId = user.UserID;
+            _technoId = technoID;
+            _userId = user;
             _nomUser = nomUser;
             _prenomUser = prenomUser;
             _questionLibre = questionLibre;
