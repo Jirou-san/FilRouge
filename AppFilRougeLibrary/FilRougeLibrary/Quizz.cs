@@ -51,6 +51,7 @@ namespace FilRouge.Library
         public string PrenomUser { get => _prenomUser; set => _prenomUser = value; }
         public bool QuestionLibre { get => _questionLibre; set => _questionLibre = value; }
         public int NombreQuestion { get => _nombreQuestion; set => _nombreQuestion = value; }
+        public List<Questions> LesQuestions { get => _lesQuestions; set => _lesQuestions = value; }
         #endregion
 
         #region Methods

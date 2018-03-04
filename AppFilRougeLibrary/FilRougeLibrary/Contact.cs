@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace FilRouge.Library
 {
-
+    public class ContactExeptionOverQuestions:Exception
+    {
+        public ContactExeptionOverQuestions(string message) :base(message)
+            {
+            }
+    }
     public class Contact
     {
         #region Proporties
@@ -95,14 +100,47 @@ namespace FilRouge.Library
             return string.Format("Utilisateur n° : {0} \nNom et Prénom : {1} {2} \nTel : {3} \nEmail : {4} \nType : {5}", UserID, Name, Prenom, Tel, Email, Type);
         }
         
-        public void CreateQuizz(List<Quizz> _laListeQuizz,string _difficulty, int _technoId, int _userId, string _userName, string _userFirstName, bool _questionLibre, int _nbQuestion)
+        public void CreateQuizz(List<Questions> _laListeDeTouteLesQuestions,List<Quizz> _laListeQuizz,string _difficulty, int _technoId, int _userId, string _userName, string _userFirstName, bool _questionLibre, int _nbQuestion)
         {
-          Quizz unQuizz = new Quizz(_difficulty, _technoId,_userId,_userName,_userFirstName,_questionLibre,_nbQuestion);
+            List<Questions> _laListeDesQuestionsDuQuizz = new List<Questions>();
+            //Ajout du quizz à la liste des quizz
+            Quizz unQuizz = new Quizz(_difficulty, _technoId,_userId,_userName,_userFirstName,_questionLibre,_nbQuestion);
             _laListeQuizz.Add(unQuizz);
+
+            Random _genIntAléatoire;
+            int _idQuestionAlea;
+
+            //Ajout des questions à un quizz (prend en compte le nombre de questions et la difficultée choisie par l'utilisateur
+            if(_nbQuestion <= 50)
+            {
+            for (int i = 0; i <= _nbQuestion; i++) //Boucle servant à remplir le quizz en fonction du nombre de questions voulues
+			{
+                //if question libre à voir pour gérer ça
+                _idQuestionAlea = _questionAléatoire(_laListeDeTouteLesQuestions.Count);//Génération d'un id de question aléatoire en focntion de la liste totale des questions
+                {
+                    foreach (Questions uneQuestion in _laListeDeTouteLesQuestions)//Pour chaque questions de la liste totale
+	                {
+                        if(_idQuestionAlea == uneQuestion.QuestionID)//Si un id de question correspond au chiffre aléatoire
+                        {
+                            foreach(Questions uneQuestionDuQuizz in _laListeDesQuestionsDuQuizz) // pour chaque questions dans le quizz
+                                {
+                                    if(_idQuestionAlea != uneQuestionDuQuizz.QuestionID)//Gestion des doublons de questions
+                                    {
+                                        _laListeDesQuestionsDuQuizz.Add(uneQuestion); // Ajouter la question au quizz
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                        } 
+                           
+                       
+	                }
+                    
+                }
+			}
+            }
         }
-
-
-
         #endregion
     }
 }
