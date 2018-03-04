@@ -21,6 +21,7 @@ namespace FilRouge.Library
         private bool _questionLibre; //true oui oui et false pour non
         private int _nombreQuestion; //nombre de questions à intégrer au quizz
         private static int nombreQuizz = 0;
+        private List<Quizz> _listeQuizz; // La liste des quizz sera initialité au lancement de l'appli, les quizz étant stockés dans un bdd
         #endregion        
 
         public Quizz(string ipDifficulty, int ipTechnoID, int ipUser, string ipNomUser, string ipPrenomUser, bool ipQuestionLibre, int ipNbQuestion)
