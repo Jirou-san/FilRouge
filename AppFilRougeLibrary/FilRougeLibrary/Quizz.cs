@@ -59,7 +59,10 @@ namespace FilRouge.Library
                 , QuizzID, EtatQuizz, Difficulty, TechnoId, UserId, NomUser, PrenomUser, NombreQuestion, QuestionLibre);
         }
 
-        
+        public void GeneratePdf() // Se base sur les libraires PDFSharp et MigraDoc
+        {
+
+        }
         #endregion
     }
 }
