@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace FilRouge.Library
 {
@@ -20,13 +21,14 @@ namespace FilRouge.Library
         private string _prenomUser;
         private bool _questionLibre; //true oui oui et false pour non
         private int _nombreQuestion; //nombre de questions à intégrer au quizz
-        private static int nombreQuizz = 0;
+        private static int _nombreQuizz = 0;
+        private List<Questions> _lesQuestions = new List<Questions>(); //List de questions que comportera un quizz
         #endregion        
 
         public Quizz(string ipDifficulty, int ipTechnoID, int ipUser, string ipNomUser, string ipPrenomUser, bool ipQuestionLibre, int ipNbQuestion)
         {
-            nombreQuizz++;
-            _QuizzID = nombreQuizz;
+            _nombreQuizz++;
+            _QuizzID = _nombreQuizz;
             _Timer = DateTime.Today; //A Modifier
             _etatQuizz = 0;
             _Difficulty = ipDifficulty;
