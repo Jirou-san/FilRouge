@@ -23,19 +23,19 @@ namespace FilRouge.Library
         private static int nombreQuizz = 0;
         #endregion        
 
-        public Quizz(string difficulty, int technoID, int user, string nomUser, string prenomUser, bool questionLibre, int nbQuestion)
+        public Quizz(string ipDifficulty, int ipTechnoID, int ipUser, string ipNomUser, string ipPrenomUser, bool ipQuestionLibre, int ipNbQuestion)
         {
             nombreQuizz++;
             _QuizzID = nombreQuizz;
             _Timer = DateTime.Today; //A Modifier
             _etatQuizz = 0;
-            _Difficulty = difficulty;
-            _technoId = technoID;
-            _userId = user;
-            _nomUser = nomUser.ToUpper();
-            _prenomUser = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(prenomUser);
-            _questionLibre = questionLibre;
-            _nombreQuestion = nbQuestion;
+            _Difficulty = ipDifficulty;
+            _technoId = ipTechnoID;
+            _userId = ipUser;
+            _nomUser = ipNomUser.ToUpper();
+            _prenomUser = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ipPrenomUser);
+            _questionLibre = ipQuestionLibre;
+            _nombreQuestion = ipNbQuestion;
         }
 
         #region Accesseurs
