@@ -93,16 +93,6 @@ namespace FilRouge.Library
             set { _UserID = value; }
         }
         #endregion
-        /// <summary>
-        /// Surcharge de ToString afin d'afficher les informations d'un Agent ou d'un Admin.
-        /// </summary>
-        ///  
-        #region Methods
-        public override string ToString()
-        {
-            return string.Format("Utilisateur n° : {0} \nNom et Prénom : {1} {2} \nTel : {3} \nEmail : {4} \nType : {5}", UserID, Name, Prenom, Tel, Email, Type);
-        }
-        #endregion
     }
 }
 

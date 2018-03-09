@@ -39,17 +39,5 @@ namespace FilRouge.Library
             set { _TechnoID = value; }
         }
         #endregion
-        #region Methods        
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return string.Format("Technologie n° {0} \nNom : {1} \nActive : {2} (1 signifie Oui, 0 signifie Non, -1 signifie une erreur.)", TechnoID, TechnoName, Active);
-        }
-        #endregion
     }
 }

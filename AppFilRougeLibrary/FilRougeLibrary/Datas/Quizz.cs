@@ -38,19 +38,5 @@ namespace FilRouge.Library
         public int NombreQuestion { get => _nombreQuestion; set => _nombreQuestion = value; }
         public List<Questions> LesQuestions { get => _lesQuestions; set => _lesQuestions = value; }
         #endregion
-
-        #region Methods
-        public override string ToString()
-        {
-            return string.Format("Quizz n° {0} \nEtat du Quizz : {1} \nDifficulté : {2} \nID Technologie : {3} \nID du Créateur : {4} \n Nom de la personne faisant le quizz : {5} "
-                + "\nPrénom de la personne faisant le quizz : {6} \nNombre de questions : {7} \nQuestion Libre ? {8}"
-                , QuizzID, EtatQuizz, Difficulty, TechnoId, UserId, NomUser, PrenomUser, NombreQuestion, QuestionLibre);
-        }
-
-        public void GeneratePdf() // Se base sur les libraires PDFSharp et MigraDoc
-        {
-
-        }
-        #endregion
     }
 }

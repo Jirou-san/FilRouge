@@ -28,7 +28,5 @@ namespace FilRouge.Library
         public string Difficulty { get => _Difficulty; set => _Difficulty = value; }
         public int TechnoId { get => _TechnoId; set => _TechnoId = value; }
         #endregion
-        #region Methods
-        #endregion
     }
 }
