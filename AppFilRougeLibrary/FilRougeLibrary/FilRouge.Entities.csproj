@@ -7,8 +7,8 @@
     <ProjectGuid>{26A802CC-F50E-4BE0-91D9-470C77FA6540}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FilRouge.Library</RootNamespace>
-    <AssemblyName>FilRouge.Library</AssemblyName>
+    <RootNamespace>FilRouge.Entities</RootNamespace>
+    <AssemblyName>FilRouge.Entities</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -76,6 +76,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Entities\packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

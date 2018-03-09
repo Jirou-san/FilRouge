@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FilRouge.Library
+namespace FilRouge.Entities.Entity
 {
-    public class Quizz
+    public partial class Quizz
     {
         #region Properties
         public int QuizzID { get; set; }

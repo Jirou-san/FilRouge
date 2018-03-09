@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FilRouge.Library
+namespace FilRouge.Entities.Entity
 {
 
-    public sealed class Technologies
+    public partial class Technologies
     {
         #region Properties
 
-        public int _TechnoID { get; set; }
-        public string _TechnoName { get; set; }
-        public int _Active { get; set; }
+        public int TechnoID { get; set; }
+        public string TechnoName { get; set; }
+        public int Active { get; set; }
 
         #endregion     
         #region Association
