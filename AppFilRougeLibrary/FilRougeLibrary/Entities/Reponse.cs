@@ -13,6 +13,7 @@ namespace FilRouge.Library.Datas
         public string Content { get; set; }
         public int QuestionId { get; set; }
         #endregion
-
+        #region Association
+        #endregion
     }
 }

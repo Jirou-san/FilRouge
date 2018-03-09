@@ -16,6 +16,8 @@ namespace FilRouge.Library
         public string _TechnoName { get; set; }
         public int _Active { get; set; }
 
-        #endregion              
+        #endregion     
+        #region Association
+        #endregion
     }
 }

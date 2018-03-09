@@ -22,6 +22,7 @@ namespace FilRouge.Library
         public bool QuestionLibre { get; set; } //true oui oui et false pour non
         public int NombreQuestion { get; set; } //nombre de questions à intégrer au quizz
         #endregion
-
+        #region Association
+        #endregion
     }
 }

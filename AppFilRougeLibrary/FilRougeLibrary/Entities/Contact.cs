@@ -43,6 +43,8 @@ namespace FilRouge.Library
         public string Email { get; set; }
         public string Type { get; set; }
         #endregion
+        #region Association
+        #endregion
 
     }
 }

@@ -18,6 +18,7 @@ namespace FilRouge.Library
         public static int CompteurQuestions { get; set; }
         public int TechnoId { get; set; }
         #endregion
-
+        #region Association
+        #endregion
     }
 }
