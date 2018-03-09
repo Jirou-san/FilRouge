@@ -42,28 +42,11 @@ namespace FilRouge.Library
         private string _Tel;
         private string _Email;
         private string _Type;
-        private static int _compteurContact = 0;
+
 
         #endregion
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Contact"/> class.
-        /// </summary>
-        /// <param name="ipname">The ipname.</param>
-        /// <param name="ipprenom">The ipprenom.</param>
-        /// <param name="iptel">The iptel.</param>
-        /// <param name="ipemail">The ipemail.</param>
-        /// <param name="iptype">The iptype.</param>
-        public Contact(string ipname, string ipprenom, string iptel, string ipemail, string iptype)
-        {
-            _compteurContact++;
-            UserID = _compteurContact;
-            Name = ipname.ToUpper();
-            Prenom = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ipprenom);
-            Tel = iptel;
-            Email = ipemail;
-            Type = iptype;
-        }
 
+        
         /// <summary>
         /// Getters / Setters
         /// </summary>

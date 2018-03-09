@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity.Migrations;
 
 namespace FilRouge.Library
 {
@@ -14,24 +15,10 @@ namespace FilRouge.Library
         private int _TechnoID;
         private string _TechnoName;
         private int _Active;
-        private static int _compteurTechno = 0;
 
         #endregion        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Technologies"/> class.
-        /// </summary>
-        /// <param name="ipTechnoname">The ip technoname.</param>
-        /// <param name="ipActive">The ip active.</param>
-        public Technologies(string ipTechnoname, string ipActive)
-        {
-            _compteurTechno++;
-            _TechnoID = _compteurTechno;
-            _TechnoName = ipTechnoname;
-            if (ipActive.ToUpper() == "OUI")
-                _Active = 1;
-            else if (ipActive.ToUpper() == "NON") _Active = 0;
-            else _Active = -1;
-        }
+
+        
         #region Accesseurs
         //Setters / Getters
         public int Active

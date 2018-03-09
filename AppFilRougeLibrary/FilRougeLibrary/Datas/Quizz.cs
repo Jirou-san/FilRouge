@@ -21,25 +21,10 @@ namespace FilRouge.Library
         private string _prenomUser;
         private bool _questionLibre; //true oui oui et false pour non
         private int _nombreQuestion; //nombre de questions à intégrer au quizz
-        private static int _nombreQuizz = 0;
         private List<Questions> _lesQuestions = new List<Questions>(); //List de questions que comportera un quizz
         #endregion        
 
-        public Quizz(string ipDifficulty, int ipTechnoID, int ipUser, string ipNomUser, string ipPrenomUser, bool ipQuestionLibre, int ipNbQuestion)
-        {
-            _nombreQuizz++;
-            _QuizzID = _nombreQuizz;
-            _Timer = DateTime.Today; //A Modifier
-            _etatQuizz = 0;
-            _Difficulty = ipDifficulty;
-            _technoId = ipTechnoID;
-            _userId = ipUser;
-            _nomUser = ipNomUser.ToUpper();
-            _prenomUser = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ipPrenomUser);
-            _questionLibre = ipQuestionLibre;
-            _nombreQuestion = ipNbQuestion;
-        }
-
+       
         #region Accesseurs
         public int QuizzID { get => _QuizzID; set => _QuizzID = value; }
         public DateTime Timer { get => _Timer; set => _Timer = value; }

@@ -18,16 +18,7 @@ namespace FilRouge.Library
         private static int _CompteurQuestions;
         private int _TechnoId;
         #endregion
-        public Questions(string ipContent, string ipCommentaire, bool ipActive, int ipType, string ipDifficulty, int ipTechnoId)
-        {
-            _CompteurQuestions++;
-            QuestionID = _CompteurQuestions;
-            this.Content = ipContent;
-            this.Commentaire = ipCommentaire;
-            this.Active = ipActive;
-            QuestionType = ipType;
-            this.Difficulty = ipDifficulty;
-        }
+        
         #region Accesseurs
         public int QuestionID { get => _QuestionID; set => _QuestionID = value; }
         public string Content { get => _Content; set => _Content = value; }
