@@ -118,9 +118,8 @@ namespace FilRouge.Library
         public override string ToString()
         {
             return string.Format("Utilisateur n° : {0} \nNom et Prénom : {1} {2} \nTel : {3} \nEmail : {4} \nType : {5}", UserID, Name, Prenom, Tel, Email, Type);
-        }        
-
-        
+        }
+        #endregion
     }
 }
 
