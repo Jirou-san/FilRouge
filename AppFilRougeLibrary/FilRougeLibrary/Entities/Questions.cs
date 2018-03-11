@@ -15,18 +15,24 @@ namespace FilRouge.Entities.Entity
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int QuestionID { get; set; }
+        public int QuestionId { get; set; }
         public string Content { get; set; }
         public string Commentaire { get; set; }
         public bool Active { get; set; }
         public int QuestionType { get; set; }
         public string Difficulty { get; set; }
-        public static int CompteurQuestions { get; set; }
+        [ForeignKey("Technologies")]
+        public string TechnoId { get; set; }
+        [ForeignKey("Quizz")]
+        public string QuizzId { get; set; }
+        [ForeignKey("Reponses")]
+        public string ReponseId { get; set; }
         #endregion
         #region Association
-        public virtual ICollection<Technologies> Technologies { get; set; }
-        public virtual ICollection<Quizz> Quizzs { get; set; }
+
+        public virtual ICollection<Quizz> Quizz { get; set; }
         public virtual ICollection<Reponse> Reponses { get; set; }
+        public virtual ICollection<Technologies> Technologies { get; set; }
         #endregion
     }
 }
