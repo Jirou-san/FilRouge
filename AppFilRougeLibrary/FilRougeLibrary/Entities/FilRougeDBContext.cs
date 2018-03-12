@@ -13,9 +13,9 @@ namespace FilRouge.Entities.Entities
 {
     public class FilRougeDBContext : DbContext
     {
-        public FilRougeDBContext() :base("BDDFilRouge")
+        public FilRougeDBContext() :base("BDDAppliFilRouge")
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>());
         }
 
         public DbSet<Contact> Contact { get; set; }
