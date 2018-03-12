@@ -15,7 +15,7 @@ namespace FilRouge.Testing
     {
         static void Main(string[] args)
         {
-            
+            string path = "C:\\Users\\Administrateur\\Source\\Repos\\FilRouge\\AppFilRougeLibrary\\FilRouge.Services\\DataChain.xml";
             FilRouge.Services.QuizzService aService = new FilRouge.Services.QuizzService();
             var Contact = new FilRouge.Entities.Entity.Contact
             {
@@ -26,10 +26,11 @@ namespace FilRouge.Testing
                 Type = "admin"
 
             };
-            using (Entities.Entities.FilRougeDBContext dbContext = new Entities.Entities.FilRougeDBContext()) {
+            using (Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext()) {
                 dbContext.Contact.Add(Contact);
                 dbContext.SaveChanges();
             }
+            Console.WriteLine();
                Console.WriteLine("Appuyez sur une touche pour quitter...");
             Console.ReadKey();
 

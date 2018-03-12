@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using FilRouge.Entities.Entity;
 using System.Data.Entity;
 
-namespace FilRouge.Entities.Entities
+namespace FilRouge.Entities.Entity
 {
     public class FilRougeDBContext : DbContext
     {

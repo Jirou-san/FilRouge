@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-namespace FilRouge.Entities.Entities
+namespace FilRouge.Entities.Entity
 {
     public class UserReponse
     {

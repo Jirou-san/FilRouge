@@ -57,5 +57,14 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataChain.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FilRougeLibrary\FilRouge.Entities.csproj">
+      <Project>{26a802cc-f50e-4be0-91d9-470c77fa6540}</Project>
+      <Name>FilRouge.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
