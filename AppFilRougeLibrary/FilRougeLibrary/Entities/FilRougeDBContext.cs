@@ -23,6 +23,7 @@ namespace FilRouge.Entities.Entities
         public DbSet<Quizz> Quizz { get; set; }
         public DbSet<Reponse> Reponse { get; set; }
         public DbSet<Technologies> Technologies { get; set; }
-
+        public DbSet<UserReponse> UserReponse { get; set; }
+        public DbSet<EtatQuizz> EtatQuizz { get; set; }
     }
 }

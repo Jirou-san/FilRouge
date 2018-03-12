@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace FilRouge.Entities.Entities
 {
-    class UserReponse
+    public class UserReponse
     {
         #region Proporties
         [Key, Column(Order = 0)]

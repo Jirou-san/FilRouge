@@ -27,7 +27,8 @@ namespace FilRouge.Testing
 
             };
             using (Entities.Entities.FilRougeDBContext dbContext = new Entities.Entities.FilRougeDBContext()) {
-
+                dbContext.Contact.Add(Contact);
+                dbContext.SaveChanges();
             }
                Console.WriteLine("Appuyez sur une touche pour quitter...");
             Console.ReadKey();
