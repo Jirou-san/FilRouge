@@ -9,17 +9,18 @@ using System.ComponentModel.DataAnnotations;
 using FilRouge.Entities.Entity;
 using System.Data.Entity;
 
+
 namespace FilRouge.Entities.Entity
 {
     public class FilRougeDBContext : DbContext
     {
-        //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
-        public FilRougeDBContext(/*string connString*/) :base("BDDAppliFilRouge")
+        
+        public FilRougeDBContext() :base("BDDAppliFilRouge")
         {
             //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
-
+        //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
         public DbSet<Contact> Contact { get; set; }
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Quizz> Quizz { get; set; }

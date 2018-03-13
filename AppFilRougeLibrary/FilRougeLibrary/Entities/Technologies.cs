@@ -18,7 +18,7 @@ namespace FilRouge.Entities.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TechnoId { get; set; }
         public string TechnoName { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
 
         #endregion     
         #region Association

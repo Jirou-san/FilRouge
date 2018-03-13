@@ -24,6 +24,18 @@ namespace FilRouge.Entities.Migrations
                 .Index(t => t.Quizz_QuizzId);
             
             CreateTable(
+                "dbo.Difficulties",
+                c => new
+                    {
+                        DifficultyId = c.Int(nullable: false, identity: true),
+                        DifficultyName = c.String(),
+                        TauxJunior = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TauxConfirmed = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TauxExpert = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.DifficultyId);
+            
+            CreateTable(
                 "dbo.EtatQuizzs",
                 c => new
                     {
@@ -45,8 +57,12 @@ namespace FilRouge.Entities.Migrations
                         TechnoId = c.String(),
                         QuizzId = c.String(),
                         ReponseId = c.String(),
+                        EtatQuizz_QuizzId = c.Int(),
+                        EtatQuizz_QuestionId = c.Int(),
                     })
-                .PrimaryKey(t => t.QuestionId);
+                .PrimaryKey(t => t.QuestionId)
+                .ForeignKey("dbo.EtatQuizzs", t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
+                .Index(t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId });
             
             CreateTable(
                 "dbo.Quizzs",
@@ -63,10 +79,18 @@ namespace FilRouge.Entities.Migrations
                         QuestionLibre = c.Boolean(nullable: false),
                         NombreQuestion = c.Int(nullable: false),
                         Questions_QuestionId = c.Int(),
+                        EtatQuizz_QuizzId = c.Int(),
+                        EtatQuizz_QuestionId = c.Int(),
+                        UserReponse_QuizzId = c.Int(),
+                        UserReponse_ReponseId = c.Int(),
                     })
                 .PrimaryKey(t => t.QuizzId)
                 .ForeignKey("dbo.Questions", t => t.Questions_QuestionId)
-                .Index(t => t.Questions_QuestionId);
+                .ForeignKey("dbo.EtatQuizzs", t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
+                .ForeignKey("dbo.UserReponses", t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId })
+                .Index(t => t.Questions_QuestionId)
+                .Index(t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
+                .Index(t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId });
             
             CreateTable(
                 "dbo.Technologies",
@@ -74,7 +98,7 @@ namespace FilRouge.Entities.Migrations
                     {
                         TechnoId = c.Int(nullable: false, identity: true),
                         TechnoName = c.String(),
-                        Active = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         Quizz_QuizzId = c.Int(),
                         Questions_QuestionId = c.Int(),
                     })
@@ -91,8 +115,12 @@ namespace FilRouge.Entities.Migrations
                         ReponseId = c.Int(nullable: false, identity: true),
                         Content = c.String(),
                         QuestionId = c.Int(nullable: false),
+                        UserReponse_QuizzId = c.Int(),
+                        UserReponse_ReponseId = c.Int(),
                     })
-                .PrimaryKey(t => t.ReponseId);
+                .PrimaryKey(t => t.ReponseId)
+                .ForeignKey("dbo.UserReponses", t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId })
+                .Index(t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId });
             
             CreateTable(
                 "dbo.UserReponses",
@@ -121,6 +149,10 @@ namespace FilRouge.Entities.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Reponses", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" }, "dbo.UserReponses");
+            DropForeignKey("dbo.Quizzs", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" }, "dbo.UserReponses");
+            DropForeignKey("dbo.Quizzs", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" }, "dbo.EtatQuizzs");
+            DropForeignKey("dbo.Questions", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" }, "dbo.EtatQuizzs");
             DropForeignKey("dbo.Technologies", "Questions_QuestionId", "dbo.Questions");
             DropForeignKey("dbo.QuestionsReponses", "Reponse_ReponseId", "dbo.Reponses");
             DropForeignKey("dbo.QuestionsReponses", "Questions_QuestionId", "dbo.Questions");
@@ -129,9 +161,13 @@ namespace FilRouge.Entities.Migrations
             DropForeignKey("dbo.Contacts", "Quizz_QuizzId", "dbo.Quizzs");
             DropIndex("dbo.QuestionsReponses", new[] { "Reponse_ReponseId" });
             DropIndex("dbo.QuestionsReponses", new[] { "Questions_QuestionId" });
+            DropIndex("dbo.Reponses", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" });
             DropIndex("dbo.Technologies", new[] { "Questions_QuestionId" });
             DropIndex("dbo.Technologies", new[] { "Quizz_QuizzId" });
+            DropIndex("dbo.Quizzs", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" });
+            DropIndex("dbo.Quizzs", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" });
             DropIndex("dbo.Quizzs", new[] { "Questions_QuestionId" });
+            DropIndex("dbo.Questions", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" });
             DropIndex("dbo.Contacts", new[] { "Quizz_QuizzId" });
             DropTable("dbo.QuestionsReponses");
             DropTable("dbo.UserReponses");
@@ -140,6 +176,7 @@ namespace FilRouge.Entities.Migrations
             DropTable("dbo.Quizzs");
             DropTable("dbo.Questions");
             DropTable("dbo.EtatQuizzs");
+            DropTable("dbo.Difficulties");
             DropTable("dbo.Contacts");
         }
     }

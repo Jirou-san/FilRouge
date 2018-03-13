@@ -69,17 +69,13 @@
     <Compile Include="Entities\FilRougeDBContext.cs" />
     <Compile Include="Entities\Reponse.cs" />
     <Compile Include="Entities\UserReponse.cs" />
-    <Compile Include="Migrations\201803121759367_InitialCreate.cs" />
-    <Compile Include="Migrations\201803121759367_InitialCreate.Designer.cs">
-      <DependentUpon>201803121759367_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201803131258096_InitialCreate.cs" />
+    <Compile Include="Migrations\201803131258096_InitialCreate.Designer.cs">
+      <DependentUpon>201803131258096_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803122242062_FilRougeDBContext-v1.cs" />
-    <Compile Include="Migrations\201803122242062_FilRougeDBContext-v1.Designer.cs">
-      <DependentUpon>201803122242062_FilRougeDBContext-v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803122250353_FilRougeDBContext-v2.cs" />
-    <Compile Include="Migrations\201803122250353_FilRougeDBContext-v2.Designer.cs">
-      <DependentUpon>201803122250353_FilRougeDBContext-v2.cs</DependentUpon>
+    <Compile Include="Migrations\201803131319324_FilRougeDBContext-v1.cs" />
+    <Compile Include="Migrations\201803131319324_FilRougeDBContext-v1.Designer.cs">
+      <DependentUpon>201803131319324_FilRougeDBContext-v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,14 +94,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803121759367_InitialCreate.resx">
-      <DependentUpon>201803121759367_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803131258096_InitialCreate.resx">
+      <DependentUpon>201803131258096_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803122242062_FilRougeDBContext-v1.resx">
-      <DependentUpon>201803122242062_FilRougeDBContext-v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803122250353_FilRougeDBContext-v2.resx">
-      <DependentUpon>201803122250353_FilRougeDBContext-v2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803131319324_FilRougeDBContext-v1.resx">
+      <DependentUpon>201803131319324_FilRougeDBContext-v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

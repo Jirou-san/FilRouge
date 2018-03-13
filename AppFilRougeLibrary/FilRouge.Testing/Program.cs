@@ -15,8 +15,6 @@ namespace FilRouge.Testing
     {
         static void Main(string[] args)
         {
-            string path = "C:\\XMLDataConnexion.xml";
-            //string path = "C:\\Users\\Administrateur\\Source\\Repos\\FilRouge\\AppFilRougeLibrary\\FilRouge.Services\\DataChain.xml";
             QuizzService aService = new FilRouge.Services.QuizzService();
             ReferencesService aReferenceService = new FilRouge.Services.ReferencesService();
 
@@ -33,14 +31,14 @@ namespace FilRouge.Testing
             var Technologie = new FilRouge.Entities.Entity.Technologies
             {
                 TechnoName = "C#",
-                Active = 1
+                Active = true
             };
             var Technologie1 = new FilRouge.Entities.Entity.Technologies
             {
                 TechnoName = "Java",
-                Active = 1
+                Active = true
             };
-            */
+            
             var Difficult = new FilRouge.Entities.Entity.Difficulties
             {
                 DifficultyName = "Junior",
@@ -62,14 +60,21 @@ namespace FilRouge.Testing
                 TauxConfirmed = 0.4m,
                 TauxExpert = 0.5m,
             };
-            Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext(aService.GetConnexionChain(path));
+            
+            dbContext.Technologies.Add(Technologie1);
+            dbContext.Technologies.Add(Technologie);
+            dbContext.Contact.Add(Contact);
             dbContext.Difficulties.Add(Difficult);
             dbContext.Difficulties.Add(Difficult1);
             dbContext.Difficulties.Add(Difficult2);
+            Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext(path);
+
             dbContext.SaveChanges();
-            dbContext.Dispose();
-
-
+            dbContext.Dispose();*/
+            foreach (var item in aReferenceService.GetTechnologies())
+            {
+                Console.WriteLine(item);
+            }
 
             Console.WriteLine(Environment.NewLine+"Appuyez sur une touche pour quitter...");
             Console.ReadKey();
