@@ -34,12 +34,11 @@ namespace FilRouge.Services
         /// </summary>
         /// <param name="id">l'ID du quizz (sa clé primaire)</param>
         /// <returns>Retourne la chaine de caractères du quizz</returns>
-        public string GetQuizz(int id)
+        public string GetQuizz(int id, string datachain)
         {
             string concatDataQuizz = "";
-            using (Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext())
-            {
-                Entities.Entity.Quizz fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
+            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext(datachain);            
+            Entities.Entity.Quizz fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
                 concatDataQuizz += " Difficultée: " + fluentQuery.Difficulty +
                     "\r\n Nombre de questions: " + fluentQuery.NombreQuestion.ToString() +
                     "\r\n Prenom du candidat: " + fluentQuery.PrenomUser +
@@ -68,22 +67,50 @@ namespace FilRouge.Services
                 {
                     concatDataQuizz += " Technologie:" + item1.TechnoName;
                 }
-
-            }
+            db.Dispose();
             return concatDataQuizz;
-
         }
-        public List<string> GetAllQuizz()
+        public List<string> GetAllQuizz(string datachain)
         {
+            List<string> lesQuizz = new List<string>();
             string concatDataQuizz = "";
-            using (Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext())
-            {
+            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext(datachain);
+            
                 var fluentQuery = db.Quizz.Select(e => e);
-                foreach (var item in fluentQuery)
+            foreach (var item in fluentQuery)
+            {
+                concatDataQuizz += " Difficultée: " + item.Difficulty +
+                "\r\n Nombre de questions: " + item.NombreQuestion.ToString() +
+                "\r\n Prenom du candidat: " + item.PrenomUser +
+                "\r\n Nom du candidat: " + item.NomUser +
+                "\r\n Temps pour le faire:" + item.Timer.ToString();
+                if (item.EtatQuizz == 0)
                 {
-
+                    concatDataQuizz += "\r\nEtat du quizz: Pas encore effectué";
                 }
+                else if (item.EtatQuizz == 1)
+                {
+                    concatDataQuizz += "\r\nEtat du quizz: En cours";
+                }
+                else
+                {
+                    concatDataQuizz += "\r\nEtat du quizz: Terminé";
+                }
+
+                concatDataQuizz += "\r\nContact:";
+                foreach (var item1 in item.Contact)
+                {
+                    concatDataQuizz += " Prenom:" + item1.Prenom +
+                        " Nom: " + item1.Name + " Mail: " + item1.Email;
+                }
+                foreach (var item1 in item.Technologies)
+                {
+                    concatDataQuizz += " Technologie:" + item1.TechnoName;
+                }
+                lesQuizz.Add(concatDataQuizz);
             }
+            db.Dispose();
+            return lesQuizz;
         }
         #endregion
     }

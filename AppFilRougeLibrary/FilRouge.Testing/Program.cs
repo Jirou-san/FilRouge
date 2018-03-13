@@ -15,9 +15,12 @@ namespace FilRouge.Testing
     {
         static void Main(string[] args)
         {
-            string path = "C:\\Users\\Administrateur\\Source\\Repos\\FilRouge\\AppFilRougeLibrary\\FilRouge.Services\\DataChain.xml";
-            FilRouge.Services.QuizzService aService = new FilRouge.Services.QuizzService();
-            var Contact = new FilRouge.Entities.Entity.Contact
+            string path = "C:\\XMLDataConnexion.xml";
+            //string path = "C:\\Users\\Administrateur\\Source\\Repos\\FilRouge\\AppFilRougeLibrary\\FilRouge.Services\\DataChain.xml";
+            QuizzService aService = new FilRouge.Services.QuizzService();
+            ReferencesService aReferenceService = new FilRouge.Services.ReferencesService();
+
+            /*var Contact = new FilRouge.Entities.Entity.Contact
             {
                 Name = "Admin",
                 Prenom = "Nico",
@@ -26,12 +29,49 @@ namespace FilRouge.Testing
                 Type = "admin"
 
             };
-            using (Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext()) {
-                dbContext.Contact.Add(Contact);
-                dbContext.SaveChanges();
-            }
-            Console.WriteLine();
-               Console.WriteLine("Appuyez sur une touche pour quitter...");
+            
+            var Technologie = new FilRouge.Entities.Entity.Technologies
+            {
+                TechnoName = "C#",
+                Active = 1
+            };
+            var Technologie1 = new FilRouge.Entities.Entity.Technologies
+            {
+                TechnoName = "Java",
+                Active = 1
+            };
+            */
+            var Difficult = new FilRouge.Entities.Entity.Difficulties
+            {
+                DifficultyName = "Junior",
+                TauxJunior=0.7m,
+                TauxConfirmed = 0.2m,
+                TauxExpert = 0.1m,
+            };
+            var Difficult1 = new FilRouge.Entities.Entity.Difficulties
+            {
+                DifficultyName = "Confirmed",
+                TauxJunior = 0.25m,
+                TauxConfirmed = 0.5m,
+                TauxExpert = 0.25m,
+            };
+            var Difficult2 = new FilRouge.Entities.Entity.Difficulties
+            {
+                DifficultyName = "Expert",
+                TauxJunior = 0.1m,
+                TauxConfirmed = 0.4m,
+                TauxExpert = 0.5m,
+            };
+            Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext(aService.GetConnexionChain(path));
+            dbContext.Difficulties.Add(Difficult);
+            dbContext.Difficulties.Add(Difficult1);
+            dbContext.Difficulties.Add(Difficult2);
+            dbContext.SaveChanges();
+            dbContext.Dispose();
+
+
+
+            Console.WriteLine(Environment.NewLine+"Appuyez sur une touche pour quitter...");
             Console.ReadKey();
 
         }

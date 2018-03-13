@@ -13,9 +13,11 @@ namespace FilRouge.Entities.Entity
 {
     public class FilRougeDBContext : DbContext
     {
-        public FilRougeDBContext() :base("BDDAppliFilRouge")
+        //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
+        public FilRougeDBContext(/*string connString*/) :base("BDDAppliFilRouge")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
 
         public DbSet<Contact> Contact { get; set; }
@@ -25,5 +27,11 @@ namespace FilRouge.Entities.Entity
         public DbSet<Technologies> Technologies { get; set; }
         public DbSet<UserReponse> UserReponse { get; set; }
         public DbSet<EtatQuizz> EtatQuizz { get; set; }
+        public DbSet<Difficulties> Difficulties { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+        }
     }
 }

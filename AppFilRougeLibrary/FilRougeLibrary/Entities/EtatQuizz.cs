@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FilRouge.Entities.Entity
 {
-    public class EtatQuizz
+    public partial class EtatQuizz
     {
         #region Proporties
         [Key, Column(Order = 0)]
