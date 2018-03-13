@@ -17,7 +17,7 @@ namespace FilRouge.Entities.Entity
         
         public FilRougeDBContext() :base("BDDAppliFilRouge")
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
+           //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
         //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx

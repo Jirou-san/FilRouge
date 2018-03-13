@@ -15,7 +15,7 @@ namespace FilRouge.Entities.Entity
         public int QuestionId { get; set; }
         #endregion
         #region Associations
-        public virtual ICollection<Quizz> Quizz { get; set; }
+        public virtual Quizz Quizz { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
         #endregion
     }

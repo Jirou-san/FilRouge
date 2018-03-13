@@ -16,7 +16,7 @@ namespace FilRouge.Entities.Entity
         public string Valeur { get; set; }
         #endregion
         #region Association
-        public virtual ICollection<Quizz> Quizz { get; set; }
+        public virtual Quizz Quizz { get; set; }
         public virtual ICollection<Reponse> Reponse { get; set; }
         #endregion
     }

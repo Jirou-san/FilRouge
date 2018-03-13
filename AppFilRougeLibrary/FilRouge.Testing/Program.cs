@@ -26,9 +26,9 @@ namespace FilRouge.Testing
                 Email = "test@test.fr",
                 Type = "admin"
 
-            };
-            
-            var Technologie = new FilRouge.Entities.Entity.Technologies
+            };*/
+
+            /*var Technologie = new FilRouge.Entities.Entity.Technologies
             {
                 TechnoName = "C#",
                 Active = true
@@ -60,22 +60,22 @@ namespace FilRouge.Testing
                 TauxConfirmed = 0.4m,
                 TauxExpert = 0.5m,
             };
-            
+            FilRouge.Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext();
             dbContext.Technologies.Add(Technologie1);
             dbContext.Technologies.Add(Technologie);
-            dbContext.Contact.Add(Contact);
             dbContext.Difficulties.Add(Difficult);
             dbContext.Difficulties.Add(Difficult1);
             dbContext.Difficulties.Add(Difficult2);
-            Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext(path);
-
             dbContext.SaveChanges();
             dbContext.Dispose();*/
-            foreach (var item in aReferenceService.GetTechnologies())
+            /*foreach (var item in aReferenceService.GetTechnologies())
             {
                 Console.WriteLine(item);
             }
-
+            
+            
+            */
+            /*aService.CreateQuizz(2, 1, 1, "John", "Test", false, 40);*/
             Console.WriteLine(Environment.NewLine+"Appuyez sur une touche pour quitter...");
             Console.ReadKey();
 

@@ -16,9 +16,10 @@ namespace FilRouge.Entities.Entity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int QuizzId { get; set; }
-        public DateTime Timer { get; set; } //Timer en minutes pour la durée du quizz
+        public int Timer { get; set; } //Timer en minutes pour la durée du quizz
         public int EtatQuizz { get; set; } //Indique si le quizz non-fait, en cours ou terminé
-        public string Difficulty { get; set; }
+        [ForeignKey("Difficulties")]
+        public int DifficultyId { get; set; }
         [ForeignKey("Technologies")]
         public int TechnoId { get; set; }
         [ForeignKey("Contact")]
@@ -29,8 +30,9 @@ namespace FilRouge.Entities.Entity
         public int NombreQuestion { get; set; } //nombre de questions à intégrer au quizz
         #endregion
         #region Association
-        public virtual ICollection<Technologies> Technologies { get; set; }
-        public virtual ICollection<Contact> Contact { get; set; }
+        public virtual Technologies Technologies { get; set; }
+        public virtual Contact Contact { get; set; }
+        public virtual Difficulties Difficulties { get; set; }
         #endregion
     }
 }

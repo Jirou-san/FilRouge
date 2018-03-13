@@ -22,7 +22,7 @@ namespace FilRouge.Entities.Entity
         public int QuestionType { get; set; }
         public string Difficulty { get; set; }
         [ForeignKey("Technologies")]
-        public string TechnoId { get; set; }
+        public int TechnoId { get; set; }
         [ForeignKey("Quizz")]
         public string QuizzId { get; set; }
         [ForeignKey("Reponses")]
@@ -32,7 +32,7 @@ namespace FilRouge.Entities.Entity
 
         public virtual ICollection<Quizz> Quizz { get; set; }
         public virtual ICollection<Reponse> Reponses { get; set; }
-        public virtual ICollection<Technologies> Technologies { get; set; }
+        public virtual Technologies Technologies { get; set; }
         #endregion
     }
 }

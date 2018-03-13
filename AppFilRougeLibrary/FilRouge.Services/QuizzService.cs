@@ -43,6 +43,41 @@ namespace FilRouge.Services
             db.Dispose();
             return lesQuizz;
         }
+        public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        {
+            DateTime timer = DateTime.Now;
+            Entities.Entity.Quizz unQuizz = new Entities.Entity.Quizz
+            {
+                UserId = userid,
+                DifficultyId = difficultyid,
+                TechnoId = technoid,
+                NomUser = nomuser,
+                PrenomUser = prenomuser,
+                QuestionLibre = questionlibre,
+                NombreQuestion = nombrequestions,
+                EtatQuizz = 0,
+                Timer = timer.Minute
+            };
+            
+            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            var UpdateCreateTransaction = db.Database.BeginTransaction();
+            //try
+            //{
+                db.Quizz.Add(unQuizz);
+                UpdateCreateTransaction.Commit();
+                db.SaveChanges();
+                UpdateCreateTransaction.Dispose();
+                db.Dispose();
+            //}
+            //catch(Exception)
+            //{
+            //    UpdateCreateTransaction.Rollback();
+            //    UpdateCreateTransaction.Dispose();
+            //    db.Dispose();
+            //}
+            
+
+        }
         #endregion
     }
 }

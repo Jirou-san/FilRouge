@@ -17,11 +17,8 @@ namespace FilRouge.Entities.Migrations
                         Tel = c.String(),
                         Email = c.String(),
                         Type = c.String(),
-                        Quizz_QuizzId = c.Int(),
                     })
-                .PrimaryKey(t => t.UserId)
-                .ForeignKey("dbo.Quizzs", t => t.Quizz_QuizzId)
-                .Index(t => t.Quizz_QuizzId);
+                .PrimaryKey(t => t.UserId);
             
             CreateTable(
                 "dbo.Difficulties",
@@ -42,7 +39,9 @@ namespace FilRouge.Entities.Migrations
                         QuizzId = c.Int(nullable: false),
                         QuestionId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.QuizzId, t.QuestionId });
+                .PrimaryKey(t => new { t.QuizzId, t.QuestionId })
+                .ForeignKey("dbo.Quizzs", t => t.QuizzId, cascadeDelete: true)
+                .Index(t => t.QuizzId);
             
             CreateTable(
                 "dbo.Questions",
@@ -54,14 +53,16 @@ namespace FilRouge.Entities.Migrations
                         Active = c.Boolean(nullable: false),
                         QuestionType = c.Int(nullable: false),
                         Difficulty = c.String(),
-                        TechnoId = c.String(),
+                        TechnoId = c.Int(nullable: false),
                         QuizzId = c.String(),
                         ReponseId = c.String(),
                         EtatQuizz_QuizzId = c.Int(),
                         EtatQuizz_QuestionId = c.Int(),
                     })
                 .PrimaryKey(t => t.QuestionId)
+                .ForeignKey("dbo.Technologies", t => t.TechnoId, cascadeDelete: true)
                 .ForeignKey("dbo.EtatQuizzs", t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
+                .Index(t => t.TechnoId)
                 .Index(t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId });
             
             CreateTable(
@@ -69,9 +70,9 @@ namespace FilRouge.Entities.Migrations
                 c => new
                     {
                         QuizzId = c.Int(nullable: false, identity: true),
-                        Timer = c.DateTime(nullable: false),
+                        Timer = c.Int(nullable: false),
                         EtatQuizz = c.Int(nullable: false),
-                        Difficulty = c.String(),
+                        DifficultyId = c.Int(nullable: false),
                         TechnoId = c.Int(nullable: false),
                         UserId = c.Int(nullable: false),
                         NomUser = c.String(),
@@ -79,18 +80,16 @@ namespace FilRouge.Entities.Migrations
                         QuestionLibre = c.Boolean(nullable: false),
                         NombreQuestion = c.Int(nullable: false),
                         Questions_QuestionId = c.Int(),
-                        EtatQuizz_QuizzId = c.Int(),
-                        EtatQuizz_QuestionId = c.Int(),
-                        UserReponse_QuizzId = c.Int(),
-                        UserReponse_ReponseId = c.Int(),
                     })
                 .PrimaryKey(t => t.QuizzId)
+                .ForeignKey("dbo.Contacts", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Difficulties", t => t.DifficultyId, cascadeDelete: true)
+                .ForeignKey("dbo.Technologies", t => t.TechnoId, cascadeDelete: true)
                 .ForeignKey("dbo.Questions", t => t.Questions_QuestionId)
-                .ForeignKey("dbo.EtatQuizzs", t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
-                .ForeignKey("dbo.UserReponses", t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId })
-                .Index(t => t.Questions_QuestionId)
-                .Index(t => new { t.EtatQuizz_QuizzId, t.EtatQuizz_QuestionId })
-                .Index(t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId });
+                .Index(t => t.DifficultyId)
+                .Index(t => t.TechnoId)
+                .Index(t => t.UserId)
+                .Index(t => t.Questions_QuestionId);
             
             CreateTable(
                 "dbo.Technologies",
@@ -99,14 +98,8 @@ namespace FilRouge.Entities.Migrations
                         TechnoId = c.Int(nullable: false, identity: true),
                         TechnoName = c.String(),
                         Active = c.Boolean(nullable: false),
-                        Quizz_QuizzId = c.Int(),
-                        Questions_QuestionId = c.Int(),
                     })
-                .PrimaryKey(t => t.TechnoId)
-                .ForeignKey("dbo.Quizzs", t => t.Quizz_QuizzId)
-                .ForeignKey("dbo.Questions", t => t.Questions_QuestionId)
-                .Index(t => t.Quizz_QuizzId)
-                .Index(t => t.Questions_QuestionId);
+                .PrimaryKey(t => t.TechnoId);
             
             CreateTable(
                 "dbo.Reponses",
@@ -119,7 +112,9 @@ namespace FilRouge.Entities.Migrations
                         UserReponse_ReponseId = c.Int(),
                     })
                 .PrimaryKey(t => t.ReponseId)
+                .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
                 .ForeignKey("dbo.UserReponses", t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId })
+                .Index(t => t.QuestionId)
                 .Index(t => new { t.UserReponse_QuizzId, t.UserReponse_ReponseId });
             
             CreateTable(
@@ -130,46 +125,34 @@ namespace FilRouge.Entities.Migrations
                         ReponseId = c.Int(nullable: false),
                         Valeur = c.String(),
                     })
-                .PrimaryKey(t => new { t.QuizzId, t.ReponseId });
-            
-            CreateTable(
-                "dbo.QuestionsReponses",
-                c => new
-                    {
-                        Questions_QuestionId = c.Int(nullable: false),
-                        Reponse_ReponseId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Questions_QuestionId, t.Reponse_ReponseId })
-                .ForeignKey("dbo.Questions", t => t.Questions_QuestionId, cascadeDelete: true)
-                .ForeignKey("dbo.Reponses", t => t.Reponse_ReponseId, cascadeDelete: true)
-                .Index(t => t.Questions_QuestionId)
-                .Index(t => t.Reponse_ReponseId);
+                .PrimaryKey(t => new { t.QuizzId, t.ReponseId })
+                .ForeignKey("dbo.Quizzs", t => t.QuizzId, cascadeDelete: true)
+                .Index(t => t.QuizzId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Reponses", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" }, "dbo.UserReponses");
-            DropForeignKey("dbo.Quizzs", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" }, "dbo.UserReponses");
-            DropForeignKey("dbo.Quizzs", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" }, "dbo.EtatQuizzs");
+            DropForeignKey("dbo.UserReponses", "QuizzId", "dbo.Quizzs");
+            DropForeignKey("dbo.EtatQuizzs", "QuizzId", "dbo.Quizzs");
             DropForeignKey("dbo.Questions", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" }, "dbo.EtatQuizzs");
-            DropForeignKey("dbo.Technologies", "Questions_QuestionId", "dbo.Questions");
-            DropForeignKey("dbo.QuestionsReponses", "Reponse_ReponseId", "dbo.Reponses");
-            DropForeignKey("dbo.QuestionsReponses", "Questions_QuestionId", "dbo.Questions");
+            DropForeignKey("dbo.Questions", "TechnoId", "dbo.Technologies");
+            DropForeignKey("dbo.Reponses", "QuestionId", "dbo.Questions");
             DropForeignKey("dbo.Quizzs", "Questions_QuestionId", "dbo.Questions");
-            DropForeignKey("dbo.Technologies", "Quizz_QuizzId", "dbo.Quizzs");
-            DropForeignKey("dbo.Contacts", "Quizz_QuizzId", "dbo.Quizzs");
-            DropIndex("dbo.QuestionsReponses", new[] { "Reponse_ReponseId" });
-            DropIndex("dbo.QuestionsReponses", new[] { "Questions_QuestionId" });
+            DropForeignKey("dbo.Quizzs", "TechnoId", "dbo.Technologies");
+            DropForeignKey("dbo.Quizzs", "DifficultyId", "dbo.Difficulties");
+            DropForeignKey("dbo.Quizzs", "UserId", "dbo.Contacts");
+            DropIndex("dbo.UserReponses", new[] { "QuizzId" });
             DropIndex("dbo.Reponses", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" });
-            DropIndex("dbo.Technologies", new[] { "Questions_QuestionId" });
-            DropIndex("dbo.Technologies", new[] { "Quizz_QuizzId" });
-            DropIndex("dbo.Quizzs", new[] { "UserReponse_QuizzId", "UserReponse_ReponseId" });
-            DropIndex("dbo.Quizzs", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" });
+            DropIndex("dbo.Reponses", new[] { "QuestionId" });
             DropIndex("dbo.Quizzs", new[] { "Questions_QuestionId" });
+            DropIndex("dbo.Quizzs", new[] { "UserId" });
+            DropIndex("dbo.Quizzs", new[] { "TechnoId" });
+            DropIndex("dbo.Quizzs", new[] { "DifficultyId" });
             DropIndex("dbo.Questions", new[] { "EtatQuizz_QuizzId", "EtatQuizz_QuestionId" });
-            DropIndex("dbo.Contacts", new[] { "Quizz_QuizzId" });
-            DropTable("dbo.QuestionsReponses");
+            DropIndex("dbo.Questions", new[] { "TechnoId" });
+            DropIndex("dbo.EtatQuizzs", new[] { "QuizzId" });
             DropTable("dbo.UserReponses");
             DropTable("dbo.Reponses");
             DropTable("dbo.Technologies");

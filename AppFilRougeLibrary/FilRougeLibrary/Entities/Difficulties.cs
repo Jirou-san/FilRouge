@@ -7,6 +7,7 @@ namespace FilRouge.Entities.Entity
     {
         #region Properties
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DifficultyId { get; set; }
         public string DifficultyName { get; set; }
         public decimal TauxJunior { get; set; }
