@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FilRouge.Entities.Entity;
 
 namespace FilRouge.Services
 {
@@ -14,24 +12,46 @@ namespace FilRouge.Services
 
 
         #region Methods
+        
         /// <summary>
-        /// Obtient une liste des technologies 
+        /// Permet d'obtenir toutes les technologies sous forme la forme d'une liste
         /// </summary>
-        /// <param name="datachain">La chaine de connexion à la base</param>
-        /// <returns>Retourne la liste des technologies sous forme de string</returns>
-        public List<string> GetTechnologies(string datachain)
+        /// <returns>Retourne une liste</returns>
+        public List<Technologie> GetTechnologies()
         {
-            string concatDataQuizz = "";
-            List<string> desTechnologies = new List<string>();
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext(datachain);
-            var fluentQuery = db.Technologies.Select(e => e);
+            //Liste des technoligies
+            List<Technologie> desTechnologies = new List<Technologie>();
+            //Contexte d'accès à la base
+            Entities.Entity.FilRougeDBContext db = new FilRougeDBContext();
+            //Requête
+            IQueryable<Technologie> fluentQuery = db.Technologies.Select(e => e);
+            //Ajout à la liste
             foreach (var item in fluentQuery)
             {
-                concatDataQuizz = "Nom de la technologie: "+item.TechnoName; //On peut ajouter Active c'est optionnel
-                desTechnologies.Add(concatDataQuizz);
+                desTechnologies.Add(item);
             }
             db.Dispose();
             return desTechnologies;
+        }
+        /// <summary>
+        /// Permet d'obtenir toutes les difficulties sous forme la forme d'une liste
+        /// </summary>
+        /// <returns>Retourne une liste</returns>
+        public List<Difficulty> GetDifficulties()
+        {
+            //Liste des technoligies
+            List<Difficulty> desDifficulties = new List<Difficulty>();
+            //Contexte d'accès à la base
+            Entities.Entity.FilRougeDBContext db = new FilRougeDBContext();
+            //Requête
+            IQueryable<Difficulty> fluentQuery = db.Difficulties.Select(e => e);
+            //Ajout à la liste
+            foreach (var item in fluentQuery)
+            {
+                desDifficulties.Add(item);
+            }
+            db.Dispose();
+            return desDifficulties;
         }
         #endregion
     }

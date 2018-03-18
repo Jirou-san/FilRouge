@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entity;
 
 namespace FilRouge.Entities.Entity
 {
 
-    public partial class Technologies
+    public partial class Technologie
     {
         #region Properties
         [Key]
@@ -22,6 +16,8 @@ namespace FilRouge.Entities.Entity
 
         #endregion     
         #region Association
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Quizz> Quizzs { get; set; }
         #endregion
     }
 }

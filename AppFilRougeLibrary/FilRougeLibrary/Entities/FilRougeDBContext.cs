@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entity;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace FilRouge.Entities.Entity
 {
@@ -17,17 +8,17 @@ namespace FilRouge.Entities.Entity
         public FilRougeDBContext(/*string connString*/) :base("BDDAppliFilRouge")
         {
             //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
 
         public DbSet<Contact> Contact { get; set; }
-        public DbSet<Questions> Questions { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<Quizz> Quizz { get; set; }
         public DbSet<Reponse> Reponse { get; set; }
-        public DbSet<Technologies> Technologies { get; set; }
+        public DbSet<Technologie> Technologies { get; set; }
         public DbSet<UserReponse> UserReponse { get; set; }
         public DbSet<EtatQuizz> EtatQuizz { get; set; }
-        public DbSet<Difficulties> Difficulties { get; set; }
+        public DbSet<Difficulty> Difficulties { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

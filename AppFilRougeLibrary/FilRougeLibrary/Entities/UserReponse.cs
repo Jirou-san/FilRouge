@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 namespace FilRouge.Entities.Entity
 {
     public partial class UserReponse
@@ -12,6 +14,8 @@ namespace FilRouge.Entities.Entity
         public string Valeur { get; set; }
         #endregion
         #region Association
+        public virtual ICollection<Quizz> Quizzs { get; set; }
+        public virtual ICollection<Reponse> Reponses { get; set; }
         #endregion
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using FilRouge.Entities;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using FilRouge.Services;
+using FilRouge.Entities.Entity;
 namespace FilRouge.Services
 {
     public class QuizzService //Services liés au quizz, pdf, gestion, mails, CRUD...
@@ -17,100 +17,105 @@ namespace FilRouge.Services
         public QuizzService() { } //Constructeur
         #region Methods
         /// <summary>
-        /// Permet d'obtenir la chaine de connexion à la base via un document XML
-        /// </summary>
-        /// <param name="path">Le chemin d'accès du fichier en paramètre</param>
-        /// <returns>Retourne la chaine de connexion, modifier le fichier xml pour modifier l'accès à la base</returns>
-        public string GetConnexionChain(string path)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);           
-            XmlNode node = doc.DocumentElement.SelectSingleNode("/Data/Chain");
-            string chain = node.InnerText;
-            return chain;
-        }
-        /// <summary>
-        /// Méthode permettant d'obtenir une chaine de caractères composée des infos d'un quizz en fonction de son id
+        /// Méthode permettant d'obtenir un quizz en fonction de son id
         /// </summary>
         /// <param name="id">l'ID du quizz (sa clé primaire)</param>
-        /// <returns>Retourne la chaine de caractères du quizz</returns>
-        public string GetQuizz(int id, string datachain)
+        /// <returns>Retourne le quizz voulue</returns>
+        public Quizz GetQuizz(int id)
         {
-            string concatDataQuizz = "";
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext(datachain);            
-            Entities.Entity.Quizz fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
-                concatDataQuizz += " Difficultée: " + fluentQuery.Difficulty +
-                    "\r\n Nombre de questions: " + fluentQuery.NombreQuestion.ToString() +
-                    "\r\n Prenom du candidat: " + fluentQuery.PrenomUser +
-                    "\r\n Nom du candidat: " + fluentQuery.NomUser +
-                    "\r\n Temps pour le faire:" + fluentQuery.Timer.ToString();
-                if (fluentQuery.EtatQuizz == 0)
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: Pas encore effectué";
-                }
-                else if (fluentQuery.EtatQuizz == 1)
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: En cours";
-                }
-                else
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: Terminé";
-                }
-
-                concatDataQuizz += "\r\nContact:";
-                foreach (var item1 in fluentQuery.Contact)
-                {
-                    concatDataQuizz += " Prenom:" + item1.Prenom +
-                        " Nom: " + item1.Name + " Mail: " + item1.Email;
-                }
-                foreach (var item1 in fluentQuery.Technologies)
-                {
-                    concatDataQuizz += " Technologie:" + item1.TechnoName;
-                }
+            // Contexte d'accès à la base
+            FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            //Requête
+            Quizz unQuizz = db.Quizz.Single(e => e.QuizzId == id);            
             db.Dispose();
-            return concatDataQuizz;
+            return unQuizz;
         }
-        public List<string> GetAllQuizz(string datachain)
+        /// <summary>
+        /// Fonction permettan d'obtenir tous les objets Quizz présent dans la base de données
+        /// </summary>
+        /// <returns>Retourne une lsite d'objets quizz</returns>
+        public List<Quizz> GetAllQuizz()
         {
-            List<string> lesQuizz = new List<string>();
-            string concatDataQuizz = "";
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext(datachain);
-            
-                var fluentQuery = db.Quizz.Select(e => e);
+            //Initialisation de la liste des quizz a retourner
+            List<Quizz> lesQuizz = new List<Quizz>();
+            // Contexte d'accès à la base
+            FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            //Requête
+            IQueryable<Quizz> fluentQuery = db.Quizz.Select(e => e);
+            //Ajout à la liste
             foreach (var item in fluentQuery)
             {
-                concatDataQuizz += " Difficultée: " + item.Difficulty +
-                "\r\n Nombre de questions: " + item.NombreQuestion.ToString() +
-                "\r\n Prenom du candidat: " + item.PrenomUser +
-                "\r\n Nom du candidat: " + item.NomUser +
-                "\r\n Temps pour le faire:" + item.Timer.ToString();
-                if (item.EtatQuizz == 0)
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: Pas encore effectué";
-                }
-                else if (item.EtatQuizz == 1)
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: En cours";
-                }
-                else
-                {
-                    concatDataQuizz += "\r\nEtat du quizz: Terminé";
-                }
-
-                concatDataQuizz += "\r\nContact:";
-                foreach (var item1 in item.Contact)
-                {
-                    concatDataQuizz += " Prenom:" + item1.Prenom +
-                        " Nom: " + item1.Name + " Mail: " + item1.Email;
-                }
-                foreach (var item1 in item.Technologies)
-                {
-                    concatDataQuizz += " Technologie:" + item1.TechnoName;
-                }
-                lesQuizz.Add(concatDataQuizz);
+                lesQuizz.Add(item);
             }
             db.Dispose();
             return lesQuizz;
+        }
+        public void CreateQuizz(int userid, int difficultyid, int technoid, int nombrequestion, string username, string userfirstname, bool questionlibre)
+        {
+            //Entier servant à remplir la liste aléatoirement
+            Random randomid = new Random();
+            int count = 0;
+            //Timer initialisé à 0
+            int timer = DateTime.Now.Minute;
+            //Liste de questions
+            List<Question> questions = new List<Question>();
+            //Contexte d'accès à la base de données
+            FilRougeDBContext dbContext = new FilRougeDBContext();
+            //Requetes
+
+            //Obtenir le contact qui crée le quizz par son id
+            var contactQuizz = dbContext.Contact.Single(e => e.UserId == userid);
+
+            //Obtenir la difficultée du quizz par son id
+            var difficultyQuizz = dbContext.Difficulties.Single(e => e.DifficultyId == difficultyid);
+
+            //Obtenir la technologie du quizz par son id
+            var technoQuizz = dbContext.Technologies.Single(e => e.TechnoId == technoid);
+
+            //Obtention de la liste des questions en fonction de leur technologie, il y'aura un nombre de questions identiques a celles que l'utilisateur aura saisi et elle seront aléatoires, leur nombre sera proportionnel à la difficultée du quizz
+            IQueryable<Question> questionsQuizz = dbContext.Questions.Where(e => e.Technologie.TechnoId == technoid).Select(e => e);
+            count = questionsQuizz.Count();
+            //Gestion optionnelle d'un min-max nombre de questions
+            if (nombrequestion >= 20 && nombrequestion <= 50)
+            {
+                //Gestion de la difficultée pour le taux junior
+                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxJunior; i++)
+                {
+                    randomid.Next(1, count);
+                }
+                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxConfirmed; i++)
+                {
+                    randomid.Next(1, count);
+                }
+                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxExpert; i++)
+                {
+                    randomid.Next(1, count);
+                }
+            }
+            else
+            {
+                //Erreur à gérer
+            }
+            //Création de l'objet quizz avec tout ses paramètres sauf l'id qui est auto incrémenté
+            Quizz unQuizz = new Quizz
+            {
+                Contact = contactQuizz,
+                Difficulty = difficultyQuizz,
+                Technologie = technoQuizz,
+                NombreQuestion = nombrequestion,
+                NomUser = username,
+                PrenomUser = userfirstname,
+                Questions = questions,
+                QuestionLibre = questionlibre,
+                Timer = timer,
+            };
+            // Contexte d'accès à la base
+            
+            // Ajout du quizz
+            /*db.Quizz.Add(unQuizz);
+            // Sauvegarde des changements
+            db.SaveChanges();
+            db.Dispose();*/
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace FilRouge.Entities.Entity
@@ -12,6 +13,8 @@ namespace FilRouge.Entities.Entity
         public int QuestionId { get; set; }
         #endregion
         #region Associations
+        public virtual ICollection<Quizz> Quizzs { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
         #endregion
     }
 }
