@@ -10,7 +10,6 @@ namespace FilRouge.Entities.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FilRouge.Entities.Entity.FilRougeDBContext";
         }
 
         protected override void Seed(FilRouge.Entities.Entity.FilRougeDBContext context)

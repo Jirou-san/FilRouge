@@ -19,20 +19,14 @@ namespace FilRouge.Entities.Entity
         public string Content { get; set; }
         public string Commentaire { get; set; }
         public bool Active { get; set; }
-        public int QuestionType { get; set; }
-        public string Difficulty { get; set; }
-        [ForeignKey("Technologies")]
-        public int TechnoId { get; set; }
-        [ForeignKey("Quizz")]
-        public string QuizzId { get; set; }
-        [ForeignKey("Reponses")]
-        public string ReponseId { get; set; }
+        public bool QuestionType { get; set; }
         #endregion
         #region Association
 
         public virtual ICollection<Quizz> Quizz { get; set; }
         public virtual ICollection<Reponse> Reponses { get; set; }
         public virtual Technologies Technologies { get; set; }
+        public virtual Difficulties Difficulties { get; set; }
         #endregion
     }
 }

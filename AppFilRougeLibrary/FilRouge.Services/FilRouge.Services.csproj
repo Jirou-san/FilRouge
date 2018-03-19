@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\FilRouge.Services.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +50,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuizzExceptions.cs" />
     <Compile Include="QuizzService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferencesService.cs" />

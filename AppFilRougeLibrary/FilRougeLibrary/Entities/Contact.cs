@@ -49,6 +49,7 @@ namespace FilRouge.Entities.Entity
         public string Type { get; set; }
         #endregion
         #region Association
+        public virtual List<Quizz> Quizzs { get; set; }
         #endregion
 
     }

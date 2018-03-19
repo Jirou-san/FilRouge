@@ -6,47 +6,87 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using FilRouge.Entities;
+using FilRouge.Entities.Entity;
 namespace FilRouge.Services
 {
-    public class QuizzService //Services liés au quizz, pdf, gestion, mails, CRUD...
+    /// <summary>
+    /// Services liés au quizz, pdf, gestion, mails, CRUD...
+    /// </summary>
+    public class QuizzService 
     {
         #region Properties
 
         #endregion
+        /// <summary>
+        /// Constructeur de la classe de QuizzService
+        /// </summary>
         public QuizzService() { } //Constructeur
         #region Methods
         
         /// <summary>
-        /// Méthode permettant d'obtenir une chaine de caractères composée des infos d'un quizz en fonction de son id
+        /// Méthode permettant d'obtenir un quizz en fonction de son id
+        /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <param name="id">l'ID du quizz (sa clé primaire)</param>
-        /// <returns>Retourne la chaine de caractères du quizz</returns>
+        /// <returns>Retourne un objet Quizz</returns>
         public Entities.Entity.Quizz GetQuizz(int id)
         {
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();            
-            Entities.Entity.Quizz fluentQuery = db.Quizz.Single(e => e.QuizzId == id);               
-            db.Dispose();
+            Quizz fluentQuery = new Quizz();
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {
+                fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
+                if(fluentQuery == null)
+                {
+                    throw new WrongIdQuizz("L'id saisie n'existe pas");
+                }
+                db.Dispose();                
+            }
+            catch(FormatException)
+            {
+                db.Dispose();
+                Console.WriteLine("Veuillez saisir un id valide");
+            }
             return fluentQuery;
         }
-        public List<Entities.Entity.Quizz> GetAllQuizz()
+        /// <summary>
+        /// Fonction retournant tous les quizz dans une liste de Quizz
+        /// Fonctionne avec une fluentQuerry
+        /// </summary>
+        /// <returns>Retourne tous les quizz</returns>
+        public List<Quizz> GetAllQuizz()
         {
-            List<Entities.Entity.Quizz> lesQuizz = new List<Entities.Entity.Quizz>();
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
-            
-            var fluentQuery = db.Quizz.Select(e => e);
-            foreach (var item in fluentQuery)
-            {
-                
-                lesQuizz.Add(item);
+            List<Quizz> desQuizz = new List<Quizz>();
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {   
+                IQueryable<Quizz> fluentQuery = db.Quizz.Select(e => e);
+                if(fluentQuery.Count() == 0)
+                {
+                    throw new ListQuizzEmpty("La liste des quizz est vide");
+                }
+                foreach (var item in fluentQuery)
+                {
+                    desQuizz.Add(item);
+                }
+                db.Dispose();
             }
-            db.Dispose();
-            return lesQuizz;
+            catch (ListQuizzEmpty)
+            {
+                db.Dispose();
+            }
+            
+            return desQuizz;
         }
-        public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        
+        /*public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
-            DateTime timer = DateTime.Now;
-            Entities.Entity.Quizz unQuizz = new Entities.Entity.Quizz
+            int timer = DateTime.Now.Minute;
+            FilRougeDBContext db = new FilRougeDBContext();
+
+            var contact = db.Contact.Single(e=>e.UserId == )
+
+            Quizz unQuizz = new Quizz
             {
                 UserId = userid,
                 DifficultyId = difficultyid,
@@ -57,27 +97,8 @@ namespace FilRouge.Services
                 NombreQuestion = nombrequestions,
                 EtatQuizz = 0,
                 Timer = timer.Minute
-            };
-            
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
-            var UpdateCreateTransaction = db.Database.BeginTransaction();
-            //try
-            //{
-                db.Quizz.Add(unQuizz);
-                UpdateCreateTransaction.Commit();
-                db.SaveChanges();
-                UpdateCreateTransaction.Dispose();
-                db.Dispose();
-            //}
-            //catch(Exception)
-            //{
-            //    UpdateCreateTransaction.Rollback();
-            //    UpdateCreateTransaction.Dispose();
-            //    db.Dispose();
-            //}
-            
-
-        }
+            };                       
+        }*/
         #endregion
     }
 }

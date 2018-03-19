@@ -20,8 +20,10 @@ namespace FilRouge.Entities.Entity
         public string TechnoName { get; set; }
         public bool Active { get; set; }
 
-        #endregion     
+        #endregion
         #region Association
+        public virtual List<Quizz> Quizzs { get; set; }
+        public virtual List<Questions> Questions { get; set; }
         #endregion
     }
 }

@@ -17,8 +17,6 @@ namespace FilRouge.Entities.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReponseId { get; set; }
         public string Content { get; set; }
-        [ForeignKey("Questions")]
-        public int QuestionId { get; set; }
         #endregion
         #region Association
         public virtual Questions Questions { get; set; }

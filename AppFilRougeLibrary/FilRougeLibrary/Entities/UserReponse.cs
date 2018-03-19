@@ -7,17 +7,17 @@ namespace FilRouge.Entities.Entity
     public partial class UserReponse
     {
         #region Proporties
-        [Key, Column(Order = 0)]
-        [ForeignKey("Quizz")]
+        [Key]
+        [Column(Order = 0)]
         public int QuizzId { get; set; }
-        [Key, Column(Order = 1)]
-        [ForeignKey("Reponse")]
+        [Key]
+        [Column(Order = 1)]
         public int ReponseId { get; set; }
         public string Valeur { get; set; }
         #endregion
         #region Association
-        public virtual Quizz Quizz { get; set; }
-        public virtual ICollection<Reponse> Reponse { get; set; }
+        public Quizz Quizz { get; set; }
+        public Reponse Reponse{ get; set; }
         #endregion
     }
 }
