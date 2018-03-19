@@ -4,21 +4,9 @@ using System.Collections.Generic;
 
 namespace FilRouge.Testing
 {
-    public class IListExtensions
+    public class ToolBox
     {
-        public IListExtensions()
-        {
-        }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
 
         /// <summary>
         /// Shuffles the element order of the specified list.
@@ -35,11 +23,6 @@ namespace FilRouge.Testing
                 ts[i] = ts[r];
                 ts[r] = tmp;
             }
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

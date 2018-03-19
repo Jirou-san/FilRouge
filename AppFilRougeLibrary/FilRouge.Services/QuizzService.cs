@@ -79,26 +79,59 @@ namespace FilRouge.Services
             return desQuizz;
         }
         
-        /*public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
+            List<Questions> questionsQuizz = new List<Questions>();
             int timer = DateTime.Now.Minute;
             FilRougeDBContext db = new FilRougeDBContext();
-
-            var contact = db.Contact.Single(e=>e.UserId == )
-
-            Quizz unQuizz = new Quizz
+            ToolBox unOutil = new ToolBox();
+            try
             {
-                UserId = userid,
-                DifficultyId = difficultyid,
-                TechnoId = technoid,
-                NomUser = nomuser,
-                PrenomUser = prenomuser,
-                QuestionLibre = questionlibre,
-                NombreQuestion = nombrequestions,
-                EtatQuizz = 0,
-                Timer = timer.Minute
-            };                       
-        }*/
+
+                var contact = db.Contact.Single(e => e.UserId == userid);
+                var difficulty = db.Difficulties.Single(e => e.DifficultyId == difficultyid);
+                var technology = db.Technologies.Single(e => e.TechnoId == technoid);
+
+                IQueryable<Questions> questions = db.Questions.Where(e => e.Technologies.TechnoId == technoid);
+                if (nombrequestions <= 10 && nombrequestions >= 60)
+                {
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxJunior); i++)
+                    {
+
+                    }
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxConfirmed); i++)
+                    {
+
+                    }
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxExpert); i++)
+                    {
+
+                    }
+                }
+                else
+                {
+                    //Throw new Exception
+                }
+                Quizz unQuizz = new Quizz
+                {
+                    NomUser = nomuser,
+                    PrenomUser = prenomuser,
+                    QuestionLibre = questionlibre,
+                    NombreQuestion = nombrequestions,
+                    EtatQuizz = 0,
+                    Timer = timer,
+                    Contact = contact,
+                    Difficulties = difficulty,
+                    Technologies = technology,
+                    Questions = questionsQuizz
+
+                };
+            }
+            catch(Exception)
+            {
+
+            }
+        }
         #endregion
     }
 }
