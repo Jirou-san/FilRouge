@@ -1,21 +1,23 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
+using System;
+using System.Collections.Generic;
 namespace FilRouge.Entities.Entity
 {
     public partial class UserReponse
     {
         #region Proporties
-        [Key, Column(Order = 0)]
+        [Key]
+        [Column(Order = 0)]
         public int QuizzId { get; set; }
-        [Key, Column(Order = 1)]
+        [Key]
+        [Column(Order = 1)]
         public int ReponseId { get; set; }
         public string Valeur { get; set; }
         #endregion
         #region Association
-        public virtual ICollection<Quizz> Quizzs { get; set; }
-        public virtual ICollection<Reponse> Reponses { get; set; }
+        public Quizz Quizz { get; set; }
+        public Reponse Reponse{ get; set; }
         #endregion
     }
 }

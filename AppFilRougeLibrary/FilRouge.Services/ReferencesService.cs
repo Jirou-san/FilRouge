@@ -1,31 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using FilRouge.Entities.Entity;
+using System.Text;
+using System.Threading.Tasks;
+using FilRouge.Entities;
 
 namespace FilRouge.Services
 {
+    /// <summary>
+    /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
+    /// Difficulté et Technologies
+    /// </summary>
     public class ReferencesService
     {
         #region Properties
         #endregion
+        /// <summary>
+        /// Constructeur de la classe permettant d'utiliser les services associés
+        /// </summary>
         public ReferencesService() { }
 
 
         #region Methods
-        
         /// <summary>
-        /// Permet d'obtenir toutes les technologies sous forme la forme d'une liste
+        /// Cette fonction permet d'obtenir toutes les technologies
+        /// Fonctionne avec une fluentQuerry
         /// </summary>
-        /// <returns>Retourne une liste</returns>
-        public List<Technologie> GetTechnologies()
+        /// <returns>Retourne une liste d'objets Technologies</returns>
+        public List<Entities.Entity.Technologies> GetTechnologies()
         {
-            //Liste des technoligies
-            List<Technologie> desTechnologies = new List<Technologie>();
-            //Contexte d'accès à la base
-            Entities.Entity.FilRougeDBContext db = new FilRougeDBContext();
-            //Requête
-            IQueryable<Technologie> fluentQuery = db.Technologies.Select(e => e);
-            //Ajout à la liste
+            
+            List<Entities.Entity.Technologies> desTechnologies =new List<Entities.Entity.Technologies>();
+            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            var fluentQuery = db.Technologies.Select(e => e);
             foreach (var item in fluentQuery)
             {
                 desTechnologies.Add(item);
@@ -34,18 +41,15 @@ namespace FilRouge.Services
             return desTechnologies;
         }
         /// <summary>
-        /// Permet d'obtenir toutes les difficulties sous forme la forme d'une liste
+        /// Cette méthode permet de récupérer toutes les difficultés
+        /// Fonctionne avec une fluentQuerry
         /// </summary>
-        /// <returns>Retourne une liste</returns>
-        public List<Difficulty> GetDifficulties()
+        /// <returns>Retourne une liste d'objets Diffulties</returns>
+        public List<Entities.Entity.Difficulties> GetDifficulties()
         {
-            //Liste des technoligies
-            List<Difficulty> desDifficulties = new List<Difficulty>();
-            //Contexte d'accès à la base
-            Entities.Entity.FilRougeDBContext db = new FilRougeDBContext();
-            //Requête
-            IQueryable<Difficulty> fluentQuery = db.Difficulties.Select(e => e);
-            //Ajout à la liste
+            List<Entities.Entity.Difficulties> desDifficulties = new List<Entities.Entity.Difficulties>();
+            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            var fluentQuery = db.Difficulties.Select(e => e);
             foreach (var item in fluentQuery)
             {
                 desDifficulties.Add(item);

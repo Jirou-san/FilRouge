@@ -3,119 +3,219 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using FilRouge.Services;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using FilRouge.Entities.Entity;
 namespace FilRouge.Services
 {
-    public class QuizzService //Services liés au quizz, pdf, gestion, mails, CRUD...
+    /// <summary>
+    /// Services liés au quizz, pdf, gestion, mails, CRUD...
+    /// </summary>
+    public class QuizzService 
     {
         #region Properties
 
         #endregion
+        /// <summary>
+        /// Constructeur de la classe de QuizzService
+        /// </summary>
         public QuizzService() { } //Constructeur
         #region Methods
+        
         /// <summary>
         /// Méthode permettant d'obtenir un quizz en fonction de son id
+        /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <param name="id">l'ID du quizz (sa clé primaire)</param>
-        /// <returns>Retourne le quizz voulue</returns>
-        public Quizz GetQuizz(int id)
+        /// <returns>Retourne un objet Quizz</returns>
+        public Entities.Entity.Quizz GetQuizz(int id)
         {
-            // Contexte d'accès à la base
-            FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
-            //Requête
-            Quizz unQuizz = db.Quizz.Single(e => e.QuizzId == id);            
-            db.Dispose();
-            return unQuizz;
+            Quizz fluentQuery = new Quizz();
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {
+                fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
+                if(fluentQuery == null)
+                {
+                    throw new WrongIdQuizz("L'id saisie n'existe pas");
+                }
+                db.Dispose();                
+            }
+            catch(FormatException)
+            {
+                db.Dispose();
+                Console.WriteLine("Veuillez saisir un id valide");
+            }
+            return fluentQuery;
         }
         /// <summary>
-        /// Fonction permettan d'obtenir tous les objets Quizz présent dans la base de données
+        /// Fonction retournant tous les quizz dans une liste de Quizz
+        /// Fonctionne avec une fluentQuerry
         /// </summary>
-        /// <returns>Retourne une lsite d'objets quizz</returns>
+        /// <returns>Retourne tous les quizz</returns>
         public List<Quizz> GetAllQuizz()
         {
-            //Initialisation de la liste des quizz a retourner
-            List<Quizz> lesQuizz = new List<Quizz>();
-            // Contexte d'accès à la base
-            FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
-            //Requête
-            IQueryable<Quizz> fluentQuery = db.Quizz.Select(e => e);
-            //Ajout à la liste
-            foreach (var item in fluentQuery)
-            {
-                lesQuizz.Add(item);
-            }
-            db.Dispose();
-            return lesQuizz;
-        }
-        public void CreateQuizz(int userid, int difficultyid, int technoid, int nombrequestion, string username, string userfirstname, bool questionlibre)
-        {
-            //Entier servant à remplir la liste aléatoirement
-            Random randomid = new Random();
-            int count = 0;
-            //Timer initialisé à 0
-            int timer = DateTime.Now.Minute;
-            //Liste de questions
-            List<Question> questions = new List<Question>();
-            //Contexte d'accès à la base de données
-            FilRougeDBContext dbContext = new FilRougeDBContext();
-            //Requetes
-
-            //Obtenir le contact qui crée le quizz par son id
-            var contactQuizz = dbContext.Contact.Single(e => e.UserId == userid);
-
-            //Obtenir la difficultée du quizz par son id
-            var difficultyQuizz = dbContext.Difficulties.Single(e => e.DifficultyId == difficultyid);
-
-            //Obtenir la technologie du quizz par son id
-            var technoQuizz = dbContext.Technologies.Single(e => e.TechnoId == technoid);
-
-            //Obtention de la liste des questions en fonction de leur technologie, il y'aura un nombre de questions identiques a celles que l'utilisateur aura saisi et elle seront aléatoires, leur nombre sera proportionnel à la difficultée du quizz
-            IQueryable<Question> questionsQuizz = dbContext.Questions.Where(e => e.Technologie.TechnoId == technoid).Select(e => e);
-            count = questionsQuizz.Count();
-            //Gestion optionnelle d'un min-max nombre de questions
-            if (nombrequestion >= 20 && nombrequestion <= 50)
-            {
-                //Gestion de la difficultée pour le taux junior
-                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxJunior; i++)
+            List<Quizz> desQuizz = new List<Quizz>();
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {   
+                IQueryable<Quizz> fluentQuery = db.Quizz.Select(e => e);
+                if(fluentQuery.Count() == 0)
                 {
-                    randomid.Next(1, count);
+                    throw new ListQuizzEmpty("La liste des quizz est vide");
                 }
-                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxConfirmed; i++)
+                foreach (var item in fluentQuery)
                 {
-                    randomid.Next(1, count);
+                    desQuizz.Add(item);
                 }
-                for (int i = 0; i < nombrequestion * difficultyQuizz.TauxExpert; i++)
-                {
-                    randomid.Next(1, count);
-                }
+                db.Dispose();
             }
-            else
+            catch (ListQuizzEmpty)
             {
-                //Erreur à gérer
+                db.Dispose();
             }
-            //Création de l'objet quizz avec tout ses paramètres sauf l'id qui est auto incrémenté
-            Quizz unQuizz = new Quizz
-            {
-                Contact = contactQuizz,
-                Difficulty = difficultyQuizz,
-                Technologie = technoQuizz,
-                NombreQuestion = nombrequestion,
-                NomUser = username,
-                PrenomUser = userfirstname,
-                Questions = questions,
-                QuestionLibre = questionlibre,
-                Timer = timer,
-            };
-            // Contexte d'accès à la base
             
-            // Ajout du quizz
-            /*db.Quizz.Add(unQuizz);
-            // Sauvegarde des changements
-            db.SaveChanges();
-            db.Dispose();*/
+            return desQuizz;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionsQuizz"></param>
+        /// <param name="lesQuestions"></param>
+        /// <param name="questionlibre"></param>
+        /// <param name="nombrequestions"></param>
+        /// <returns></returns>
+        public static List<Questions> AddQuestionToQuizz(List<Questions> questionsQuizz, IQueryable<Questions> lesQuestions, bool questionlibre, int nombrequestions)
+        {
+            Random rand = new Random();
+
+            foreach (var item in lesQuestions)
+            {//Parcours la liste
+                if (questionlibre)
+                {//Si le paramètre rentré par l'utilisateur pour une question est libre
+                    if (item.QuestionId == rand.Next(1, nombrequestions))
+                    {//Selection d'un id aléatoire pour notre liste de question
+                        if (item.QuestionType == true)
+                        {//Vérification question ouverte/fermée
+                            foreach (var item1 in questionsQuizz)
+                            {//Vérification présence dans la liste
+                                if (item1.QuestionId == item.QuestionId)
+                                {
+                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
+                                }
+                                else
+                                {
+                                    questionsQuizz.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
+                    }
+                }
+                else
+                {
+                    if (item.QuestionId == rand.Next(1, nombrequestions))
+                    {
+                        if (item.QuestionType == false)
+                        {
+                            foreach (var item1 in questionsQuizz)
+                            {//Vérification présence dans la liste
+                                if (item1.QuestionId == item.QuestionId)
+                                {
+                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
+                                }
+                                else
+                                {
+                                    questionsQuizz.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
+                    }
+                }
+            }
+            return questionsQuizz;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="difficultyid"></param>
+        /// <param name="technoid"></param>
+        /// <param name="userid"></param>
+        /// <param name="nomuser"></param>
+        /// <param name="prenomuser"></param>
+        /// <param name="questionlibre"></param>
+        /// <param name="nombrequestions"></param>
+        public static void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        {
+            List<Questions> questionsQuizz = new List<Questions>();
+            int timer = 0;
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {
+                
+                var contact = db.Contact.Single(e => e.UserId == userid);
+                var difficulty = db.Difficulties.Single(e => e.DifficultyId == difficultyid);
+                var technology = db.Technologies.Single(e => e.TechnoId == technoid);
+
+                IQueryable<Questions> questions = db.Questions.Where(e => e.Technologies.TechnoId == technoid);
+
+                if (nombrequestions <= 10 && nombrequestions >= 60)
+                {//Nombre de questions min max
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxJunior); i++)
+                    {//Taux de questions pour la liste de questions
+
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
+                    }
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxConfirmed); i++)
+                    {
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
+                    }
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxExpert); i++)
+                    {
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
+                    }
+                }
+                else
+                {
+                    //Throw new Exception
+                }
+                Quizz unQuizz = new Quizz
+                {
+                    NomUser = nomuser,
+                    PrenomUser = prenomuser,
+                    QuestionLibre = questionlibre,
+                    NombreQuestion = nombrequestions,
+                    EtatQuizz = 0,
+                    Timer = timer,
+                    Contact = contact,
+                    Difficulties = difficulty,
+                    Technologies = technology,
+                    Questions = questionsQuizz
+
+                };
+                db.Quizz.Add(unQuizz);
+                db.SaveChanges();
+                db.Dispose();
+            }
+
+            catch(AlreadyInTheQuestionsList e)
+            {
+                Console.WriteLine(e.Message);
+                db.Dispose();
+            }
+            catch (NoQuestionsForYou e)
+            {
+                Console.WriteLine(e.Message);
+                db.Dispose();
+            }
         }
         #endregion
     }

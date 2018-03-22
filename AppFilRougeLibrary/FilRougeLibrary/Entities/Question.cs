@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using FilRouge.Entities.Entity;
 
 namespace FilRouge.Entities.Entity
 {
-    public partial class Question
+    public partial class Questions
     {
         #region Properties
         [Key]
@@ -14,20 +20,13 @@ namespace FilRouge.Entities.Entity
         public string Commentaire { get; set; }
         public bool Active { get; set; }
         public bool QuestionType { get; set; }
-        /*public string Difficulty { get; set; }
-        [ForeignKey("Technologies")]
-        public string TechnoId { get; set; }
-        [ForeignKey("Quizz")]
-        public string QuizzId { get; set; }
-        [ForeignKey("Reponses")]
-        public string ReponseId { get; set; }*/
         #endregion
         #region Association
 
         public virtual ICollection<Quizz> Quizz { get; set; }
         public virtual ICollection<Reponse> Reponses { get; set; }
-        public virtual Technologie Technologie { get; set; }
-        public virtual Difficulty Difficulty { get; set; }
+        public virtual Technologies Technologies { get; set; }
+        public virtual Difficulties Difficulties { get; set; }
         #endregion
     }
 }
