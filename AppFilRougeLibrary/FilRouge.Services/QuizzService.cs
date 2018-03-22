@@ -78,34 +78,109 @@ namespace FilRouge.Services
             
             return desQuizz;
         }
-        
-        public void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionsQuizz"></param>
+        /// <param name="lesQuestions"></param>
+        /// <param name="questionlibre"></param>
+        /// <param name="nombrequestions"></param>
+        /// <returns></returns>
+        public static List<Questions> AddQuestionToQuizz(List<Questions> questionsQuizz, IQueryable<Questions> lesQuestions, bool questionlibre, int nombrequestions)
+        {
+            Random rand = new Random();
+
+            foreach (var item in lesQuestions)
+            {//Parcours la liste
+                if (questionlibre)
+                {//Si le paramètre rentré par l'utilisateur pour une question est libre
+                    if (item.QuestionId == rand.Next(1, nombrequestions))
+                    {//Selection d'un id aléatoire pour notre liste de question
+                        if (item.QuestionType == true)
+                        {//Vérification question ouverte/fermée
+                            foreach (var item1 in questionsQuizz)
+                            {//Vérification présence dans la liste
+                                if (item1.QuestionId == item.QuestionId)
+                                {
+                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
+                                }
+                                else
+                                {
+                                    questionsQuizz.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
+                    }
+                }
+                else
+                {
+                    if (item.QuestionId == rand.Next(1, nombrequestions))
+                    {
+                        if (item.QuestionType == false)
+                        {
+                            foreach (var item1 in questionsQuizz)
+                            {//Vérification présence dans la liste
+                                if (item1.QuestionId == item.QuestionId)
+                                {
+                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
+                                }
+                                else
+                                {
+                                    questionsQuizz.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
+                    }
+                }
+            }
+            return questionsQuizz;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="difficultyid"></param>
+        /// <param name="technoid"></param>
+        /// <param name="userid"></param>
+        /// <param name="nomuser"></param>
+        /// <param name="prenomuser"></param>
+        /// <param name="questionlibre"></param>
+        /// <param name="nombrequestions"></param>
+        public static void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
             List<Questions> questionsQuizz = new List<Questions>();
-            int timer = DateTime.Now.Minute;
+            int timer = 0;
             FilRougeDBContext db = new FilRougeDBContext();
-            ToolBox unOutil = new ToolBox();
             try
             {
-
+                
                 var contact = db.Contact.Single(e => e.UserId == userid);
                 var difficulty = db.Difficulties.Single(e => e.DifficultyId == difficultyid);
                 var technology = db.Technologies.Single(e => e.TechnoId == technoid);
 
                 IQueryable<Questions> questions = db.Questions.Where(e => e.Technologies.TechnoId == technoid);
-                if (nombrequestions <= 10 && nombrequestions >= 60)
-                {
-                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxJunior); i++)
-                    {
 
+                if (nombrequestions <= 10 && nombrequestions >= 60)
+                {//Nombre de questions min max
+                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxJunior); i++)
+                    {//Taux de questions pour la liste de questions
+
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
                     }
                     for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxConfirmed); i++)
                     {
-
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
                     }
                     for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxExpert); i++)
                     {
-
+                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
                     }
                 }
                 else
@@ -126,10 +201,20 @@ namespace FilRouge.Services
                     Questions = questionsQuizz
 
                 };
+                db.Quizz.Add(unQuizz);
+                db.SaveChanges();
+                db.Dispose();
             }
-            catch(Exception)
-            {
 
+            catch(AlreadyInTheQuestionsList e)
+            {
+                Console.WriteLine(e.Message);
+                db.Dispose();
+            }
+            catch (NoQuestionsForYou e)
+            {
+                Console.WriteLine(e.Message);
+                db.Dispose();
             }
         }
         #endregion

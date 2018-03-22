@@ -28,4 +28,20 @@ namespace FilRouge.Services
             _msg = message;
         }
     }
+    public sealed class AlreadyInTheQuestionsList : Exception
+    {
+        public string _msg;
+        public AlreadyInTheQuestionsList(string message) : base(message)
+        {
+            _msg = message;
+        }
+    }
+    public sealed class NoQuestionsForYou : Exception
+    {
+        public string _msg;
+        public NoQuestionsForYou(string message) : base(message)
+        {
+            _msg = message;
+        }
+    }
 }

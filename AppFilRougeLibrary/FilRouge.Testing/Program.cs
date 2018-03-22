@@ -16,69 +16,51 @@ namespace FilRouge.Testing
     {
         static void Main(string[] args)
         {
-            QuizzService aService = new FilRouge.Services.QuizzService();
-            ReferencesService aReferenceService = new FilRouge.Services.ReferencesService();
-            IListExtensions unOutil = new IListExtensions();
-            
-            var Contact = new Contact
+            int choix = 0;
+            string continuer = "OUI";
+            //DBFiller.AddDatas();
+            while (continuer.ToUpper() == "OUI")
             {
-                Name = "Admin",
-                Prenom = "Nico",
-                Tel = "0000000000",
-                Email = "test@test.fr",
-                Type = "admin"
+                Console.WriteLine("1- Créer un quizz");
+                Console.WriteLine("Choixissez une action à effectuer");
+                choix = int.Parse(Console.ReadLine());
+                bool librebool = false;
+                switch (choix)
+                {
+                    case 1:
+                        Console.WriteLine("Selectionnez un id de difficultée");
+                        int difficultId = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Selectionnez un id de technologie");
+                        int technoId = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Selectionnez un id d'utilisateur");
+                        int userId = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Selectionnez un nom de candidat");
+                        string candidatName = Console.ReadLine();
+                        Console.WriteLine("Selectionnez un prénom de candidat");
+                        string candidatFirstName = Console.ReadLine();
+                        Console.WriteLine("Question libre?");
+                        string libre = Console.ReadLine().ToUpper();
+                        if (libre == "OUI")
+                        {
+                            librebool = true;
+                        }
+                        else if(libre=="NON")
+                        {
+                            librebool = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Erreur de saisie");
+                        }
+                        Console.WriteLine("Nombre de questions?");
+                        int nbrQuestions = int.Parse(Console.ReadLine());
+                        QuizzService.CreateQuizz(difficultId, technoId, userId, candidatName, candidatFirstName, librebool, nbrQuestions);
+                        Console.WriteLine("Voulez-vous continuer?");
+                        continuer = Console.ReadLine();
+                        break;
+                }
+            }
 
-            };
-
-            var Technologie = new Technologies
-            {
-                TechnoName = "C#",
-                Active = true
-            };
-            var Technologie1 = new Technologies
-            {
-                TechnoName = "Java",
-                Active = true
-            };
-            
-            var Difficult = new Difficulties
-            {
-                DifficultyName = "Junior",
-                TauxJunior=0.7m,
-                TauxConfirmed = 0.2m,
-                TauxExpert = 0.1m,
-            };
-            var Difficult1 = new Difficulties
-            {
-                DifficultyName = "Confirmed",
-                TauxJunior = 0.25m,
-                TauxConfirmed = 0.5m,
-                TauxExpert = 0.25m,
-            };
-            var Difficult2 = new Difficulties
-            {
-                DifficultyName = "Expert",
-                TauxJunior = 0.1m,
-                TauxConfirmed = 0.4m,
-                TauxExpert = 0.5m,
-            };
-
-            FilRouge.Entities.Entity.FilRougeDBContext dbContext = new Entities.Entity.FilRougeDBContext();
-            dbContext.Contact.Add(Contact);
-            dbContext.Technologies.Add(Technologie1);
-            dbContext.Technologies.Add(Technologie);
-            dbContext.Difficulties.Add(Difficult);
-            dbContext.Difficulties.Add(Difficult1);
-            dbContext.Difficulties.Add(Difficult2);
-            dbContext.SaveChanges();
-            dbContext.Dispose();
-
-            //aService.CreateQuizz(2, 1, 1, "John", "Test", false, 40);
-            /*unOutil.Shuffle(uneListe);
-            foreach (var item in uneListe)
-            {
-                Console.WriteLine(item);
-            }*/
             Console.WriteLine(Environment.NewLine+"Appuyez sur une touche pour quitter...");
             Console.ReadKey();
 
