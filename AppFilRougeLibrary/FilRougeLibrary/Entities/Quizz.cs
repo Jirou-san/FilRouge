@@ -22,13 +22,19 @@ namespace FilRouge.Entities.Entity
         public string PrenomUser { get; set; }
         public bool QuestionLibre { get; set; } //true oui et false pour non
         public int NombreQuestion { get; set; } //nombre de questions à intégrer au quizz
+        //Clés étrangères
+        [ForeignKey("Technology")]
+        public int TechnologyId {get; set;}
+        [ForeignKey("Contact")]
+        public int ContactId { get; set; }
         #endregion
         #region Association
-        
-        public virtual Technologies Technologies { get; set; }
+
+        public virtual Technology Technology { get; set; }
         public virtual Contact Contact { get; set; }
-        public virtual Difficulties Difficulties { get; set; }
+        public virtual List<Difficulty> Difficulty { get; set; }
         public virtual List<Questions> Questions { get; set; }
+
         #endregion
     }
 }

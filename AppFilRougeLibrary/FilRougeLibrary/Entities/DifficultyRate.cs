@@ -10,21 +10,25 @@ using FilRouge.Entities.Entity;
 
 namespace FilRouge.Entities.Entity
 {
-    public partial class Reponses
+    public partial class DifficultyRate
     {
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ReponseId { get; set; }
-        public string Content { get; set; }
-        public bool TrueReponse { get; set; }
-        //Clés étrangères
-        [ForeignKey("Question")]
-        public int QuestionId { get; set; }
-
+        public int DifficultyRateId { get; set; }
+        public decimal Rate { get; set; }
+        [Key]
+        [Column(Order = 0)]
+        [ForeignKey("Quizz")]
+        public int QuizzId { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [ForeignKey("Difficulty")]
+        public int DifficultyId { get; set; }
         #endregion
-        #region Association
-        public virtual Questions Question { get; set; }
+
+        #region Associations
+        public Difficulty Difficulty { get; set; }
         #endregion
     }
 }

@@ -10,21 +10,15 @@ using FilRouge.Entities.Entity;
 
 namespace FilRouge.Entities.Entity
 {
-    public partial class Reponses
+    public partial class TypeQuestion
     {
         #region Properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ReponseId { get; set; }
-        public string Content { get; set; }
-        public bool TrueReponse { get; set; }
-        //Clés étrangères
-        [ForeignKey("Question")]
-        public int QuestionId { get; set; }
+        public int TypeQuestionId { get; set; }
+        public string NameType { get; set; }
 
         #endregion
         #region Association
-        public virtual Questions Question { get; set; }
+        public virtual List<Questions> Question { get; set; }
         #endregion
     }
 }

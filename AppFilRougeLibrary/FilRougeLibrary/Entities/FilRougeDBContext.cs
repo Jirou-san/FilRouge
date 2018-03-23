@@ -27,11 +27,12 @@ namespace FilRouge.Entities.Entity
         public DbSet<Contact> Contact { get; set; }
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Quizz> Quizz { get; set; }
-        public DbSet<Reponse> Reponse { get; set; }
-        public DbSet<Technologies> Technologies { get; set; }
+        public DbSet<Reponses> Reponse { get; set; }
+        public DbSet<Technology> Technologies { get; set; }
         public DbSet<UserReponse> UserReponse { get; set; }
         //public DbSet<EtatQuizz> EtatQuizz { get; set; }
-        public DbSet<Difficulties> Difficulties { get; set; }
+        public DbSet<Difficulty> Difficulties { get; set; }
+        public DbSet<TypeQuestion> TypeQuestion { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

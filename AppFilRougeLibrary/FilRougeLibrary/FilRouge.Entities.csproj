@@ -66,8 +66,10 @@
   <ItemGroup>
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Difficulties.cs" />
+    <Compile Include="Entities\DifficultyRate.cs" />
     <Compile Include="Entities\FilRougeDBContext.cs" />
     <Compile Include="Entities\Reponse.cs" />
+    <Compile Include="Entities\TypeQuestion.cs" />
     <Compile Include="Entities\UserReponse.cs" />
     <Compile Include="Migrations\201803191459131_FilRougeDBContext-v1.cs" />
     <Compile Include="Migrations\201803191459131_FilRougeDBContext-v1.Designer.cs">

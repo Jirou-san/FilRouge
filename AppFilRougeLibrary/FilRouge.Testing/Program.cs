@@ -17,8 +17,7 @@ namespace FilRouge.Testing
         static void Main(string[] args)
         {
             int choix = 0;
-            string continuer = "OUI" +
-                "";
+            string continuer = "OUI";
             //DBFiller.AddDatas();
             while (continuer.ToUpper() == "OUI")
             {
