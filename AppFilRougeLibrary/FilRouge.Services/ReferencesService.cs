@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FilRouge.Entities;
+using FilRouge.Entities.Entity;
 
 namespace FilRouge.Services
 {
@@ -27,11 +27,11 @@ namespace FilRouge.Services
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Technologies</returns>
-        public List<Entities.Entity.Technologies> GetTechnologies()
+        public List<Technology> GetTechnologies()
         {
             
-            List<Entities.Entity.Technologies> desTechnologies =new List<Entities.Entity.Technologies>();
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            List<Technology> desTechnologies =new List<Technology>();
+            FilRougeDBContext db = new FilRougeDBContext();
             var fluentQuery = db.Technologies.Select(e => e);
             foreach (var item in fluentQuery)
             {
@@ -45,10 +45,10 @@ namespace FilRouge.Services
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Diffulties</returns>
-        public List<Entities.Entity.Difficulties> GetDifficulties()
+        public List<Difficulty> GetDifficulties()
         {
-            List<Entities.Entity.Difficulties> desDifficulties = new List<Entities.Entity.Difficulties>();
-            Entities.Entity.FilRougeDBContext db = new Entities.Entity.FilRougeDBContext();
+            List<Difficulty> desDifficulties = new List<Difficulty>();
+            FilRougeDBContext db = new FilRougeDBContext();
             var fluentQuery = db.Difficulties.Select(e => e);
             foreach (var item in fluentQuery)
             {

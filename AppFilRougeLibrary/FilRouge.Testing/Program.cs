@@ -25,8 +25,10 @@ namespace FilRouge.Testing
                 Console.WriteLine("Choixissez une action à effectuer");
                 choix = int.Parse(Console.ReadLine());
                 bool librebool = false;
+                Contact existingData;
                 switch (choix)
                 {
+                    #region Case 1
                     case 1:
                         Console.WriteLine("Selectionnez un id de difficultée");
                         int difficultId = int.Parse(Console.ReadLine());
@@ -54,10 +56,42 @@ namespace FilRouge.Testing
                         }
                         Console.WriteLine("Nombre de questions?");
                         int nbrQuestions = int.Parse(Console.ReadLine());
-                        QuizzService.CreateQuizz(difficultId, technoId, userId, candidatName, candidatFirstName, librebool, nbrQuestions);
+                        /*QuizzService.CreateQuizz(difficultId, technoId, userId, candidatName, candidatFirstName, librebool, nbrQuestions);*/
                         Console.WriteLine("Voulez-vous continuer?");
                         continuer = Console.ReadLine();
                         break;
+                    #endregion
+                    #region Ajouter des données
+                    case 2:
+                        
+                        try
+                        {
+                            FilRougeDBContext db = new FilRougeDBContext();
+                            existingData = db.Contact.Single(e => e.UserId == 1);
+                            Console.WriteLine("Il y'a déjà des éléments dans la base");
+                            db.Dispose();
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message + " Les données vont être ajoutés");
+                            DBFiller.AddDatas();
+
+                            FilRougeDBContext db = new FilRougeDBContext();
+                            existingData = db.Contact.Single(f => f.UserId == 1);
+                            if(existingData != null)
+                            {
+                                Console.WriteLine("Les données ont bien été ajoutées");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Un problème est survenue");
+                            }
+                            db.Dispose();
+                        }
+                        Console.WriteLine("Voulez-vous continuer?");
+                        continuer = Console.ReadLine();
+                        break;
+                        #endregion
                 }
             }
 

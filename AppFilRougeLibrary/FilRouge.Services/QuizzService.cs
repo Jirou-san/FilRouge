@@ -86,61 +86,42 @@ namespace FilRouge.Services
         /// <param name="questionlibre"></param>
         /// <param name="nombrequestions"></param>
         /// <returns></returns>
-        public static List<Questions> AddQuestionToQuizz(List<Questions> questionsQuizz, IQueryable<Questions> lesQuestions, bool questionlibre, int nombrequestions)
+        ///
+        
+        public static List<Questions> AddQuestionToQuizz(bool questionlibre, int nombrequestions, int technoid, int difficultymasterid)
         {
             Random rand = new Random();
+            List<Questions> sortedQuestionsQuizz = new List<Questions>();
 
-            foreach (var item in lesQuestions)
-            {//Parcours la liste
-                if (questionlibre)
-                {//Si le paramètre rentré par l'utilisateur pour une question est libre
-                    if (item.QuestionId == rand.Next(1, nombrequestions))
-                    {//Selection d'un id aléatoire pour notre liste de question
-                        if (item.QuestionType == true)
-                        {//Vérification question ouverte/fermée
-                            foreach (var item1 in questionsQuizz)
-                            {//Vérification présence dans la liste
-                                if (item1.QuestionId == item.QuestionId)
-                                {
-                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
-                                }
-                                else
-                                {
-                                    questionsQuizz.Add(item);
-                                }
+            FilRougeDBContext db = new FilRougeDBContext();
+            try
+            {
+                int nbrTotalQuestions = db.Questions.Select(e => e).Count();
+                IQueryable<Questions> AllQuestionsByTechno = db.Questions.Where(e => e.TechnologyId == technoid);
+                IQueryable<DifficultyRate> RatesQuizz = db.DifficultyRates.Where(e => e.DifficultyMasterId == difficultymasterid);
+
+                foreach (var rate in RatesQuizz)
+                {//Pour gérer la répartition des questions dans le quizz
+                    for (int i = 0; i < Math.Floor(nombrequestions * rate.Rate); i++)
+                    {
+                        foreach (var question in AllQuestionsByTechno)
+                        {//Vérification par id de la présence d'une question
+                            if(question.QuestionId == rand.Next(0, nbrTotalQuestions))
+                            {
+
                             }
                         }
-                    }
-                    else
-                    {
-                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
-                    }
-                }
-                else
-                {
-                    if (item.QuestionId == rand.Next(1, nombrequestions))
-                    {
-                        if (item.QuestionType == false)
-                        {
-                            foreach (var item1 in questionsQuizz)
-                            {//Vérification présence dans la liste
-                                if (item1.QuestionId == item.QuestionId)
-                                {
-                                    throw new AlreadyInTheQuestionsList("La question est déjà dans la liste");
-                                }
-                                else
-                                {
-                                    questionsQuizz.Add(item);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new NoQuestionsForYou("Aucune question ne correspond à vos critères");
                     }
                 }
             }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                db.Dispose();
+            }
+           
+
             return questionsQuizz;
         }
         /// <summary>
@@ -153,65 +134,47 @@ namespace FilRouge.Services
         /// <param name="prenomuser"></param>
         /// <param name="questionlibre"></param>
         /// <param name="nombrequestions"></param>
-        public static void CreateQuizz(int difficultyid, int technoid,int userid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
+        public static void CreateQuizz(int userid, int difficultymasterid, int technoid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
-            List<Questions> questionsQuizz = new List<Questions>();
+            List<Questions> questionsQuizz = AddQuestionToQuizz();
             int timer = 0;
             FilRougeDBContext db = new FilRougeDBContext();
             try
             {
+                Contact creatingQuizzContact = db.Contact.Single(e => e.UserId == userid);
+                DifficultyMaster difficultyQuizz = db.DifficultyMasters.Single(e => e.DiffMasterId == difficultymasterid);
+                Technology technoQuizz = db.Technologies.Single(e => e.TechnoId == technoid);
                 
-                var contact = db.Contact.Single(e => e.UserId == userid);
-                var difficulty = db.Difficulties.Single(e => e.DifficultyId == difficultyid);
-                var technology = db.Technologies.Single(e => e.TechnoId == technoid);
-
-                IQueryable<Questions> questions = db.Questions.Where(e => e.Technologies.TechnoId == technoid);
-
-                if (nombrequestions <= 10 && nombrequestions >= 60)
-                {//Nombre de questions min max
-                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxJunior); i++)
-                    {//Taux de questions pour la liste de questions
-
-                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
-                    }
-                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxConfirmed); i++)
-                    {
-                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
-                    }
-                    for (int i = 0; i < Math.Floor(nombrequestions * difficulty.TauxExpert); i++)
-                    {
-                        AddQuestionToQuizz(questionsQuizz, questions, questionlibre, nombrequestions);
-                    }
-                }
-                else
-                {
-                    //Throw new Exception
-                }
                 Quizz unQuizz = new Quizz
                 {
-                    NomUser = nomuser,
+                    ContactId = userid,
+                    DifficultyMasterId = difficultymasterid,
+                    TechnologyId = technoid,
+                    Timer = timer,
                     PrenomUser = prenomuser,
-                    QuestionLibre = questionlibre,
+                    NomUser = nomuser,
                     NombreQuestion = nombrequestions,
                     EtatQuizz = 0,
-                    Timer = timer,
-                    Contact = contact,
-                    Difficulties = difficulty,
-                    Technologies = technology,
-                    Questions = questionsQuizz
-
+                    QuestionLibre = questionlibre,
+                    Contact = creatingQuizzContact,
+                    DifficultyMaster = difficultyQuizz,
+                    Questions = questionsQuizz,
+                    Technology = technoQuizz
                 };
-                db.Quizz.Add(unQuizz);
                 db.SaveChanges();
                 db.Dispose();
             }
-
-            catch(AlreadyInTheQuestionsList e)
+            catch (AlreadyInTheQuestionsList e)
             {
                 Console.WriteLine(e.Message);
                 db.Dispose();
             }
             catch (NoQuestionsForYou e)
+            {
+                Console.WriteLine(e.Message);
+                db.Dispose();
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 db.Dispose();

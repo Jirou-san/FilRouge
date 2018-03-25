@@ -91,6 +91,60 @@ namespace FilRouge.Services
             Rate = 0.10M
 
         };
+        static DifficultyRate DifficultyRate4 = new DifficultyRate
+        {
+            Difficulty = Difficult1,
+            DifficultyId = Difficult1.DifficultyId,
+            DifficultyMaster = DifficultyMaster2,
+            DifficultyMasterId = DifficultyMaster2.DiffMasterId,
+            Rate = 0.25M
+
+        };
+        static DifficultyRate DifficultyRate5 = new DifficultyRate
+        {
+            Difficulty = Difficult2,
+            DifficultyId = Difficult2.DifficultyId,
+            DifficultyMaster = DifficultyMaster2,
+            DifficultyMasterId = DifficultyMaster2.DiffMasterId,
+            Rate = 0.50M
+
+        };
+        static DifficultyRate DifficultyRate6 = new DifficultyRate
+        {
+            Difficulty = Difficult3,
+            DifficultyId = Difficult3.DifficultyId,
+            DifficultyMaster = DifficultyMaster2,
+            DifficultyMasterId = DifficultyMaster2.DiffMasterId,
+            Rate = 0.25M
+
+        };
+        static DifficultyRate DifficultyRate7 = new DifficultyRate
+        {
+            Difficulty = Difficult1,
+            DifficultyId = Difficult1.DifficultyId,
+            DifficultyMaster = DifficultyMaster3,
+            DifficultyMasterId = DifficultyMaster3.DiffMasterId,
+            Rate = 0.10M
+
+        };
+        static DifficultyRate DifficultyRate8 = new DifficultyRate
+        {
+            Difficulty = Difficult2,
+            DifficultyId = Difficult2.DifficultyId,
+            DifficultyMaster = DifficultyMaster3,
+            DifficultyMasterId = DifficultyMaster3.DiffMasterId,
+            Rate = 0.40M
+
+        };
+        static DifficultyRate DifficultyRate9 = new DifficultyRate
+        {
+            Difficulty = Difficult3,
+            DifficultyId = Difficult3.DifficultyId,
+            DifficultyMaster = DifficultyMaster3,
+            DifficultyMasterId = DifficultyMaster3.DiffMasterId,
+            Rate = 0.50M
+
+        };
         public static void AddDatas()
         {
             FilRougeDBContext dbContext = new FilRougeDBContext();
@@ -103,7 +157,15 @@ namespace FilRouge.Services
             dbContext.DifficultyMasters.Add(DifficultyMaster1);
             dbContext.DifficultyMasters.Add(DifficultyMaster2);
             dbContext.DifficultyMasters.Add(DifficultyMaster3);
-            dbContext.DifficultyRates.Add(DifficultyRate1)
+            dbContext.DifficultyRates.Add(DifficultyRate1);
+            dbContext.DifficultyRates.Add(DifficultyRate2);
+            dbContext.DifficultyRates.Add(DifficultyRate3);
+            dbContext.DifficultyRates.Add(DifficultyRate4);
+            dbContext.DifficultyRates.Add(DifficultyRate5);
+            dbContext.DifficultyRates.Add(DifficultyRate6);
+            dbContext.DifficultyRates.Add(DifficultyRate7);
+            dbContext.DifficultyRates.Add(DifficultyRate8);
+            dbContext.DifficultyRates.Add(DifficultyRate9);
             dbContext.SaveChanges();
             dbContext.Dispose();
         }
