@@ -19,9 +19,9 @@ namespace FilRouge.Entities.Entity
         public string Content { get; set; }
         public string Commentaire { get; set; }
         public bool Active { get; set; }
+        //Clés étrangères
         [ForeignKey("TypeQuestion")]
         public int QuestionTypeId { get; set; }
-        //Clés étrangères
         [ForeignKey("Technology")]
         public int TechnologyId { get; set; }
         [ForeignKey("Difficulty")]

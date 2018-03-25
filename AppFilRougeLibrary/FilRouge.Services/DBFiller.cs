@@ -23,48 +23,87 @@ namespace FilRouge.Services
 
         };
 
-        static Technologies Technologie = new Technologies
+        static Technology Technologie = new Technology
         {
             TechnoName = "C#",
             Active = true
         };
-        static Technologies Technologie1 = new Technologies
+        static Technology Technologie1 = new Technology
         {
             TechnoName = "Java",
             Active = true
         };
 
-        static Difficulties Difficult = new Difficulties
+        static Difficulty Difficult1 = new Difficulty
         {
             DifficultyName = "Junior",
-            TauxJunior = 0.7m,
-            TauxConfirmed = 0.2m,
-            TauxExpert = 0.1m,
+
         };
-        static Difficulties Difficult1 = new Difficulties
+        static Difficulty Difficult2 = new Difficulty
         {
             DifficultyName = "Confirmed",
-            TauxJunior = 0.25m,
-            TauxConfirmed = 0.5m,
-            TauxExpert = 0.25m,
+
         };
-        static Difficulties Difficult2 = new Difficulties
+        static Difficulty Difficult3 = new Difficulty
         {
             DifficultyName = "Expert",
-            TauxJunior = 0.1m,
-            TauxConfirmed = 0.4m,
-            TauxExpert = 0.5m,
-        };
 
+        };
+        static DifficultyMaster DifficultyMaster1 = new DifficultyMaster
+        {
+            DiffMasterName = "Junior",
+
+        };
+        static DifficultyMaster DifficultyMaster2 = new DifficultyMaster
+        {
+            DiffMasterName = "Confirmed",
+
+        };
+        static DifficultyMaster DifficultyMaster3 = new DifficultyMaster
+        {
+            DiffMasterName = "Expert",
+
+        };
+        static  DifficultyRate DifficultyRate1 = new DifficultyRate
+        {
+            Difficulty = Difficult1,
+            DifficultyId = Difficult1.DifficultyId,
+            DifficultyMaster = DifficultyMaster1,
+            DifficultyMasterId = DifficultyMaster1.DiffMasterId,
+            Rate = 0.70M
+
+        };
+        static DifficultyRate DifficultyRate2 = new DifficultyRate
+        {
+            Difficulty = Difficult2,
+            DifficultyId = Difficult2.DifficultyId,
+            DifficultyMaster = DifficultyMaster1,
+            DifficultyMasterId = DifficultyMaster1.DiffMasterId,
+            Rate = 0.20M
+
+        };
+        static DifficultyRate DifficultyRate3 = new DifficultyRate
+        {
+            Difficulty = Difficult3,
+            DifficultyId = Difficult3.DifficultyId,
+            DifficultyMaster = DifficultyMaster1,
+            DifficultyMasterId = DifficultyMaster1.DiffMasterId,
+            Rate = 0.10M
+
+        };
         public static void AddDatas()
         {
             FilRougeDBContext dbContext = new FilRougeDBContext();
             dbContext.Contact.Add(Contact);
             dbContext.Technologies.Add(Technologie1);
             dbContext.Technologies.Add(Technologie);
-            dbContext.Difficulties.Add(Difficult);
             dbContext.Difficulties.Add(Difficult1);
             dbContext.Difficulties.Add(Difficult2);
+            dbContext.Difficulties.Add(Difficult3);
+            dbContext.DifficultyMasters.Add(DifficultyMaster1);
+            dbContext.DifficultyMasters.Add(DifficultyMaster2);
+            dbContext.DifficultyMasters.Add(DifficultyMaster3);
+            dbContext.DifficultyRates.Add(DifficultyRate1)
             dbContext.SaveChanges();
             dbContext.Dispose();
         }

@@ -29,7 +29,7 @@ namespace FilRouge.Services
         /// </summary>
         /// <param name="id">l'ID du quizz (sa clé primaire)</param>
         /// <returns>Retourne un objet Quizz</returns>
-        public Entities.Entity.Quizz GetQuizz(int id)
+        public Quizz GetQuizz(int id)
         {
             Quizz fluentQuery = new Quizz();
             FilRougeDBContext db = new FilRougeDBContext();

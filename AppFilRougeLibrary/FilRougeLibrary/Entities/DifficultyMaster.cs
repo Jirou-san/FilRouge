@@ -10,21 +10,16 @@ using FilRouge.Entities.Entity;
 
 namespace FilRouge.Entities.Entity
 {
-    public partial class Difficulty
+    public partial class DifficultyMaster
     {
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DifficultyId { get; set; }
-        public string DifficultyName { get; set; }
-        //Créer MasterDiff
-        //Créer Taux
-
+        public int DiffMasterId { get; set; }
+        public string DiffMasterName { get; set; }
         #endregion
         #region Associations
         public virtual List<Quizz> Quizzs { get; set; }
-        public virtual List<Questions> Questions { get; set; }
-        public virtual List<DifficultyRate> DifficultyRates { get; set; }
         #endregion
     }
 }
