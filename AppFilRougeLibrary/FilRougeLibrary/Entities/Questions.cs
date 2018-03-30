@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilRouge.Model.Entities
 {
-    public partial class Questions
+    public partial class Question
     {
         #region Properties
         [Key]
