@@ -9,43 +9,58 @@ namespace FilRouge.Entities.Model
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
+    using FilRouge.Entities.Model;
     using FilRouge.Model.Entities;
 
     public class QuizzModel
     {
-        
+        public int StateQuizz { get; set; }
+        public int TechnologyId { get; set; }
+        public int QuestionCount { get; set; }
+        [DisplayName("Lastname")]
+        public string UserLastname { get; set; } // Nom
+        [DisplayName("Firstname")]
+        public string UserFirstname { get; set; } // Prénom
     }
 
     public static partial class Map
     {
-        public static QuestionModel MapToQuestionModel(this Question question)
+        public static QuizzModel MapToQuizzModel(this Quizz Quizz)
         {
-            var questionModel = new QuestionModel();
-            if (question == null)
+            var QuizzModel = new QuizzModel();
+            if (Quizz == null)
             {
-                return questionModel;
+                return QuizzModel;
             }
 
-            questionModel = new QuestionModel
+            QuizzModel = new QuizzModel
              {
-                    Content = question.Content
+                 QuestionCount = Quizz.NombreQuestion,
+                 TechnologyId = Quizz.TechnologyId,
+                 UserFirstname = Quizz.PrenomUser,
+                 UserLastname = Quizz.NomUser
+                    
              };
-            return questionModel;
+            return QuizzModel;
+
         }
 
-        public static Question MapToQuestion(this QuestionModel questionModel)
+        public static Quizz MapToQuizz(this QuizzModel QuizzModel)
         {
-            var question = new Question();
-            if (questionModel == null)
+            var Quizz = new Quizz();
+            if (QuizzModel == null)
             {
-                return question;
+                return Quizz;
             }
 
-            question = new Question
-                                {
-                                    Content = questionModel.Content
+            Quizz = new Quizz
+            {
+                NomUser = QuizzModel.UserLastname,
+                PrenomUser = QuizzModel.UserFirstname,
+                NombreQuestion = QuizzModel.QuestionCount,
+                TechnologyId = QuizzModel.TechnologyId
             };
-            return question;
+            return Quizz;
         }
     }
 }
