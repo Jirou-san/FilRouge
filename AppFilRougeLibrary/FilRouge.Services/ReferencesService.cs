@@ -25,7 +25,7 @@ namespace FilRouge.Services
             
             List<Technology> desTechnologies =new List<Technology>();
             FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Technologies.Select(e => e);
+            var fluentQuery = db.Technology.Select(e => e);
             foreach (var item in fluentQuery)
             {
                 desTechnologies.Add(item);
@@ -42,7 +42,7 @@ namespace FilRouge.Services
         {
             List<Difficulty> desDifficulties = new List<Difficulty>();
             FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Difficulties.Select(e => e);
+            var fluentQuery = db.Difficulty.Select(e => e);
             foreach (var item in fluentQuery)
             {
                 desDifficulties.Add(item);

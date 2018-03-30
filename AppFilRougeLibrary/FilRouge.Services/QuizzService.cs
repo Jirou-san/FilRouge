@@ -93,9 +93,9 @@ namespace FilRouge.Services
             try
             {
                 //Requêtes Linq
-                int nbrTotalQuestions = db.Questions.Select(e => e).Count();
-                IQueryable<Questions> AllQuestionsByTechno = db.Questions.Where(e => e.TechnologyId == technoid);
-                IQueryable<DifficultyRate> RatesQuizz = db.DifficultyRates.Where(e => e.DifficultyMasterId == difficultymasterid);
+                int nbrTotalQuestions = db.Question.Select(e => e).Count();
+                IQueryable<Questions> AllQuestionsByTechno = db.Question.Where(e => e.TechnologyId == technoid);
+                IQueryable<DifficultyRate> RatesQuizz = db.DifficultyRate.Where(e => e.DifficultyMasterId == difficultymasterid);
                 IQueryable<TypeQuestion> TypesQuestions = db.TypeQuestion.Select(e => e); 
 
                 //Génération de la liste de questions en fonction des paramètres
@@ -103,7 +103,8 @@ namespace FilRouge.Services
                 {//Pour gérer la répartition des questions dans le quizz
 
                     for (int i = 0; i < Math.Floor(nombrequestions * rate.Rate); i++)
-                    {                       
+                    {           
+                        //pas encore utilisé
                             IQueryable<Questions> QuestionByType = AllQuestionsByTechno.Where(e => e.TypeQuestion.NameType == "Question libre");
                         foreach (var question in QuestionByType)
                         {//Vérification par id de la présence d'une question
@@ -150,8 +151,8 @@ namespace FilRouge.Services
             try
             {
                 Contact creatingQuizzContact = db.Contact.Single(e => e.UserId == userid);
-                DifficultyMaster difficultyQuizz = db.DifficultyMasters.Single(e => e.DiffMasterId == difficultymasterid);
-                Technology technoQuizz = db.Technologies.Single(e => e.TechnoId == technoid);
+                DifficultyMaster difficultyQuizz = db.DifficultyMaster.Single(e => e.DiffMasterId == difficultymasterid);
+                Technology technoQuizz = db.Technology.Single(e => e.TechnoId == technoid);
                 
                 Quizz unQuizz = new Quizz
                 {
