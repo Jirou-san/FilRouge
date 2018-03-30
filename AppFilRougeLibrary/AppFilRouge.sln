@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Entities", "FilRougeLibrary\FilRouge.Entities.csproj", "{26A802CC-F50E-4BE0-91D9-470C77FA6540}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Model", "FilRougeLibrary\FilRouge.Model.csproj", "{26A802CC-F50E-4BE0-91D9-470C77FA6540}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Services", "FilRouge.Services\FilRouge.Services.csproj", "{0AEFC636-93B9-4981-A7EC-26B359AE1375}"
 	ProjectSection(ProjectDependencies) = postProject

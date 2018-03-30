@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entity;
+using FilRouge.Model.Entity;
 
-namespace FilRouge.Entities.Entity
+namespace FilRouge.Model.Entity
 {
     public partial class DifficultyRate
     {

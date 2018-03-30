@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entities;
+using FilRouge.Model.Entities;
 
-namespace FilRouge.Entities.Entities
+namespace FilRouge.Model.Entities
 {
 
     public partial class Technology

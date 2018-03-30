@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
-namespace FilRouge.Entities.Entity
+namespace FilRouge.Model.Entity
 {
     public partial class UserReponse
     {

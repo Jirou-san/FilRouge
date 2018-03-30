@@ -7,12 +7,12 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace FilRouge.Entities.Entities
+namespace FilRouge.Model.Entities
 {
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
-    using FilRouge.Entities.Entity;
+    using FilRouge.Model.Entity;
 
     public class FilRougeDBContext : DbContext
     {
