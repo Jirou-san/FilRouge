@@ -29,7 +29,7 @@ namespace FilRouge.Model.Entities
         public virtual DifficultyMaster DifficultyMaster { get; set; }
         public virtual Technology Technology { get; set; }
         public virtual Contact Contact { get; set; }
-        public virtual List<Questions> Questions { get; set; }
+        public virtual List<Question> Questions { get; set; }
 
         #endregion
     }

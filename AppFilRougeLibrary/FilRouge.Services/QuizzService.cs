@@ -34,14 +34,14 @@ namespace FilRouge.Services
                 fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
                 if(fluentQuery == null)
                 {
-                    throw new WrongIdQuizz("L'id saisie n'existe pas");
+                    throw new WrongIdQuizz(id);
                 }
                 db.Dispose();                
             }
-            catch(FormatException)
+            catch(FormatException e)
             {
                 db.Dispose();
-                Console.WriteLine("Veuillez saisir un id valide");
+                Console.WriteLine(e.Message );
             }
             return fluentQuery;
         }
@@ -84,17 +84,17 @@ namespace FilRouge.Services
         /// <returns></returns>
         ///
         
-        public static List<Questions> AddQuestionToQuizz(bool questionlibre, int nombrequestions, int technoid, int difficultymasterid)
+        public static List<Question> AddQuestionToQuizz(bool questionlibre, int nombrequestions, int technoid, int difficultymasterid)
         {
             Random rand = new Random();
-            List<Questions> sortedQuestionsQuizz = new List<Questions>();
+            List<Question> sortedQuestionsQuizz = new List<Question>();
 
             FilRougeDBContext db = new FilRougeDBContext();
             try
             {
                 //Requêtes Linq
                 int nbrTotalQuestions = db.Question.Select(e => e).Count();
-                IQueryable<Questions> AllQuestionsByTechno = db.Question.Where(e => e.TechnologyId == technoid);
+                IQueryable<Question> AllQuestionsByTechno = db.Question.Where(e => e.TechnologyId == technoid);
                 IQueryable<DifficultyRate> RatesQuizz = db.DifficultyRate.Where(e => e.DifficultyMasterId == difficultymasterid);
                 IQueryable<TypeQuestion> TypesQuestions = db.TypeQuestion.Select(e => e); 
 
@@ -105,7 +105,7 @@ namespace FilRouge.Services
                     for (int i = 0; i < Math.Floor(nombrequestions * rate.Rate); i++)
                     {           
                         //pas encore utilisé
-                            IQueryable<Questions> QuestionByType = AllQuestionsByTechno.Where(e => e.TypeQuestion.NameType == "Question libre");
+                            IQueryable<Question> QuestionByType = AllQuestionsByTechno.Where(e => e.TypeQuestion.NameType == "Question libre");
                         foreach (var question in QuestionByType)
                         {//Vérification par id de la présence d'une question
                             if (question.QuestionId == rand.Next(0, nbrTotalQuestions))
@@ -145,7 +145,7 @@ namespace FilRouge.Services
         /// <param name="nombrequestions"></param>
         public static void CreateQuizz(int userid, int difficultymasterid, int technoid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
-            List<Questions> questionsQuizz = AddQuestionToQuizz(questionlibre,nombrequestions, technoid, difficultymasterid);
+            List<Question> questionsQuizz = AddQuestionToQuizz(questionlibre,nombrequestions, technoid, difficultymasterid);
             int timer = 0;
             FilRougeDBContext db = new FilRougeDBContext();
             try

@@ -27,7 +27,7 @@ namespace FilRouge.Model.Entities
         public DbSet<DifficultyMaster> DifficultyMaster { get; set; }
         public DbSet<Difficulty> Difficulty { get; set; }
         public DbSet<DifficultyRate> DifficultyRate { get; set; }
-        public DbSet<Questions> Question { get; set; }
+        public DbSet<Question> Question { get; set; }
         public DbSet<Quizz> Quizz { get; set; }
         public DbSet<Reponses> Reponse { get; set; }
         public DbSet<Technology> Technology { get; set; }

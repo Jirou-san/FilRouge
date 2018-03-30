@@ -17,7 +17,7 @@ namespace FilRouge.Model.Entities
         #endregion
         #region Association
         public virtual List<Quizz> Quizzs { get; set; }
-        public virtual List<Questions> Questions { get; set; }
+        public virtual List<Question> Questions { get; set; }
         #endregion
     }
 }
