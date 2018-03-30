@@ -9,6 +9,8 @@ using System.Xml.Serialization;
 using FilRouge.Entities.Entity;
 namespace FilRouge.Services
 {
+    using FilRouge.Entities.Entities;
+
     /// <summary>
     /// Services liés au quizz, pdf, gestion, mails, CRUD...
     /// </summary>
@@ -96,19 +98,31 @@ namespace FilRouge.Services
             FilRougeDBContext db = new FilRougeDBContext();
             try
             {
+                //Requêtes Linq
                 int nbrTotalQuestions = db.Questions.Select(e => e).Count();
                 IQueryable<Questions> AllQuestionsByTechno = db.Questions.Where(e => e.TechnologyId == technoid);
                 IQueryable<DifficultyRate> RatesQuizz = db.DifficultyRates.Where(e => e.DifficultyMasterId == difficultymasterid);
+                IQueryable<TypeQuestion> TypesQuestions = db.TypeQuestion.Select(e => e); 
 
+                //Génération de la liste de questions en fonction des paramètres
                 foreach (var rate in RatesQuizz)
                 {//Pour gérer la répartition des questions dans le quizz
-                    for (int i = 0; i < Math.Floor(nombrequestions * rate.Rate); i++)
-                    {
-                        foreach (var question in AllQuestionsByTechno)
-                        {//Vérification par id de la présence d'une question
-                            if(question.QuestionId == rand.Next(0, nbrTotalQuestions))
-                            {
 
+                    for (int i = 0; i < Math.Floor(nombrequestions * rate.Rate); i++)
+                    {                       
+                            IQueryable<Questions> QuestionByType = AllQuestionsByTechno.Where(e => e.TypeQuestion.NameType == "Question libre");
+                        foreach (var question in QuestionByType)
+                        {//Vérification par id de la présence d'une question
+                            if (question.QuestionId == rand.Next(0, nbrTotalQuestions))
+                            {
+                                foreach (var newQuestion in sortedQuestionsQuizz)
+                                {
+                                    //Gestion des doublons
+                                    if (question.QuestionId != newQuestion.QuestionId)
+                                    {
+
+                                    }
+                                }
                             }
                         }
                     }
@@ -122,7 +136,7 @@ namespace FilRouge.Services
             }
            
 
-            return questionsQuizz;
+            return sortedQuestionsQuizz;
         }
         /// <summary>
         /// 
@@ -136,7 +150,7 @@ namespace FilRouge.Services
         /// <param name="nombrequestions"></param>
         public static void CreateQuizz(int userid, int difficultymasterid, int technoid,string nomuser, string prenomuser, bool questionlibre, int nombrequestions)
         {
-            List<Questions> questionsQuizz = AddQuestionToQuizz();
+            List<Questions> questionsQuizz = AddQuestionToQuizz(questionlibre,nombrequestions, technoid, difficultymasterid);
             int timer = 0;
             FilRougeDBContext db = new FilRougeDBContext();
             try

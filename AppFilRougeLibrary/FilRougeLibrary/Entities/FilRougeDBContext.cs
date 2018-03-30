@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entity;
-using System.Data.Entity;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="FilRougeDBContext.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   Defines the FilRougeDBContext type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-
-namespace FilRouge.Entities.Entity
+namespace FilRouge.Entities.Entities
 {
+    using System.Data.Entity;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+
+    using FilRouge.Entities.Entity;
+
     public class FilRougeDBContext : DbContext
     {
         
-        public FilRougeDBContext() :base("BDDAppliFilRouge")
+        public FilRougeDBContext() :base("StringBDDAppliFilRouge")
         {
-           Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
+           //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
         //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx

@@ -11,6 +11,11 @@ using System.Collections.Generic;
 
 namespace FilRouge.Services
 {
+    using FilRouge.Entities.Entities;
+
+    /// <summary>
+    /// Cette classe sert uniquement à ajouter des données brutes dans la base de donnée
+    /// </summary>
     public sealed class DBFiller
     {
         static Contact Contact = new Contact
@@ -145,6 +150,18 @@ namespace FilRouge.Services
             Rate = 0.50M
 
         };
+        static TypeQuestion TypeQuestion1 = new TypeQuestion
+        {
+            NameType = "Choix unique"
+        };
+        static TypeQuestion TypeQuestion2 = new TypeQuestion
+        {
+            NameType = "Choix multiple"
+        };
+        static TypeQuestion TypeQuestion3 = new TypeQuestion
+        {
+            NameType = "Choix libre"
+        };
         public static void AddDatas()
         {
             FilRougeDBContext dbContext = new FilRougeDBContext();
@@ -166,6 +183,9 @@ namespace FilRouge.Services
             dbContext.DifficultyRates.Add(DifficultyRate7);
             dbContext.DifficultyRates.Add(DifficultyRate8);
             dbContext.DifficultyRates.Add(DifficultyRate9);
+            dbContext.TypeQuestion.Add(TypeQuestion1);
+            dbContext.TypeQuestion.Add(TypeQuestion2);
+            dbContext.TypeQuestion.Add(TypeQuestion3);
             dbContext.SaveChanges();
             dbContext.Dispose();
         }

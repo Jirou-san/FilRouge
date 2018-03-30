@@ -7,19 +7,16 @@ using FilRouge.Entities.Entity;
 
 namespace FilRouge.Services
 {
+    using FilRouge.Entities.Entities;
+
     /// <summary>
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
     /// </summary>
-    public class ReferencesService
+    public static class ReferencesService
     {
         #region Properties
         #endregion
-        /// <summary>
-        /// Constructeur de la classe permettant d'utiliser les services associés
-        /// </summary>
-        public ReferencesService() { }
-
 
         #region Methods
         /// <summary>
@@ -27,7 +24,7 @@ namespace FilRouge.Services
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Technologies</returns>
-        public List<Technology> GetTechnologies()
+        public static List<Technology> GetTechnologies()
         {
             
             List<Technology> desTechnologies =new List<Technology>();
@@ -45,7 +42,7 @@ namespace FilRouge.Services
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Diffulties</returns>
-        public List<Difficulty> GetDifficulties()
+        public static List<Difficulty> GetDifficulties()
         {
             List<Difficulty> desDifficulties = new List<Difficulty>();
             FilRougeDBContext db = new FilRougeDBContext();

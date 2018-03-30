@@ -5,14 +5,16 @@ namespace FilRouge.Entities.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FilRouge.Entities.Entity.FilRougeDBContext>
+    using FilRouge.Entities.Entities;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<FilRougeDBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(FilRouge.Entities.Entity.FilRougeDBContext context)
+        protected override void Seed(FilRougeDBContext context)
         {
             //  This method will be called after migrating to the latest version.
 

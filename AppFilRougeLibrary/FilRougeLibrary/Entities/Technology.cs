@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using FilRouge.Entities.Entity;
+using FilRouge.Entities.Entities;
 
-namespace FilRouge.Entities.Entity
+namespace FilRouge.Entities.Entities
 {
 
     public partial class Technology
     {
         #region Properties
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.IdEntities)]
         public int TechnoId { get; set; }
         public string TechnoName { get; set; }
         public bool Active { get; set; }

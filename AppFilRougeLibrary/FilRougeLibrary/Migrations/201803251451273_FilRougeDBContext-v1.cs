@@ -1,7 +1,7 @@
 namespace FilRouge.Entities.Migrations
 {
     using System;
-    using System.Data.Entity.Migrations;
+    using System.Data.Entities.Migrations;
     
     public partial class FilRougeDBContextv1 : DbMigration
     {
@@ -11,7 +11,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Contacts",
                 c => new
                     {
-                        UserId = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false, idEntities: true),
                         Name = c.String(),
                         Prenom = c.String(),
                         Tel = c.String(),
@@ -24,7 +24,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Quizzs",
                 c => new
                     {
-                        QuizzId = c.Int(nullable: false, identity: true),
+                        QuizzId = c.Int(nullable: false, idEntities: true),
                         Timer = c.Int(nullable: false),
                         EtatQuizz = c.Int(nullable: false),
                         NomUser = c.String(),
@@ -47,7 +47,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.DifficultyMasters",
                 c => new
                     {
-                        DiffMasterId = c.Int(nullable: false, identity: true),
+                        DiffMasterId = c.Int(nullable: false, idEntities: true),
                         DiffMasterName = c.String(),
                     })
                 .PrimaryKey(t => t.DiffMasterId);
@@ -56,7 +56,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Questions",
                 c => new
                     {
-                        QuestionId = c.Int(nullable: false, identity: true),
+                        QuestionId = c.Int(nullable: false, idEntities: true),
                         Content = c.String(),
                         Commentaire = c.String(),
                         Active = c.Boolean(nullable: false),
@@ -76,7 +76,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Difficulties",
                 c => new
                     {
-                        DifficultyId = c.Int(nullable: false, identity: true),
+                        DifficultyId = c.Int(nullable: false, idEntities: true),
                         DifficultyName = c.String(),
                     })
                 .PrimaryKey(t => t.DifficultyId);
@@ -85,7 +85,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Reponses",
                 c => new
                     {
-                        ReponseId = c.Int(nullable: false, identity: true),
+                        ReponseId = c.Int(nullable: false, idEntities: true),
                         Content = c.String(),
                         TrueReponse = c.Boolean(nullable: false),
                         QuestionId = c.Int(nullable: false),
@@ -98,7 +98,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.Technologies",
                 c => new
                     {
-                        TechnoId = c.Int(nullable: false, identity: true),
+                        TechnoId = c.Int(nullable: false, idEntities: true),
                         TechnoName = c.String(),
                         Active = c.Boolean(nullable: false),
                     })
@@ -108,7 +108,7 @@ namespace FilRouge.Entities.Migrations
                 "dbo.TypeQuestions",
                 c => new
                     {
-                        TypeQuestionId = c.Int(nullable: false, identity: true),
+                        TypeQuestionId = c.Int(nullable: false, idEntities: true),
                         NameType = c.String(),
                     })
                 .PrimaryKey(t => t.TypeQuestionId);

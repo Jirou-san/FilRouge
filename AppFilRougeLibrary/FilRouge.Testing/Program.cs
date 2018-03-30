@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace FilRouge.Testing
 {
+    using FilRouge.Entities.Entities;
 
     class Program
     {
@@ -21,14 +22,16 @@ namespace FilRouge.Testing
             //DBFiller.AddDatas();
             while (continuer.ToUpper() == "OUI")
             {
-                Console.WriteLine("1- Créer un quizz");
+                Console.WriteLine("1- Créer un quizz"+Environment.NewLine+
+                    "2- Ajouter des données" + Environment.NewLine +
+                    "3- Lire les difficultées");
                 Console.WriteLine("Choixissez une action à effectuer");
                 choix = int.Parse(Console.ReadLine());
                 bool librebool = false;
                 Contact existingData;
                 switch (choix)
                 {
-                    #region Case 1
+                    #region Créer un quizz
                     case 1:
                         Console.WriteLine("Selectionnez un id de difficultée");
                         int difficultId = int.Parse(Console.ReadLine());
@@ -90,6 +93,15 @@ namespace FilRouge.Testing
                         }
                         Console.WriteLine("Voulez-vous continuer?");
                         continuer = Console.ReadLine();
+                        break;
+                    #endregion
+                    #region Read technologies
+                    case 3:
+                        Console.WriteLine("Voici les difficultés possibles:");
+                        foreach (var difficulty in ReferencesService.GetDifficulties())
+                        {
+                            Console.WriteLine("Nom: " + difficulty.DifficultyName + Environment.NewLine);
+                        }
                         break;
                         #endregion
                 }
