@@ -72,6 +72,11 @@
     <Compile Include="Entities\Reponse.cs" />
     <Compile Include="Entities\TypeQuestion.cs" />
     <Compile Include="Entities\UserReponse.cs" />
+    <Compile Include="Migrations\201803300935517_FilRougeDBContext-v1.cs" />
+    <Compile Include="Migrations\201803300935517_FilRougeDBContext-v1.Designer.cs">
+      <DependentUpon>201803300935517_FilRougeDBContext-v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Questions.cs" />
     <Compile Include="Entities\Quizz.cs" />
@@ -86,6 +91,11 @@
     </None>
     <None Include="Entities\packages.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803300935517_FilRougeDBContext-v1.resx">
+      <DependentUpon>201803300935517_FilRougeDBContext-v1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

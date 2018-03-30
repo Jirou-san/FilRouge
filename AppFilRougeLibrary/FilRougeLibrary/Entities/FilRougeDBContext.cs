@@ -24,13 +24,13 @@ namespace FilRouge.Model.Entities
 
 
         public DbSet<Contact> Contact { get; set; }
-        public DbSet<DifficultyMaster> DifficultyMasters { get; set; }
-        public DbSet<Difficulty> Difficulties { get; set; }
-        public DbSet<DifficultyRate> DifficultyRates { get; set; }
-        public DbSet<Questions> Questions { get; set; }
+        public DbSet<DifficultyMaster> DifficultyMaster { get; set; }
+        public DbSet<Difficulty> Difficulty { get; set; }
+        public DbSet<DifficultyRate> DifficultyRate { get; set; }
+        public DbSet<Questions> Question { get; set; }
         public DbSet<Quizz> Quizz { get; set; }
         public DbSet<Reponses> Reponse { get; set; }
-        public DbSet<Technology> Technologies { get; set; }
+        public DbSet<Technology> Technology { get; set; }
         public DbSet<TypeQuestion> TypeQuestion { get; set; }
         public DbSet<UserReponse> UserReponse { get; set; }
 
