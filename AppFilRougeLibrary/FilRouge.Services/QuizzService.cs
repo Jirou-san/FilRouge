@@ -34,14 +34,14 @@ namespace FilRouge.Services
                 fluentQuery = db.Quizz.Single(e => e.QuizzId == id);
                 if(fluentQuery == null)
                 {
-                    throw new WrongIdQuizz("L'id saisie n'existe pas");
+                    throw new WrongIdQuizz(id);
                 }
                 db.Dispose();                
             }
-            catch(FormatException)
+            catch(FormatException e)
             {
                 db.Dispose();
-                Console.WriteLine("Veuillez saisir un id valide");
+                Console.WriteLine(e.Message );
             }
             return fluentQuery;
         }

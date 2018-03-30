@@ -1,6 +1,5 @@
 namespace FilRouge.Entities.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class FilRougeDBContextv1 : DbMigration
