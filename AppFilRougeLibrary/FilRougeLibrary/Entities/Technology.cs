@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using FilRouge.Model.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilRouge.Model.Entities
 {
@@ -15,7 +9,7 @@ namespace FilRouge.Model.Entities
     {
         #region Properties
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.IdEntities)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TechnoId { get; set; }
         public string TechnoName { get; set; }
         public bool Active { get; set; }

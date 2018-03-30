@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FilRouge.Entities.Entity;
 
 namespace FilRouge.Services
 {
-    using FilRouge.Entities.Entities;
+    using FilRouge.Model.Entities;
 
     /// <summary>
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz

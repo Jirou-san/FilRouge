@@ -12,8 +12,6 @@ namespace FilRouge.Model.Entities
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
-    using FilRouge.Model.Entity;
-
     public class FilRougeDBContext : DbContext
     {
         

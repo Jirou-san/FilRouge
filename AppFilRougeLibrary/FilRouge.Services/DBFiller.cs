@@ -1,17 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using FilRouge.Services;
-using FilRouge.Entities.Entity;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace FilRouge.Services
+﻿namespace FilRouge.Services
 {
-    using FilRouge.Entities.Entities;
+    using FilRouge.Model.Entities;
 
     /// <summary>
     /// Cette classe sert uniquement à ajouter des données brutes dans la base de donnée

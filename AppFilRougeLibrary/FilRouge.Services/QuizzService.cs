@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using FilRouge.Entities.Entity;
 namespace FilRouge.Services
 {
-    using FilRouge.Entities.Entities;
+    using FilRouge.Model.Entities;
 
     /// <summary>
     /// Services liés au quizz, pdf, gestion, mails, CRUD...
