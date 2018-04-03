@@ -17,7 +17,6 @@ namespace FilRouge.Model.Entities
         public int QuestionId { get; set; }
         public string Value { get; set; } //Stockage de la réponse libre
         public string Comment { get; set; }
-        public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
         public bool RefuseToAnswer { get; set; } // True pour a répondue, false pour l'inverse
         #endregion
         #region Association

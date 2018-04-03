@@ -59,6 +59,7 @@ namespace FilRouge.Entities.Migrations
                         Content = c.String(nullable: false, maxLength: 200),
                         Comment = c.String(maxLength: 500),
                         IsActive = c.Boolean(nullable: false),
+                        IsFreeAnswer = c.Boolean(nullable: false),
                         QuestionTypeId = c.Int(nullable: false),
                         TechnologyId = c.Int(nullable: false),
                         DifficultyId = c.Int(nullable: false),
@@ -127,7 +128,6 @@ namespace FilRouge.Entities.Migrations
                         QuestionId = c.Int(nullable: false),
                         Value = c.String(),
                         Comment = c.String(),
-                        IsFreeAnswer = c.Boolean(nullable: false),
                         RefuseToAnswer = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.QuestionQuizzId)
