@@ -15,7 +15,7 @@ namespace FilRouge.Model.Entities
     public class FilRougeDBContext : DbContext
     {
         
-        public FilRougeDBContext() :base("StringBDDAppliFilRouge")
+        public FilRougeDBContext() :base("name=ConnexionStringFilRouge")
         {
            //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
@@ -24,15 +24,15 @@ namespace FilRouge.Model.Entities
 
 
         public DbSet<Contact> Contact { get; set; }
-        public DbSet<DifficultyMaster> DifficultyMaster { get; set; }
+        public DbSet<QuestionQuizz> QuestionQuizz { get; set; }
         public DbSet<Difficulty> Difficulty { get; set; }
         public DbSet<DifficultyRate> DifficultyRate { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<Quizz> Quizz { get; set; }
-        public DbSet<Reponses> Reponse { get; set; }
+        public DbSet<Response> Response { get; set; }
         public DbSet<Technology> Technology { get; set; }
         public DbSet<TypeQuestion> TypeQuestion { get; set; }
-        public DbSet<UserReponse> UserReponse { get; set; }
+        public DbSet<UserResponse> UserResponse { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

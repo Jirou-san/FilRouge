@@ -6,22 +6,20 @@ namespace FilRouge.Model.Entities
     public partial class DifficultyRate
     {
         #region Properties
-        //Clé composée de l'id d'un quizz et d'une difficultée
         [Key]
-        [Column(Order = 0)]
-        [ForeignKey("DifficultyMaster")]
-        public int DifficultyMasterId { get; set; }
-        [Key]
-        [Column(Order = 1)]
-        [ForeignKey("Difficulty")]
-        public int DifficultyId { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int DifficultyRateId { get; set; }
+        [Required]
         public decimal Rate { get; set; }
+        //Clé étrangère
+        [ForeignKey("DifficultyQuizz")]
+        public int DifficultyQuizzId { get; set; }
+        [ForeignKey("DifficultyQuestion")]
+        public int DifficultyQuestionId { get; set; }
         #endregion
-
         #region Associations
-        public virtual Difficulty Difficulty { get; set; }
-        public virtual  DifficultyMaster DifficultyMaster { get; set; }
+        public virtual Difficulty DifficultyQuizz { get; set; }
+        public virtual Difficulty DifficultyQuestion { get; set; }
         #endregion
     }
 }

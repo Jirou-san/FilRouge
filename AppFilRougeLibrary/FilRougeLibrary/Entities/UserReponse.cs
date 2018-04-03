@@ -1,25 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace FilRouge.Model.Entities
 {
-    public partial class UserReponse
+    public partial class UserResponse
     {
         #region Proporties
         [Key]
         [Column(Order = 0)]
-        [ForeignKey("Quizz")]
-        public int QuizzId { get; set; }
+        [ForeignKey("QuestionQuizz")]
+        public int QuestionQuizzId { get; set; }
         [Key]
         [Column(Order = 1)]
-        [ForeignKey("Reponse")]
-        public int ReponseId { get; set; }
-        public string Valeur { get; set; }
+        [ForeignKey("Response")]
+        public int ResponseId { get; set; }
+
         #endregion
         #region Association
-        public Quizz Quizz { get; set; }
-        public Reponses Reponse{ get; set; }
+        public virtual Response Response { get; set; }
+        public virtual QuestionQuizz QuestionQuizz{ get; set; }
         #endregion
     }
 }

@@ -49,7 +49,7 @@ namespace FilRouge.Entities.Model
 
             question = new Question
             {
-                 Commentaire = questionModel.Comment
+                 //Commentaire = questionModel.Comment
 
             };
             return question;

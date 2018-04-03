@@ -10,9 +10,15 @@ namespace FilRouge.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int QuestionId { get; set; }
+        [MaxLength(200)]
+        [Required]
         public string Content { get; set; }
-        public string Commentaire { get; set; }
-        public bool Active { get; set; }
+        [MaxLength(500)]
+        public string Comment { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
+        public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
+
         //Clés étrangères
         [ForeignKey("TypeQuestion")]
         public int QuestionTypeId { get; set; }
@@ -23,8 +29,7 @@ namespace FilRouge.Model.Entities
         #endregion
         #region Association
 
-        public virtual ICollection<Quizz> Quizzs { get; set; }
-        public virtual ICollection<Reponses> Reponses { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
         public virtual Technology Technology{ get; set; }
         public virtual Difficulty Difficulty{ get; set; }
         public virtual TypeQuestion TypeQuestion { get; set; }

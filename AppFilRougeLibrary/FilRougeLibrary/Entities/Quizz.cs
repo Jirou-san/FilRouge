@@ -10,26 +10,31 @@ namespace FilRouge.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int QuizzId { get; set; }
-        public int EtatQuizz { get; set; } //Indique si le quizz non-fait, en cours ou terminé
-        public string NomUser { get; set; }
-        public string PrenomUser { get; set; }
-        public bool QuestionLibre { get; set; } //true oui et false pour non
-        public int NombreQuestion { get; set; } //nombre de questions à intégrer au quizz
+        [Required]
+        public int QuizzState { get; set; } //0 for not started, 1 for in progress, 2 for done
+        [MaxLength(20)]
+        [Required]
+        public string UserLastName { get; set; }
+        [MaxLength(20)]
+        [Required]
+        public string UserFirstName { get; set; }
+        [Required]
+        public bool HasFreeQuestion { get; set; } //0 for yes & 1 for no
+        [Required]
+        public int QuestionCount { get; set; } //number of questions for the current quizz
         //Clés étrangères
-        [ForeignKey("DifficultyMaster")]
-        public int DifficultyMasterId { get; set; }
         [ForeignKey("Technology")]
         public int TechnologyId {get; set;}
         [ForeignKey("Contact")]
         public int ContactId { get; set; }
+        [ForeignKey("Difficulty")]
+        public int DifficultyId { get; set; }
         #endregion
         #region Association
 
-        public virtual DifficultyMaster DifficultyMaster { get; set; }
         public virtual Technology Technology { get; set; }
         public virtual Contact Contact { get; set; }
-        public virtual List<Question> Questions { get; set; }
-
+        public virtual Difficulty Difficulty { get; set; }
         #endregion
     }
 }
