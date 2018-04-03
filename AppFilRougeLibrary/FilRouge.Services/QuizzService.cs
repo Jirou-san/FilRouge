@@ -62,7 +62,7 @@ namespace FilRouge.Services
         }
 
 
-        private List<int> AddQuestions(int technologyId, int difficultyId, int numberQuestions, bool isFreeAnswer = false)
+        private List<int> AddQuestions(string userLastName, string userFirstName, string externalNum, int technologyId, int difficultyId, int numberQuestions, bool isFreeAnswer = false)
         {
             FilRougeDBContext db = new FilRougeDBContext();
 
@@ -70,10 +70,25 @@ namespace FilRouge.Services
                                     .Where(e =>
                                         ((e.TechnologyId == technologyId)
                                         && (e.DifficultyId == difficultyId)
-         // A décommenter après modifs entities                               && (e.IsFreeAnswer == isFreeAnswer=)
-                                        ));
+                                        && (e.IsFreeAnswer == isFreeAnswer)
+                                        ))
+                                    .Select(e => e.QuestionId);
 
-            var questionsDejaPosees = db.QuestionQuizz;
+            var questionsDejaPosees = db.QuestionQuizz
+                                    
+                                    .Where(e =>
+                                        ((e.Question.TechnologyId== technologyId)
+                                        && (e.Question.DifficultyId == difficultyId)
+                                        && (e.Question.IsFreeAnswer == isFreeAnswer)
+                                        && (e.Quizz.UserFirstName == userFirstName)
+                                        && (e.Quizz.UserLastName == userLastName)
+            //                            && (e.Quizz.ExternalNum == externalNum)
+                                    ));
+
+            var questionsPossiblesUtilisateur = questionsPossibles
+                                                .Where(
+                                                )
+                                                ;
             return null;
         }
     }
