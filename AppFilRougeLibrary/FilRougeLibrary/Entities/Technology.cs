@@ -11,13 +11,16 @@ namespace FilRouge.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TechnoId { get; set; }
+        [MaxLength(20)]
+        [Required]
         public string TechnoName { get; set; }
-        public bool Active { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
         #endregion
         #region Association
         public virtual List<Quizz> Quizzs { get; set; }
-        public virtual List<Questions> Questions { get; set; }
+        public virtual List<Question> Questions { get; set; }
         #endregion
     }
 }

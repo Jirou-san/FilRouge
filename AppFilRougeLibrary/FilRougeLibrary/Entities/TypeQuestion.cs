@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FilRouge.Model.Entities
 {
@@ -6,11 +7,13 @@ namespace FilRouge.Model.Entities
     {
         #region Properties
         public int TypeQuestionId { get; set; }
+        [MaxLength(20)]
+        [Required]
         public string NameType { get; set; }
 
         #endregion
         #region Association
-        public virtual List<Questions> Question { get; set; }
+        public virtual List<Question> Question { get; set; }
         #endregion
     }
 }

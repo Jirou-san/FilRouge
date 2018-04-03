@@ -50,7 +50,6 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBFiller.cs" />
     <Compile Include="QuizzExceptions.cs" />
     <Compile Include="QuizzService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
