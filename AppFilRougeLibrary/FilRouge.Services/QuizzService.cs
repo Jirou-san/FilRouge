@@ -66,15 +66,15 @@ namespace FilRouge.Services
         {
             FilRougeDBContext db = new FilRougeDBContext();
 
-            var questionsPossibles = db.Question
+            List<int> questionsPossibles = db.Question
                                     .Where(e =>
                                         ((e.TechnologyId == technologyId)
                                         && (e.DifficultyId == difficultyId)
                                         && (e.IsFreeAnswer == isFreeAnswer)
                                         ))
-                                    .Select(e => e.QuestionId);
+                                    .Select(e => e.QuestionId).ToList();
 
-            var questionsDejaPosees = db.QuestionQuizz
+            List<int> questionsDejaPosees = db.QuestionQuizz
                                     
                                     .Where(e =>
                                         ((e.Question.TechnologyId== technologyId)
@@ -83,13 +83,42 @@ namespace FilRouge.Services
                                         && (e.Quizz.UserFirstName == userFirstName)
                                         && (e.Quizz.UserLastName == userLastName)
             //                            && (e.Quizz.ExternalNum == externalNum)
-                                    ));
+                                    ))
+                                    .Select(e => e.QuestionId).ToList();
 
             var questionsPossiblesUtilisateur = questionsPossibles
-                                                .Where(
-                                                )
-                                                ;
-            return null;
+                                                .Where(e=> !(questionsDejaPosees.Contains(e))).ToList();
+
+            var myRandom = new Random();
+            int index = 0;
+            List<int> questionsARetourner = new List<int>();
+            if (questionsPossiblesUtilisateur.Count() >= numberQuestions)
+            {
+                // La liste des questions disponible est suffisante, 
+                // il ne sera pas nécessaire de repiocher dans les questions déjà passées
+
+                for (int x=0; x<questionsARetourner.Count(); x++)
+                {
+                    // On va piocher au hasard dans les questions
+                    index=myRandom.Next(0, questionsPossiblesUtilisateur.Count() - 1);
+                    // On affecte 
+                    questionsARetourner.Add(questionsPossiblesUtilisateur[index]);
+                    // On supprimme de la liste d'origine
+                    questionsPossiblesUtilisateur.RemoveAt(index);
+                }
+
+            }
+            else
+            {
+                // La liste des questions disponible est insuffisante, 
+                // il sera nécessaire de repiocher dans les questions déjà passées
+
+                // On prend toutes les questions possibles
+
+                // On pioche au hasard dans les n questions manquantes
+            }
+
+            return questionsARetourner;
         }
     }
 //        #region Methods
