@@ -1,24 +1,84 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//namespace FilRouge.Services
-//{
-//    using FilRouge.Model.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace FilRouge.Services
+{
+    using FilRouge.Model.Entities;
 
-//    /// <summary>
-//    /// Services liés au quizz, pdf, gestion, mails, CRUD...
-//    /// </summary>
-//    public class QuizzService 
-//    {
-//        #region Properties
+    /// <summary>
+    /// Services liés au quizz, pdf, gestion, mails, CRUD...
+    /// </summary>
+    public class QuizzService
+    {
+        #region Properties
 
-//        #endregion
-//        /// <summary>
-//        /// Constructeur de la classe de QuizzService
-//        /// </summary>
-//        public QuizzService() { } //Constructeur
+        #endregion
+        /// <summary>
+        /// Constructeur de la classe de QuizzService
+        /// </summary>
+        public QuizzService() { } //Constructeur
+
+        /// <summary>
+        /// Méthode pour crééer un Quiz
+        /// </summary>
+        /// <param name="userId"></param> // Id de la personne qui a généré le quiz
+        /// <param name="technologyId"></param> // Technologie du quiz
+        /// <param name="difficultyId"></param> // Difficulté du quiz
+        /// <param name="userLastName"></param> // Nom du candidant
+        /// <param name="userFirstName"></param> // Prénom du candidant
+        /// <param name="externalNum"></param> // Identifaint du candidat fonctionnellement optionnel provenant d'un outil de gestion des RH 
+        /// <param name="numberQuestions"></param> // Nombre de questions du quiz
+        /// <param name="freeAnswerMax"></param> // Nombre maximum de questions libres à poser (0 par défaut) 
+        /// <param name="freeAnswerMin"></param> // Nombre minimum de questions libres à poser (0 par défaut)
+        public void CreateQuizz(int userId, int technologyId, int difficultyId, string userLastName, string userFirstName, string externalNum, int numberQuestions, int freeAnswerMax=0, int freeAnswerMin = 0)
+        {
+            // Reste à faire : Gestion des erreurs (ex : pas d'enregistrement trouvé)
+            FilRougeDBContext db = new FilRougeDBContext();
+
+            var myDifficulties = db.DifficultyRate
+                                 .Where(e=>e.DifficultyQuizzId==difficultyId)    
+                ;
+
+            int myCount=0; // Stock le total de questions
+            int tempNbQuestions;
+            Dictionary<int, int> difficulties = new Dictionary<int, int>();
+
+            foreach (var myDifficulty in myDifficulties)
+            {
+                
+                tempNbQuestions = (int) Math.Ceiling(myDifficulty.Rate * numberQuestions);
+                myCount += tempNbQuestions;
+
+                //Gestion du nombre de questions effectives qui dépasse le nombre de questions demandées
+                if (myCount > numberQuestions)
+                {
+                    tempNbQuestions -= myCount - numberQuestions;
+                }
+                difficulties.Add(myDifficulty.DifficultyQuestionId, tempNbQuestions);
+            }
+            // difficulties stocke le nombre de questions à poser pour chaque pour chaque difficultée
+
+
+        }
+
+
+        private List<int> AddQuestions(int technologyId, int difficultyId, int numberQuestions, bool isFreeAnswer = false)
+        {
+            FilRougeDBContext db = new FilRougeDBContext();
+
+            var questionsPossibles = db.Question
+                                    .Where(e =>
+                                        ((e.TechnologyId == technologyId)
+                                        && (e.DifficultyId == difficultyId)
+         // A décommenter après modifs entities                               && (e.IsFreeAnswer == isFreeAnswer=)
+                                        ));
+
+            var questionsDejaPosees = db.QuestionQuizz
+            return null;
+        }
+    }
 //        #region Methods
-        
+
 //        /// <summary>
 //        /// Méthode permettant d'obtenir un quizz en fonction de son id
 //        /// Fonctionne avec une fluentQuerry
@@ -71,7 +131,7 @@
 //            {
 //                db.Dispose();
 //            }
-            
+
 //            return desQuizz;
 //        }
 //        /// <summary>
@@ -83,7 +143,7 @@
 //        /// <param name="nombrequestions"></param>
 //        /// <returns></returns>
 //        ///
-        
+
 //        public static List<Question> AddQuestionToQuizz(bool questionlibre, int nombrequestions, int technoid, int difficultymasterid)
 //        {
 //            Random rand = new Random();
@@ -129,7 +189,7 @@
 //                Console.WriteLine(e.Message);
 //                db.Dispose();
 //            }
-           
+
 
 //            return sortedQuestionsQuizz;
 //        }
@@ -153,7 +213,7 @@
 //                Contact creatingQuizzContact = db.Contact.Single(e => e.UserId == userid);
 //                DifficultyMaster difficultyQuizz = db.DifficultyMaster.Single(e => e.DiffMasterId == difficultymasterid);
 //                Technology technoQuizz = db.Technology.Single(e => e.TechnoId == technoid);
-                
+
 //                Quizz unQuizz = new Quizz
 //                {
 //                    ContactId = userid,
@@ -191,4 +251,4 @@
 //        }
 //        #endregion
 //    }
-//}
+}
