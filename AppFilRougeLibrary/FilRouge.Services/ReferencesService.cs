@@ -9,7 +9,7 @@ namespace FilRouge.Services
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
     /// </summary>
-    public static class ReferencesService
+    public class ReferencesService
     {
         #region Properties
         #endregion
@@ -20,7 +20,7 @@ namespace FilRouge.Services
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Technologies</returns>
-        public static List<Technology> GetTechnologies()
+        public List<Technology> GetTechnologies()
         {
             
             List<Technology> desTechnologies =new List<Technology>();
@@ -33,12 +33,20 @@ namespace FilRouge.Services
             db.Dispose();
             return desTechnologies;
         }
+        public Technology GetTechnologyById(int id)
+        {
+
+            FilRougeDBContext db = new FilRougeDBContext();
+            var fluentQuery = db.Technology.Single(e => e.TechnoId == id);
+            db.Dispose();
+            return fluentQuery;
+        }
         /// <summary>
         /// Cette méthode permet de récupérer toutes les difficultés
         /// Fonctionne avec une fluentQuerry
         /// </summary>
         /// <returns>Retourne une liste d'objets Diffulties</returns>
-        public static List<Difficulty> GetDifficulties()
+        public List<Difficulty> GetDifficulties()
         {
             List<Difficulty> desDifficulties = new List<Difficulty>();
             FilRougeDBContext db = new FilRougeDBContext();

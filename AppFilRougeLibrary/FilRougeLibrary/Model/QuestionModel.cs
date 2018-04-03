@@ -9,6 +9,7 @@ namespace FilRouge.Entities.Model
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
+    using FilRouge.Entities.Model;
     using FilRouge.Model.Entities;
 
     public class QuestionModel
@@ -32,7 +33,8 @@ namespace FilRouge.Entities.Model
 
             questionModel = new QuestionModel
              {
-                    Content = question.Content
+                 Content = question.Content
+                 
              };
             return questionModel;
         }
@@ -46,8 +48,9 @@ namespace FilRouge.Entities.Model
             }
 
             question = new Question
-                                {
-                                    Content = questionModel.Content
+            {
+                 Commentaire = questionModel.Comment
+
             };
             return question;
         }

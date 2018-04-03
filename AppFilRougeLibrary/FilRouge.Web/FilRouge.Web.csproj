@@ -186,12 +186,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TechnoController.cs" />
+    <Compile Include="Controllers\TechnologiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,9 +255,17 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Technologies\Create.cshtml" />
+    <Content Include="Views\Technologies\Delete.cshtml" />
+    <Content Include="Views\Technologies\Details.cshtml" />
+    <Content Include="Views\Technologies\Edit.cshtml" />
+    <Content Include="Views\Technologies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Question\" />
+    <Folder Include="Views\Quizz\" />
+    <Folder Include="Views\Techno\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -271,6 +279,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FilRouge.Services\FilRouge.Services.csproj">
+      <Project>{0aefc636-93b9-4981-a7ec-26b359ae1375}</Project>
+      <Name>FilRouge.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FilRougeLibrary\FilRouge.Model.csproj">
+      <Project>{26a802cc-f50e-4be0-91d9-470c77fa6540}</Project>
+      <Name>FilRouge.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
