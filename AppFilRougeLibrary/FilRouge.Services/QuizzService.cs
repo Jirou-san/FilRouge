@@ -57,7 +57,18 @@ namespace FilRouge.Services
                 difficulties.Add(myDifficulty.DifficultyQuestionId, tempNbQuestions);
             }
             // difficulties stocke le nombre de questions à poser pour chaque pour chaque difficultée
-
+            foreach(var difficulty in difficulties)
+            {
+                int i = 0;
+                //Faire les questions libre avec le random
+                if (freeAnswerMax > 0)
+                {
+                    //Si les quantités 
+                    i = myRandom.Next(freeAnswerMin, Math.Min(freeAnswerMax, difficulty.Value));
+                    AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, i, true);
+                }
+                AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, difficulty.Value-i, false);
+            }
 
         }
 
@@ -114,8 +125,25 @@ namespace FilRouge.Services
                 // il sera nécessaire de repiocher dans les questions déjà passées
 
                 // On prend toutes les questions possibles
-
-                // On pioche au hasard dans les n questions manquantes
+                foreach (var question in questionsPossiblesUtilisateur)
+                {
+                    questionsARetourner.Add(question);
+                }
+                // On pioche au hasard dans les questions déjà passées
+                    // On s'assure d'avoir suffisamment de questions pour réaliser l'action
+                if ((questionsARetourner.Count()+questionsDejaPosees.Count()) < numberQuestions)
+                {
+                    throw new Exception("Impossible d'aller au bout de la génération ! \nPas assez de questions pour générer le quiz.");
+                }
+                else
+                {
+                    // On va piocher au hasard dans les questions
+                    index = myRandom.Next(0, questionsDejaPosees.Count() - 1);
+                    // On affecte 
+                    questionsARetourner.Add(questionsDejaPosees[index]);
+                    // On supprimme de la liste d'origine
+                    questionsDejaPosees.RemoveAt(index);
+                }
             }
 
             return questionsARetourner;
