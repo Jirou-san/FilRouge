@@ -73,7 +73,7 @@ namespace FilRouge.Services
          // A décommenter après modifs entities                               && (e.IsFreeAnswer == isFreeAnswer=)
                                         ));
 
-            var questionsDejaPosees = db.QuestionQuizz
+            var questionsDejaPosees = db.QuestionQuizz;
             return null;
         }
     }
