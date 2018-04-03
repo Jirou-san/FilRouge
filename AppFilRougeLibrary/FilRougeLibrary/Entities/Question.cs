@@ -17,6 +17,8 @@ namespace FilRouge.Model.Entities
         public string Comment { get; set; }
         [Required]
         public bool IsActive { get; set; }
+        public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
+
         //Clés étrangères
         [ForeignKey("TypeQuestion")]
         public int QuestionTypeId { get; set; }
