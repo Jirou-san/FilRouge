@@ -1,0 +1,34 @@
+﻿@model FilRouge.Web.Models.QuestionViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Question - Detail</h2>
+<hr />
+<h3> @Html.DisplayFor(modelItem => modelItem.Content)</h3>
+
+<table class="table table-dark table-hover">
+    <tr>
+        <th>
+            Answer
+        </th>
+        <th>
+            True Answer
+        </th>
+
+        @foreach (var reponse in Model.Reponses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => reponse.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => reponse.TrueReponse)
+                </td>
+            </tr>
+        }
+    </table>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
