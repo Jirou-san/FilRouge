@@ -8,7 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using FilRouge.Web.Models;
+using FilRouge.Model;
+using FilRouge.Model.Models;
 
 namespace FilRouge.Web.Controllers
 {
