@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using FilRouge.Model.Entities;
 using FilRouge.Services;
-using FilRouge.Model;
 using FilRouge.Model.Models;
 using Map = FilRouge.Model.Models.Map;
 

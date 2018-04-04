@@ -48,7 +48,12 @@ namespace FilRouge.Services
 
             using (var db = new FilRougeDBContext())
             {
-                question = db.Question.Include("Reponses").SingleOrDefault(x => x.QuestionId == id);
+                question = db.Question
+                                .Include("Responses")
+                                .Include("Technology")
+                                .Include("TypeQuestion")
+                                .Include("Difficulty")
+                            .SingleOrDefault(x => x.QuestionId == id);
             }
             return question;
         }

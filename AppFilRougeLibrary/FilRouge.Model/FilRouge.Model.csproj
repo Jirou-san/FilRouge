@@ -110,7 +110,7 @@
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\QuestionQuizz.cs" />
     <Compile Include="Entities\Quizz.cs" />
-    <Compile Include="Entities\Reponse.cs" />
+    <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\TypeQuestion.cs" />
     <Compile Include="Entities\UserReponse.cs" />
