@@ -269,16 +269,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FilRouge.Services\FilRouge.Services.csproj">
-      <Project>{0aefc636-93b9-4981-a7ec-26b359ae1375}</Project>
-      <Name>FilRouge.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FilRougeLibrary\FilRouge.Model.csproj">
-      <Project>{26a802cc-f50e-4be0-91d9-470c77fa6540}</Project>
-      <Name>FilRouge.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
