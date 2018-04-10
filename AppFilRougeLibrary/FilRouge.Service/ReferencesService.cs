@@ -10,7 +10,7 @@ namespace FilRouge.Services
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
     /// </summary>
-    public class ReferencesService
+    public class ReferencesService : IReferenceService
     {
         #region Question
         /// <summary>
@@ -126,31 +126,13 @@ namespace FilRouge.Services
         /// Cette fonction permet d'afficher une technologie
         /// </summary>
         /// <returns>Retourne technologie</returns>
-        public Technology GetTechnologyById(int id)
+        public Technology GetTechnology(int id)
         {
 
             FilRougeDBContext db = new FilRougeDBContext();
             var fluentQuery = db.Technology.Single(e => e.TechnoId == id);
             db.Dispose();
             return fluentQuery;
-        }
-
-        /// <summary>
-        /// Cette méthode permet de récupérer toutes les difficultés
-        /// Fonctionne avec une fluentQuerry
-        /// </summary>
-        /// <returns>Retourne une liste d'objets Diffulties</returns>
-        public List<Difficulty> GetDifficulties()
-        {
-            List<Difficulty> desDifficulties = new List<Difficulty>();
-            FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Difficulty.Select(e => e);
-            foreach (var item in fluentQuery)
-            {
-                desDifficulties.Add(item);
-            }
-            db.Dispose();
-            return desDifficulties;
         }
 
         /// <summary>
@@ -182,6 +164,21 @@ namespace FilRouge.Services
             }
             return difficulties;
         }
+
+        /// <summary>
+        /// Cette méthode permet d'afficher une difficulté
+        /// </summary>
+        /// <returns>Retourne une diffuclté par son id</returns>
+        public Difficulty GetDifficulty(int id)
+        {
+            var difficulty = new Difficulty();
+            using (var db = new FilRougeDBContext())
+            {
+                difficulty = db.Difficulty.Find(id);
+            }
+            return difficulty;
+        }
+
         #endregion
 
         #region Type
@@ -198,6 +195,21 @@ namespace FilRouge.Services
             }
             return types;
         }
+
+        /// <summary>
+        /// Cette méthode permet d'afficher toutes les types
+        /// </summary>
+        /// <returns>Retourne la liste des types</returns>
+        public List<TypeQuestion> GetTypeQuestion()
+        {
+            var types = new List<TypeQuestion>();
+            using (var db = new FilRougeDBContext())
+            {
+                types = db.TypeQuestion.ToList();
+            }
+            return types;
+        }
+
         #endregion
     }
 }

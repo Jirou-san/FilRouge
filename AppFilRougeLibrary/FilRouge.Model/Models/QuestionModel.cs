@@ -17,7 +17,6 @@ namespace FilRouge.Model.Models
         [DisplayName("Question:")]
         public string Content { get; set; }
         //public string Comment { get; set; }
-        public bool Active { get; set; }
         public string Difficulty { get; set; }
         public string Technology { get; set; }
         public string Type { get; set; }

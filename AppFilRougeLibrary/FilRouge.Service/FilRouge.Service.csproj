@@ -56,6 +56,8 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IQuizzService.cs" />
+    <Compile Include="IReferenceService..cs" />
     <Compile Include="QuizzExceptions.cs" />
     <Compile Include="QuizzService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
