@@ -3,12 +3,13 @@ using FilRouge.Model.Entities;
 
 namespace FilRouge.Model.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     public class QuizzModel
     {
         public int StateQuizz { get; set; }
-        public int TechnologyId { get; set; }
+        public string Technology { get; set; }
         public int QuestionCount { get; set; }
         [DisplayName("Lastname")]
         [MinLength(1)]
@@ -18,6 +19,7 @@ namespace FilRouge.Model.Models
         [MinLength(1)]
         [MaxLength(20)]
         public string UserFirstname { get; set; } // Prénom
+        public DateTime DateQuizz { get; set; }
     }
     //Classe partielle Map servant à passer d'un viewModel à un Model et inversement
     public static partial class Map
@@ -33,11 +35,11 @@ namespace FilRouge.Model.Models
             QuizzModel = new QuizzModel
              {
                  QuestionCount = Quizz.QuestionCount,
-                 TechnologyId = Quizz.TechnologyId,
+                 Technology = Quizz.Technology.TechnoName,
                  UserFirstname = Quizz.UserFirstName,
-                 UserLastname = Quizz.UserLastName
-                    
-             };
+                 UserLastname = Quizz.UserLastName,
+                 //DateQuizz = Quizz.
+            };
             return QuizzModel;
 
         }
@@ -54,8 +56,7 @@ namespace FilRouge.Model.Models
             {
                 UserLastName = QuizzModel.UserLastname,
                 UserFirstName = QuizzModel.UserFirstname,
-                QuestionCount = QuizzModel.QuestionCount,
-                TechnologyId = QuizzModel.TechnologyId
+                QuestionCount = QuizzModel.QuestionCount
             };
             return Quizz;
         }
