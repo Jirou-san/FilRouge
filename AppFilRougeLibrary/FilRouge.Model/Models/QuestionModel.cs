@@ -8,13 +8,16 @@ using FilRouge.Model.Entities;
 
 namespace FilRouge.Model.Models
 {
-
+    using System.ComponentModel.DataAnnotations;
 
     public class QuestionModel
     {
         public int QuestionId { get; set; }
         //[Display(Name = "Question", Prompt = "Entrez une question", Description = "Question unique ou multiple")]
-        [DisplayName("Question:")]
+        [DisplayName("Question")]
+        [MinLength(1)]
+        [MaxLength(250)]
+        //Aussi annoté dans le code first de la base de données
         public string Content { get; set; }
         //public string Comment { get; set; }
         public bool Active { get; set; }
@@ -24,7 +27,7 @@ namespace FilRouge.Model.Models
         public List<Response> Reponses { get; set; }
 
     }
-
+    //Classe partielle Map servant à passer d'un viewModel à un Model et inversement
     public static partial class Map
     {
         public static QuestionModel MapToQuestionViewModelFull(this Question question)
