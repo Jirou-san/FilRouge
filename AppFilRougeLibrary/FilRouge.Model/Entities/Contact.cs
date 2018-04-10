@@ -21,7 +21,6 @@ namespace FilRouge.Model.Entities
         [MaxLength(30)]
         [Required]
         public string Mail { get; set; }
-        [Required]
         public bool Type { get; set; } //0 for & 1 for agent
         #endregion
         #region Association

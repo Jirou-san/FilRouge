@@ -3,7 +3,7 @@ namespace FilRouge.Model.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class First : DbMigration
+    public partial class FilRougeV1 : DbMigration
     {
         public override void Up()
         {

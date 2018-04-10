@@ -12,7 +12,6 @@ namespace FilRouge.Model.Entities
         [MaxLength(100)]
         [Required]
         public string Content { get; set; }
-        [Required]
         public bool IsTrue { get; set; }
         //Clés étrangères
         [ForeignKey("Question")]

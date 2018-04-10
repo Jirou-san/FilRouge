@@ -14,7 +14,6 @@ namespace FilRouge.Model.Entities
         [MaxLength(20)]
         [Required]
         public string TechnoName { get; set; }
-        [Required]
         public bool IsActive { get; set; }
 
         #endregion

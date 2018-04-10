@@ -95,9 +95,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201804041838108_First.cs" />
-    <Compile Include="Migrations\201804041838108_First.Designer.cs">
-      <DependentUpon>201804041838108_First.cs</DependentUpon>
+    <Compile Include="Migrations\201804101002402_FilRougeV1.cs" />
+    <Compile Include="Migrations\201804101002402_FilRougeV1.Designer.cs">
+      <DependentUpon>201804101002402_FilRougeV1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -123,8 +123,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804041838108_First.resx">
-      <DependentUpon>201804041838108_First.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804101002402_FilRougeV1.resx">
+      <DependentUpon>201804101002402_FilRougeV1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
