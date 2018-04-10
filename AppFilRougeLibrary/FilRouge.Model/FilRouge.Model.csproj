@@ -107,7 +107,6 @@
       <DependentUpon>201804101002402_FilRougeV1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Difficulty.cs" />
     <Compile Include="Entities\DifficultyRate.cs" />
@@ -120,8 +119,6 @@
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\TypeQuestion.cs" />
     <Compile Include="Entities\UserReponse.cs" />
-    <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="Models\QuizzModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
