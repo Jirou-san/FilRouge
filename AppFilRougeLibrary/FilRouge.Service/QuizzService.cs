@@ -25,10 +25,10 @@
 //            using (var db = new FilRougeDBContext())
 //            {
 
-//                var last =  db.Quizz
+//                var last = db.Quizz
 //                    .FirstOrDefault(q => q.QuizzId == idQuizz)
 //                    .UserReponse.FirstOrDefault().Quizz.Questions.FirstOrDefault();
-                    
+
 
 
 //                return last;
@@ -49,7 +49,7 @@
 
 
 //                //    db.Question.Select(q => q.Content != null).FirstOrDefault();
-               
+
 //                //         var UserInRole = db.Question.
 //                //                Join(db.Quizz, 
 //                //                        u => u.QuestionId,
@@ -57,7 +57,7 @@
 //                //                        (u, uir) => new { u, uir }).
 //                //                        return db.Quizz.Find(idQuizz)
 //                //        //.Questions.Where(question => question.Active == true).FirstOrDefault();
-//            } 
+//            }
 
 
 
