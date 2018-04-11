@@ -7,22 +7,17 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using Microsoft.AspNet.Identity.EntityFramework;
-
 namespace FilRouge.Model.Entities
 {
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    
-    public class FilRougeDBContext : IdentityDbContext<ApplicationUser>
+
+    public class FilRougeDBContext : DbContext
     {
         
-        public FilRougeDBContext() :base("name=ConnexionStringFilRouge")
+        public FilRougeDBContext() :base("name=StringConnexion")
         {
-           //Database.SetInitializer(new FilRougeDbContextInit());
+           //Database.SetInitializer(new DropCreateDatabaseAlways<FilRougeDBContext>()); //Pour la création de la base
            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }
         //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
@@ -42,7 +37,6 @@ namespace FilRouge.Model.Entities
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

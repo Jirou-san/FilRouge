@@ -18,7 +18,6 @@ namespace FilRouge.Model.Entities
         [MaxLength(20)]
         [Required]
         public string UserFirstName { get; set; }
-        [Required]
         public bool HasFreeQuestion { get; set; } //0 for yes & 1 for no
         [Required]
         public int QuestionCount { get; set; } //number of questions for the current quizz

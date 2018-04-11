@@ -15,6 +15,7 @@ namespace FilRouge.Model.Entities
         public string Content { get; set; }
         [MaxLength(500)]
         public string Comment { get; set; }
+        [Required]
         public bool IsActive { get; set; }
         public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
 
