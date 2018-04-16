@@ -10,9 +10,11 @@ namespace FilRouge.Model.Entities
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DifficultyId { get; set; }
+        public int Id { get; set; }
+        [Index("IdxDisplayNum")]
+        public int DisplayNum { get; set; }
         [Required]
-        public string DifficultyName { get; set; }
+        public string Name { get; set; }
         #endregion
         #region Associations
         public virtual List<Quizz> Quizzs { get; set; }
