@@ -42,7 +42,7 @@ namespace FilRouge.Services
         /// Cette méthode permet d'afficher le detail d'une question
         /// </summary>
         /// <returns>Retourne une Question</returns>
-        public Question ShowQuestion(int? id)
+        /*public Question ShowQuestion(int? id)
         {
             var question = new Question();
 
@@ -56,7 +56,7 @@ namespace FilRouge.Services
                             .SingleOrDefault(x => x.QuestionId == id);
             }
             return question;
-        }
+        }*/
         
         /// <summary>
         /// Cette méthode permet d'afficher une question (sans détail)
@@ -90,7 +90,7 @@ namespace FilRouge.Services
         /// Cette méthode permet de supprimer une question
         /// </summary>
         /// <returns>Retourne l'id de la question supprimée</returns>
-        public int DeleteQuestion(int id)
+       /* public int DeleteQuestion(int id)
         {
             using (var db = new FilRougeDBContext())
             {
@@ -99,7 +99,7 @@ namespace FilRouge.Services
                 db.Question.Remove(question);
                 return db.SaveChanges();
             }
-        }
+        }*/
         #endregion
 
         #region Technology
@@ -126,14 +126,14 @@ namespace FilRouge.Services
         /// Cette fonction permet d'afficher une technologie
         /// </summary>
         /// <returns>Retourne technologie</returns>
-        public Technology GetTechnologyById(int id)
+        /*public Technology GetTechnologyById(int id)
         {
 
             FilRougeDBContext db = new FilRougeDBContext();
             var fluentQuery = db.Technology.Single(e => e.TechnoId == id);
             db.Dispose();
             return fluentQuery;
-        }
+        }*/
 
         /// <summary>
         /// Cette méthode permet de récupérer toutes les difficultés
@@ -189,7 +189,7 @@ namespace FilRouge.Services
         /// Cette méthode permet d'afficher toutes les types
         /// </summary>
         /// <returns>Retourne la liste des types</returns>
-        public List<TypeQuestion> GetAllType()
+        /*public List<TypeQuestion> GetAllType()
         {
             var types = new List<TypeQuestion>();
             using (var db = new FilRougeDBContext())
@@ -197,7 +197,7 @@ namespace FilRouge.Services
                 types = db.TypeQuestion.ToList();
             }
             return types;
-        }
+        }*/
         #endregion
     }
 }
