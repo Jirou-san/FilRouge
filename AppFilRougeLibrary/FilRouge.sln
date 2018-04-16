@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Web", "FilRouge.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.API", "FilRouge.API\FilRouge.API.csproj", "{5CE60B38-B1AD-4973-A7EC-32D087BF8F23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Tests", "FilRouge.Tests\FilRouge.Tests.csproj", "{465E3BD9-592D-424B-A063-39113F5A407F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5CE60B38-B1AD-4973-A7EC-32D087BF8F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CE60B38-B1AD-4973-A7EC-32D087BF8F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CE60B38-B1AD-4973-A7EC-32D087BF8F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{465E3BD9-592D-424B-A063-39113F5A407F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465E3BD9-592D-424B-A063-39113F5A407F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465E3BD9-592D-424B-A063-39113F5A407F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465E3BD9-592D-424B-A063-39113F5A407F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
