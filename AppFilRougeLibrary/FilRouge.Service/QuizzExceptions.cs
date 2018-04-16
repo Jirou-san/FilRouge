@@ -13,6 +13,59 @@ namespace FilRouge.Services
             _msg = message;
         }
     }
+
+    #region Not Found (by id)
+    /// <summary>
+    /// Handle difficulty not found (by id) error
+    /// </summary>
+    public sealed class DifficultyNotFound : Exception
+    {
+        public string _msg;
+        public DifficultyNotFound(int id)
+        {
+            _msg = string.Format($"No difficulty found with the id: {id}");
+        }
+    }
+
+    /// <summary>
+    /// Handle technology not found (by id) error
+    /// </summary>
+    public sealed class TechnologyNotFound : Exception
+    {
+        public string _msg;
+        public TechnologyNotFound(int id)
+        {
+            _msg = string.Format($"No technology found with the id: {id}");
+        }
+    }
+
+    /// <summary>
+    /// Handle question not found (by id) error
+    /// </summary>
+    public sealed class QuestionNotFoundExeption : Exception
+    {
+        public string _msg;
+        public QuestionNotFoundExeption(int id)
+        {
+            _msg = string.Format($"No question found with the id: {id}");
+        }
+    }
+
+    /// <summary>
+    /// Handle question not found (by quizzId) error
+    /// </summary>
+    public sealed class QuestionsNotFoundException : Exception
+    {
+        public string _msg;
+        public QuestionsNotFoundException(int idQuizz)
+        {
+            _msg = string.Format($"No question found for the quizz id: {idQuizz}");
+        }
+    }
+    QuestionsNotFoundException
+    #endregion
+
+
     /// <summary>
     /// Classe d'exception permettant de gérer la selection de tous les quizz si jamais elle est vide
     /// </summary>
