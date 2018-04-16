@@ -3,7 +3,7 @@ namespace FilRouge.Model.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FilRougeDBContext_v1 : DbMigration
+    public partial class FilRouge_v1 : DbMigration
     {
         public override void Up()
         {
@@ -55,10 +55,12 @@ namespace FilRouge.Model.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        DisplayNum = c.Int(nullable: false),
                         Name = c.String(nullable: false, maxLength: 20),
                         IsActive = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.DisplayNum, name: "IdxDisplayNum");
             
             CreateTable(
                 "dbo.Quizzs",
@@ -235,6 +237,7 @@ namespace FilRouge.Model.Migrations
             DropIndex("dbo.Quizzs", new[] { "DifficultyId" });
             DropIndex("dbo.Quizzs", new[] { "ContactId" });
             DropIndex("dbo.Quizzs", new[] { "TechnologyId" });
+            DropIndex("dbo.Technologies", "IdxDisplayNum");
             DropIndex("dbo.Responses", new[] { "QuestionId" });
             DropIndex("dbo.Questions", new[] { "DifficultyId" });
             DropIndex("dbo.Questions", new[] { "TechnologyId" });
