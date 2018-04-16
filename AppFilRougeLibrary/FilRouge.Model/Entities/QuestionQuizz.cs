@@ -4,18 +4,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilRouge.Model.Entities
 {
+    using System.Collections.Concurrent;
+
     public partial class QuestionQuizz
     {
         #region Proporties
         [Key]
-        public int QuestionQuizzId { get; set; }
-        [Index("IndexQuizz_Question",IsUnique = true,Order = 1)]
+        public int Id { get; set; }
+        [Index("IdxQuizz_Question",IsUnique = true,Order = 1)]
+        [Index("IdxDisplayNum",IsUnique=false,Order =1)]
         [ForeignKey("Quizz")]
         public int QuizzId { get; set; }
-        [Index("IndexQuizz_Question", IsUnique = true, Order = 2)]
+        [Index("IdxQuizz_Question", IsUnique = true, Order = 2)]
+        [Index("IdxDisplayNum", IsUnique = false, Order = 3)]
         [ForeignKey("Question")]
         public int QuestionId { get; set; }
-        public string Value { get; set; } //Stockage de la réponse libre
+        [Index("IdxDisplayNum",IsUnique = false,Order = 2)]
+        public int DisplayNum { get; set; }
+
+        public string FreeAnswer { get; set; } //Stockage de la réponse libre
         public string Comment { get; set; }
         public bool RefuseToAnswer { get; set; } // True pour a répondue, false pour l'inverse
         #endregion

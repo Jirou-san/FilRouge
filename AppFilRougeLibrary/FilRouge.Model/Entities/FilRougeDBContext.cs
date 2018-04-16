@@ -17,7 +17,7 @@ namespace FilRouge.Model.Entities
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
     
-    public class FilRougeDBContext : IdentityDbContext<ApplicationUser>
+    public class FilRougeDBContext : IdentityDbContext<Contact>
     {
         
         public FilRougeDBContext() :base("name=ConnexionStringFilRouge")
@@ -28,7 +28,7 @@ namespace FilRouge.Model.Entities
         //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
 
 
-        public DbSet<Contact> Contact { get; set; }
+        //public DbSet<Contact> Contact { get; set; }
         public DbSet<QuestionQuizz> QuestionQuizz { get; set; }
         public DbSet<Difficulty> Difficulty { get; set; }
         public DbSet<DifficultyRate> DifficultyRate { get; set; }
@@ -36,13 +36,13 @@ namespace FilRouge.Model.Entities
         public DbSet<Quizz> Quizz { get; set; }
         public DbSet<Response> Response { get; set; }
         public DbSet<Technology> Technology { get; set; }
-        public DbSet<TypeQuestion> TypeQuestion { get; set; }
+        //public DbSet<TypeQuestion> TypeQuestion { get; set; }
         public DbSet<UserResponse> UserResponse { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
     }
 }

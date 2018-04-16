@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace FilRouge.Model.Models
+namespace FilRouge.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -19,7 +18,7 @@ namespace FilRouge.Model.Models
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
-        public ICollection<SelectListItem> Providers { get; set; }
+        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
     }
@@ -78,7 +77,7 @@ namespace FilRouge.Model.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmer le mot de passe ")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
+        [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -97,7 +96,7 @@ namespace FilRouge.Model.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmer le mot de passe")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Le nouveau mot de passe et le mot de passe de confirmation ne correspondent pas.")]
+        [Compare("Password", ErrorMessage = "Le nouveau mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
