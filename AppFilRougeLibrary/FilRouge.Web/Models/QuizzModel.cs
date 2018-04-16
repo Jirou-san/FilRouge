@@ -1,64 +1,51 @@
-﻿using System.ComponentModel;
-using FilRouge.Model.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FilRouge.Model.Models
+namespace FilRouge.Entities.Model
 {
-    using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
+    using FilRouge.Model.Entities;
 
     public class QuizzModel
     {
-        public int StateQuizz { get; set; }
-        public string Technology { get; set; }
-        public int QuestionCount { get; set; }
-        [DisplayName("Lastname")]
-        [MinLength(1)]
-        [MaxLength(20)]
-        public string UserLastname { get; set; } // Nom
-        [DisplayName("Firstname")]
-        [MinLength(1)]
-        [MaxLength(20)]
-        public string UserFirstname { get; set; } // Prénom
-        public DateTime DateQuizz { get; set; }
+        
     }
-    //Classe partielle Map servant à passer d'un viewModel à un Model et inversement
+
     public static partial class Map
     {
-        public static QuizzModel MapToQuizzModel(this Quizz Quizz)
+        public static QuestionModel MapToQuestionModel(this Question question)
         {
-            var QuizzModel = new QuizzModel();
-            if (Quizz == null)
+            var questionModel = new QuestionModel();
+            if (question == null)
             {
-                return QuizzModel;
+                return questionModel;
             }
 
-            QuizzModel = new QuizzModel
+            questionModel = new QuestionModel
              {
-                 QuestionCount = Quizz.QuestionCount,
-                 Technology = Quizz.Technology.TechnoName,
-                 UserFirstname = Quizz.UserFirstName,
-                 UserLastname = Quizz.UserLastName,
-                 //DateQuizz = Quizz.
-            };
-            return QuizzModel;
-
+                    Content = question.Content
+             };
+            return questionModel;
         }
 
-        public static Quizz MapToQuizz(this QuizzModel QuizzModel)
+        public static Question MapToQuestion(this QuestionModel questionModel)
         {
-            var Quizz = new Quizz();
-            if (QuizzModel == null)
+            var question = new Question();
+            if (questionModel == null)
             {
-                return Quizz;
+                return question;
             }
 
-            Quizz = new Quizz
-            {
-                UserLastName = QuizzModel.UserLastname,
-                UserFirstName = QuizzModel.UserFirstname,
-                QuestionCount = QuizzModel.QuestionCount
+            question = new Question
+                                {
+                                    Content = questionModel.Content
             };
-            return Quizz;
+            return question;
         }
     }
 }

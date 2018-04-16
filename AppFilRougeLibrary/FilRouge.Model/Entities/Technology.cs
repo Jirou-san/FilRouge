@@ -10,10 +10,10 @@ namespace FilRouge.Model.Entities
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TechnoId { get; set; }
+        public int Id { get; set; }
         [MaxLength(20)]
         [Required]
-        public string TechnoName { get; set; }
+        public string Name { get; set; }
         public bool IsActive { get; set; }
 
         #endregion

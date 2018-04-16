@@ -102,23 +102,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Question.cs" />
-    <Compile Include="Migrations\201804101002402_FilRougeV1.cs" />
-    <Compile Include="Migrations\201804101002402_FilRougeV1.Designer.cs">
-      <DependentUpon>201804101002402_FilRougeV1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Difficulty.cs" />
     <Compile Include="Entities\DifficultyRate.cs" />
     <Compile Include="Entities\FilRougeDBContext.cs" />
-    <Compile Include="Entities\IdentityConfig.cs" />
-    <Compile Include="Entities\IdentityModels.cs" />
     <Compile Include="Entities\QuestionQuizz.cs" />
     <Compile Include="Entities\Quizz.cs" />
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\Technology.cs" />
-    <Compile Include="Entities\TypeQuestion.cs" />
     <Compile Include="Entities\UserReponse.cs" />
+    <Compile Include="Migrations\201804160901438_FilRougeDBContext_v1.cs" />
+    <Compile Include="Migrations\201804160901438_FilRougeDBContext_v1.Designer.cs">
+      <DependentUpon>201804160901438_FilRougeDBContext_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,8 +123,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804101002402_FilRougeV1.resx">
-      <DependentUpon>201804101002402_FilRougeV1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804160901438_FilRougeDBContext_v1.resx">
+      <DependentUpon>201804160901438_FilRougeDBContext_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
