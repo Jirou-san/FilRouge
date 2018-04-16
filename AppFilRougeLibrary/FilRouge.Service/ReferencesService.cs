@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace FilRouge.Services
+namespace FilRouge.Service
 {
     using FilRouge.Model.Entities;
+    using FilRouge.Services;
     using System;
     using System.Linq;
 
@@ -10,194 +11,136 @@ namespace FilRouge.Services
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
     /// </summary>
-    public class ReferencesService
+    public class ReferencesService : IReferenceService
     {
+        FilRougeDBContext _db;
+
         #region Question
+        /// <summary>
+        /// Récuperer une question par son Id(sans détail)
+        /// </summary>
+        /// <returns>Retourne une Question</returns>
+        public Question GetQuestion(int id)
+        {
+            Question question = _db.Question.Find(id);
+            if (question == null)
+                throw new QuestionNotFoundExeption(id);
+            return _db.Question.Find(id);
+        }
+
+        /// <summary>
+        /// Recuperer une question (avec son detail)
+        /// </summary>
+        /// <returns>Un</returns>
+        public Question ShowQuestion(int id)
+        {
+            var question = new Question();
+            question = _db.Question
+                                    .Include("Responses")
+                                    .Include("Technology")
+                                    .Include("TypeQuestion")
+                                    .Include("Difficulty")
+                                    .SingleOrDefault(x => x.Id == id);
+            return question ?? throw new QuestionNotFoundExeption(id);
+
+        }
+
         /// <summary>
         /// Cette méthode permet d'afficher toutes les questions
         /// </summary>
         /// <returns>Retourne une liste de questions</returns>
-        public List<Question> GetAllQuestion()
+        public List<Question> GetAllQuestions()
         {
-            List<Question> allQuestions = new List<Question>();
-            using (var db = new FilRougeDBContext())
-            {
-                try
-                {
-                    allQuestions = db.Question
-                                            .Include("Technology")
-                                            .Include("Difficulty")
-                                            .Include("TypeQuestion")
-                                            .ToList();
-                }
-                catch (FormatException)
-                {
-
-                }
-            }
-            return allQuestions;
-        }
-
-        /// <summary>
-        /// Cette méthode permet d'afficher le detail d'une question
-        /// </summary>
-        /// <returns>Retourne une Question</returns>
-        /*public Question ShowQuestion(int? id)
-        {
-            var question = new Question();
-
-            using (var db = new FilRougeDBContext())
-            {
-                question = db.Question
-                                .Include("Responses")
+            return _db.Question
                                 .Include("Technology")
-                                .Include("TypeQuestion")
                                 .Include("Difficulty")
-                            .SingleOrDefault(x => x.QuestionId == id);
-            }
-            return question;
-        }*/
-        
-        /// <summary>
-        /// Cette méthode permet d'afficher une question (sans détail)
-        /// </summary>
-        /// <returns>Retourne une Question</returns>
-        public Question GetQuestion(int? id)
-        {
-            var question = new Question();
-
-            using (var db = new FilRougeDBContext())
-            {
-                question = db.Question.Find(id);
-            }
-            return question;
+                                .Include("TypeQuestion")
+                                .ToList();
         }
 
         /// <summary>
-        /// Cette méthode permet d'enregistrer une nouvelle question
+        /// Retourne toute les questions d'un quizz
+        /// </summary>
+        /// <param name="quizzId"></param>
+        /// <returns>Liste de question (d'un quizz)</returns>
+        public List<Question> GetQuestionsByQuizz(int quizzId)
+        {
+            List<Question> questions = _db.Question
+                                                    .Join(_db.QuestionQuizz,
+                                                        question => question.Id,
+                                                        questionQuizz => questionQuizz.QuestionId,
+                                                        (question, questionQuizz) => new { question, questionQuizz })
+                                                        .Where(o => o.questionQuizz.QuizzId == quizzId)
+                                                    .Select(p => p.question).ToList();
+
+            return questions ?? throw new QuestionsNotFoundException(quizzId);
+        }
+
+        /// <summary>
+        /// Enregistrer une nouvelle question
         /// </summary>
         /// <returns>Retourne l'id de la question inserée</returns>
         public int AddQuestion(Question question)
         {
-            using (var db = new FilRougeDBContext())
-            {
-                db.Question.Add(question);
-                return db.SaveChanges();
+            _db.Question.Add(question);
+            return _db.SaveChanges();
             }
-        }
 
         /// <summary>
-        /// Cette méthode permet de supprimer une question
+        /// supprimer une question
         /// </summary>
         /// <returns>Retourne l'id de la question supprimée</returns>
-       /* public int DeleteQuestion(int id)
+        public int DeleteQuestion(int id)
         {
-            using (var db = new FilRougeDBContext())
-            {
-                Question question = new Question() { QuestionId = id };
-                db.Question.Attach(question);
-                db.Question.Remove(question);
-                return db.SaveChanges();
-            }
-        }*/
+            Question question = new Question() {Id = id};
+            _db.Question.Attach(question);
+            _db.Question.Remove(question);
+            return _db.SaveChanges();
+        }
         #endregion
 
         #region Technology
         /// <summary>
-        /// Cette fonction permet d'obtenir toutes les technologies
-        /// Fonctionne avec une fluentQuerry
+        /// Recuperer une technology par son Id
         /// </summary>
-        /// <returns>Retourne une liste d'objets Technologies</returns>
-        public List<Technology> GetTechnologies()
+        /// <param name="id"> id de la technology</param>
+        /// <returns>Une technologie unique</returns>
+        public Technology GetTechnology(int id)
         {
-
-            List<Technology> desTechnologies = new List<Technology>();
-            FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Technology.Select(e => e);
-            foreach (var item in fluentQuery)
-            {
-                desTechnologies.Add(item);
-            }
-            db.Dispose();
-            return desTechnologies;
+            var technology = _db.Technology.Find(id);
+            return technology ?? throw new TechnologyNotFound(id);
         }
 
         /// <summary>
-        /// Cette fonction permet d'afficher une technologie
+        /// Obtenir la liste de toute les technologies
         /// </summary>
-        /// <returns>Retourne technologie</returns>
-        /*public Technology GetTechnologyById(int id)
+        /// <returns>Une liste de technology/returns>
+        public List<Technology> GetAllTechnologies()
         {
-
-            FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Technology.Single(e => e.TechnoId == id);
-            db.Dispose();
-            return fluentQuery;
-        }*/
-
-        /// <summary>
-        /// Cette méthode permet de récupérer toutes les difficultés
-        /// Fonctionne avec une fluentQuerry
-        /// </summary>
-        /// <returns>Retourne une liste d'objets Diffulties</returns>
-        public List<Difficulty> GetDifficulties()
-        {
-            List<Difficulty> desDifficulties = new List<Difficulty>();
-            FilRougeDBContext db = new FilRougeDBContext();
-            var fluentQuery = db.Difficulty.Select(e => e);
-            foreach (var item in fluentQuery)
-            {
-                desDifficulties.Add(item);
-            }
-            db.Dispose();
-            return desDifficulties;
-        }
-
-        /// <summary>
-        /// Cette méthode permet d'afficher toutes les technolgies
-        /// </summary>
-        /// <returns>Retourne la liste des technolgies</returns>
-        public List<Technology> GetAllTechnology()
-        {
-            var technologies = new List<Technology>();
-            using (var db = new FilRougeDBContext())
-            {
-                technologies = db.Technology.ToList();
-            }
-            return technologies;
+            return _db.Technology.ToList();
         }
         #endregion
 
         #region Difficulty
         /// <summary>
-        /// Cette méthode permet d'afficher toutes les difficultés
+        /// Recupérer une difficulté par son id
         /// </summary>
-        /// <returns>Retourne la liste des difficultés</returns>
-        public List<Difficulty> GetAllDifficuty()
+        /// <param name="id"> l'id de la difficulté</param>
+        /// <returns>Une difficulté (unique)</returns>
+        public Difficulty GetDifficulty(int id)
         {
-            var difficulties = new List<Difficulty>();
-            using (var db = new FilRougeDBContext())
-            {
-                difficulties = db.Difficulty.ToList();
-            }
-            return difficulties;
+            var difficulty = _db.Difficulty.Find(id);
+            return difficulty ?? throw new DifficultyNotFound(id);
         }
-        #endregion
 
-        #region Type
         /// <summary>
-        /// Cette méthode permet d'afficher toutes les types
+        /// obtenir la liste de toutes les difficultés
         /// </summary>
-        /// <returns>Retourne la liste des types</returns>
-        /*public List<TypeQuestion> GetAllType()
+        /// <returns>liste de difficulté/returns>
+        public List<Difficulty> GetAllDifficuties()
         {
-            var types = new List<TypeQuestion>();
-            using (var db = new FilRougeDBContext())
-            {
-                types = db.TypeQuestion.ToList();
-            }
-            return types;
-        }*/
+            return _db.Difficulty.ToList(); ;
+        }
         #endregion
     }
 }
