@@ -74,6 +74,7 @@ namespace FilRouge.API.Controllers
             {
                 return this.BadRequest(this.ModelState);
             }
+
             return this.Ok(this.quizzService.GetQuizById(id));
         }
 
@@ -92,6 +93,7 @@ namespace FilRouge.API.Controllers
             {
                 return this.BadRequest(this.ModelState);
             }
+
             return this.Ok(this.quizzService.GetQuizz(filter));
         }
 

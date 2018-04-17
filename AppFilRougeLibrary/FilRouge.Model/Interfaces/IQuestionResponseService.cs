@@ -31,7 +31,8 @@ namespace FilRouge.Model.Interfaces
         List<Question> GetAllQuestions();
         int AddQuestion(Question question);
         int DeleteQuestion(int id);
-        Question ShowQuestion(int id);
+        //Ne perçoit pas trop l'utilisé pour le moment, à expliquer ty
+        //Question ShowQuestion(int id);
         List<Question> GetQuestionsByQuizz(int idQuizz);
         #endregion
     }

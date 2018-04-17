@@ -11,9 +11,9 @@ namespace FilRouge.API.Controllers
     /// Classe Quizz Controleur permettant de gérer tous les contrôles possible sur les questions
     /// d'un quizz
     /// </summary>
-    [RoutePrefix("api/quizz")]
+    [RoutePrefix("api/question")]
     [Authorize]
-    public class QuestionControlleur : ApiController
+    public class QuestionController : ApiController
     {
         /// <summary>
         /// Interface permettant d'utiliser directement les méthodes qui lui sont associés
@@ -29,44 +29,84 @@ namespace FilRouge.API.Controllers
         /// <param name="questionservice">
         /// The questionservice.
         /// </param>
-        public QuestionControlleur(IQuestionResponseService questionservice)
+        public QuestionController(IQuestionResponseService questionservice)
         {
             this.questionService = questionservice;
         }
 
-        /// <summary>
-        /// Requête HTTP POST prenant en paramètre un contenue body qui sera casté en QuizzModel
-        /// Il pourra ensuite être traité grâce à la fonction associée CreateQuizz
-        /// </summary>
-        /// <param name="quizz">Corps de la requête renseignée sous format JSON</param>
-        /// <returns>Retourne le code de status 201 - Created</returns>
-        [HttpPost]
-        [Route("create", Name = nameof(Create))]
-        public IHttpActionResult Create(QuizzModel quizz)
+
+        [HttpGet]
+        [Route("{idquizz}/question")]
+        public IHttpActionResult GetQuestionByQuizz(int idquizz)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
 
-            
+            return this.Ok(this.questionService.GetQuestionsByQuizz(idquizz));
+        }
+
+        /// <summary>
+        /// Requête HTTP POST prenant en paramètre un contenue body qui sera casté en QuestionModel
+        /// Il pourra ensuite être traité grâce à la fonction associée AddQuestion
+        /// </summary>
+        /// <param name="question">Corps de la requête renseignée sous format JSON</param>
+        /// <returns>Retourne le code de status 201 - Created</returns>
+        [HttpPost]
+        [Route("question")]
+        public IHttpActionResult Create(QuestionModel question)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            var newQuestion = new Question
+                               {
+                                   TechnologyId = question.TechnologyId,
+                                   DifficultyId = question.DifficultyId,
+                                   Content = question.Content,
+                                   IsEnable = question.IsEnable,
+                                   IsFreeAnswer = question.IsFreeAnswer
+                               };
+            this.questionService.AddQuestion(newQuestion);
 
             return this.StatusCode(HttpStatusCode.Created);
         }
 
         /// <summary>
-        /// Requête HTTP GET permettant de trouver une question par son ID
+        /// Requête HTTP DELETE permettant de supprimer une question par son ID
         /// </summary>
-        /// <param name="id">ID de la question</param>
-        /// <returns>Retourne un statut OK ainsi que le contenue de la question au format JSON</returns>
-        [HttpGet]
-        [Route("question/{id}")]
-        public IHttpActionResult GetQuizzId(int id)
+        /// <param name="id">Id de la question à supprimer</param>
+        /// <returns>Retourne un statut OK ainsi que l'id de la ressource supprimée</returns>
+        [HttpDelete]
+        [Route("question/{id}", Name = nameof(Delete))]
+        public IHttpActionResult Delete(int id)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
+
+            this.questionService.DeleteQuestion(id);
+            return this.Ok(id);
+        }
+
+        /// <summary>
+        /// Requête HTTP GET permettant de trouver une question par son id
+        /// </summary>
+        /// <param name="id">ID de la question</param>
+        /// <returns>Retourne un statut OK ainsi que le contenue de la questions au format JSON</returns>
+        [HttpGet]
+        [Route("question/{id}")]
+        public IHttpActionResult GetQuestionById(int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
             return this.Ok(this.questionService.GetQuestion(id));
         }
 
@@ -75,7 +115,9 @@ namespace FilRouge.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult GetAllQuizz()
+        [Route("question")]
+
+        public IHttpActionResult GetAllQuestions()
         {
             if (!this.ModelState.IsValid)
             {
