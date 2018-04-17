@@ -39,6 +39,16 @@ public class QuizzService
         int nbFreeQuestions, nbQCMQuestions, nbQuestions;
         int myReturnedID=0;
 
+
+        // Traitement du cas de figure où oon s'est trompé entre Min et Max.
+        // On remet les choses dans l'ordre
+        
+        if (freeAnswerMax < freeAnswerMin)
+        {
+            var tmpMax = freeAnswerMax;
+            freeAnswerMax = freeAnswerMin;
+            freeAnswerMin = tmpMax;
+        }
         if (freeAnswerMax < freeAnswerMin) throw new Exception(nameof(CreateQuizz) + "freeAnswerMax < freeAnswerMin");
 
         using (FilRougeDBContext db = new FilRougeDBContext())
@@ -68,6 +78,30 @@ public class QuizzService
                         }
                         difficulties.Add(myDifficulty.DifficultyQuestionId, tempNbQuestions);
                     }
+
+                    // A faire :
+                    // Récupérer l'erreur d'arrondi sur le dernier enregistrement 
+                    // EcartACombler = numberQuestions - myCount;
+                    // 
+                    // Ici on récupère le nombre de questions manquantes et on répertie ces questions entre les différents niveaux de difficultées
+                    List<int> listKeys = new List<int>();
+                    foreach(var diff in difficulties)
+                    {
+                        listKeys.Add(diff.Key);
+                    }
+                    while (myCount< numberQuestions)
+                    {
+                        foreach (var key in listKeys)
+                        {
+                            //int key = entry.Key;
+                            difficulties[key] += 1;
+                            myCount++;
+                            if (myCount >= numberQuestions) break;
+                        }
+                    }
+                    
+
+
                     // difficulties stocke le nombre de questions à poser pour chaque pour chaque difficultée
                     foreach (var difficulty in difficulties)
                     {
@@ -75,11 +109,11 @@ public class QuizzService
                         nbQCMQuestions = difficulty.Value - nbFreeQuestions;
 
                         // Questions libres
-                        listQuestions.Concat(
-                            AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, difficulty.Value, true));
+                        listQuestions=listQuestions.Concat(
+                            AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, nbFreeQuestions, true)).ToList();
                         //Questions QCM
-                        listQuestions.Concat(
-                            AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, difficulty.Value, false));
+                        listQuestions = listQuestions.Concat(
+                            AddQuestions(userLastName, userFirstName, externalNum, technologyId, difficulty.Key, nbQCMQuestions, false)).ToList();
 
                     }
 
@@ -99,17 +133,22 @@ public class QuizzService
                         ActiveQuestionNum = 0,
                         QuizzState = QuizzStateEnum.NotStarted,
                         HasFreeQuestion = hasFreeQuestion,
+                        QuestionCount = numberQuestions,
                     };
                     db.Quizz.Add(myQuizz);
                     db.SaveChanges();
-                    //nbQuestions = listQuestions.Count();
+                    nbQuestions = listQuestions.Count();
+                    int rndDisplayNum; //Nombre aléatoire
                     //Création des questions
                     foreach (var questionId in listQuestions)
                     {
+                        // On rend l'ordre d'affichage aléatoire grâce au DisplayNum
+                        rndDisplayNum = myRandom.Next(100);
                         db.QuestionQuizz.Add(new QuestionQuizz()
                         {
                             QuizzId = myQuizz.Id,
                             QuestionId = questionId,
+                            DisplayNum = rndDisplayNum,
                         });
                     }
                     db.SaveChanges();
@@ -118,8 +157,9 @@ public class QuizzService
                     dbContextTransaction.Commit();
                     myReturnedID = myQuizz.Id;
                 }
-                catch
+                catch (Exception e )
                 {
+                    Console.WriteLine("Une erreur est survenue\n" + e.Message);
                     dbContextTransaction.Rollback();
                 }
             }
@@ -175,7 +215,8 @@ public class QuizzService
                 // La liste des questions disponible est suffisante, 
                 // il ne sera pas nécessaire de repiocher dans les questions déjà passées
 
-                for (int x = 0; x < questionsARetourner.Count(); x++)
+                //for (int x = 0; x < questionsARetourner.Count(); x++)
+                while(questionsARetourner.Count()<numberQuestions)
                 {
                     // On va piocher au hasard dans les questions
                     index = myRandom.Next(0, questionsPossiblesUtilisateur.Count() - 1);
@@ -184,6 +225,7 @@ public class QuizzService
                     // On supprimme de la liste d'origine
                     questionsPossiblesUtilisateur.RemoveAt(index);
                 }
+
 
             }
             else
