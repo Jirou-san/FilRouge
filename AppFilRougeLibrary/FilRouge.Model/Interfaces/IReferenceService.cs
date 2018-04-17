@@ -12,8 +12,16 @@
         int AddQuestion(Question question);
         int DeleteQuestion(int id);
         Question ShowQuestion(int id);
+        List<Question> GetQuestionsByQuizz(int idQuizz);
+        #endregion
 
-        List<Question> GetQuestionsByQuizz(int quizzId);
+        #region Response
+        Response GetResponse(int id);
+        List<Response> GetAllResponses();
+        int AddResponse(Response response, int idQuestion);
+
+        int DeleteResponse(int id);
+        List<Response> GetAllResponseByQuizz(int idQuizz);
         #endregion
 
         #region Technology
@@ -26,6 +34,9 @@
         List<Difficulty> GetAllDifficuties();
         #endregion
 
+        #region Quizz
+
+        #endregion
 
     }
 }

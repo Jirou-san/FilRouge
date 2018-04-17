@@ -80,6 +80,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IQuizzService.cs" />
+    <Compile Include="IReferenceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizzExceptions.cs" />
     <Compile Include="QuizzService.cs" />
