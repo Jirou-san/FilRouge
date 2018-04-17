@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FilRouge.Model
+namespace FilRouge.Services
 {
     using FilRouge.Model.Entities;
     using FilRouge.Services;
