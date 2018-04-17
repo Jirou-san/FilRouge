@@ -68,6 +68,10 @@
       <Project>{59946157-45d1-433f-b580-d6db6b0160fb}</Project>
       <Name>FilRouge.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FilRouge.Service\FilRouge.Service.csproj">
+      <Project>{6bc8bd20-2799-4150-9ddd-e148bd875bde}</Project>
+      <Name>FilRouge.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
