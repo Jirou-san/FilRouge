@@ -196,7 +196,7 @@ namespace FilRouge.Tests
             }
         }
 
-        private int GetDifficultyDebutant()
+        public int GetDifficultyDebutant()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -208,7 +208,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetDifficultyIntermediaire()
+        public int GetDifficultyIntermediaire()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -220,7 +220,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetDifficultyExpert()
+        public int GetDifficultyExpert()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -232,7 +232,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetDifficultyExpertSenior()
+        public int GetDifficultyExpertSenior()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -244,7 +244,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetTechnologyCSharp()
+        public int GetTechnologyCSharp()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -256,7 +256,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetTechnologyC()
+        public int GetTechnologyC()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -268,7 +268,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetTechnologyCPlusPlus()
+        public int GetTechnologyCPlusPlus()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -280,7 +280,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetTechnologyPascal()
+        public int GetTechnologyPascal()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -292,7 +292,7 @@ namespace FilRouge.Tests
             }
             return id;
         }
-        private int GetTechnologyJava()
+        public int GetTechnologyJava()
         {
             int id = 0;
             using (var db = new FilRougeDBContext())
@@ -305,7 +305,20 @@ namespace FilRouge.Tests
             return id;
         }
 
-        private string GetTechnologyById(int id)
+        public int GetTechnologyIdByName(string name)
+        {
+            int id = 0;
+            using (var db = new FilRougeDBContext())
+            {
+                id = db.Technology
+                    .Where(e => e.Name == name)
+                    .Select(e => e.Id).First();
+
+            }
+            return id;
+        }
+
+        public string GetTechnologyById(int id)
         {
             String result;
             using (var db = new FilRougeDBContext())
@@ -317,7 +330,7 @@ namespace FilRouge.Tests
             }
             return result;
         }
-        private string GetDifficultyById(int id)
+        public string GetDifficultyById(int id)
         {
             String result;
             using (var db = new FilRougeDBContext())
