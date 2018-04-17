@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FilRouge.Model
+namespace FilRouge.Service
 {
     using FilRouge.Model.Entities;
     using FilRouge.Services;
@@ -15,7 +15,12 @@ namespace FilRouge.Model
     /// </summary>
     public class ReferencesService : IReferenceService
     {
-        FilRougeDBContext _db;
+
+        protected FilRougeDBContext _db;
+        public ReferencesService(FilRougeDBContext db)
+        {
+            _db = db;
+        }
 
         #region Question
         /// <summary>
@@ -38,9 +43,9 @@ namespace FilRouge.Model
             question = _db.Question
                                     .Include("Responses")
                                     .Include("Technology")
-                                    .Include("TypeQuestion")
                                     .Include("Difficulty")
-                                    .SingleOrDefault(x => x.Id == id);
+                                    .Include("Responses")
+                                    .FirstOrDefault(x => x.Id == id);
 
             return question ?? throw new NotFoundException(string.Format($"No question found with the id: {id}"));
         }
@@ -54,7 +59,6 @@ namespace FilRouge.Model
             return _db.Question
                                 .Include("Technology")
                                 .Include("Difficulty")
-                                .Include("TypeQuestion")
                                 .ToList();
         }
 
@@ -97,9 +101,6 @@ namespace FilRouge.Model
             _db.Question.Remove(question);
             return _db.SaveChanges();
         }
-        #endregion
-        #region Reponse
-
         #endregion
 
         #region Technology

@@ -109,9 +109,9 @@
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\UserReponse.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.Designer.cs">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <Compile Include="Migrations\201804171013533_17_04.cs" />
+    <Compile Include="Migrations\201804171013533_17_04.Designer.cs">
+      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804170940262_FilRouge_v2.1.cs" />
     <Compile Include="Migrations\201804170940262_FilRouge_v2.1.Designer.cs">
@@ -125,8 +125,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161122499_FilRouge_v1.resx">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804171013533_17_04.resx">
+      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804170940262_FilRouge_v2.1.resx">
       <DependentUpon>201804170940262_FilRouge_v2.1.cs</DependentUpon>

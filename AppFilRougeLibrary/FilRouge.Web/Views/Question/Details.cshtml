@@ -4,33 +4,50 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Question - Detail</h2>
-<hr />
-<h3> @Html.DisplayFor(modelItem => modelItem.Content)</h3><br/>
-@Html.DisplayFor(modelItem => modelItem.Technology)
+<h2>Details</h2>
 
+<div>
+    <h4>QuestionModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionId)
+        </dt>
 
-<table class="table table-dark table-hover">
+        <dd>
+            @Html.DisplayFor(model => model.QuestionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+    </dl>
+</div>
+@foreach (var reponse in Model.Reponses)
+{
     <tr>
-        <th>
-            Answer
-        </th>
-        <th>
-            True Answer
-        </th>
-
-        @foreach (var reponse in Model.Reponses)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => reponse.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => reponse.IsTrue)
-            </td>
-        </tr>
-    }
-    </table>
-    <p>
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+        <td>
+            @Html.DisplayFor(modelItem => reponse.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => reponse.IsTrue)
+        </td>
+    </tr>
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
