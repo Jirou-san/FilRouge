@@ -4,6 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FilRouge.Model.Entities
 {
+    public enum QuizzStateEnum
+    {
+        NotStarted=0,
+        InProgress=1,
+        Done=2,
+    }//0 for not started, 1 for in progress, 2 for done
+
     public partial class Quizz
     {
         #region Properties
@@ -17,14 +24,14 @@ namespace FilRouge.Model.Entities
         [ForeignKey("Difficulty")]
         public int DifficultyId { get; set; }
         [Required]
-        public int QuizzState { get; set; } //0 for not started, 1 for in progress, 2 for done
+        public QuizzStateEnum QuizzState { get; set; } 
         [MaxLength(20)]
         [Required]
         public string UserLastName { get; set; }
         [MaxLength(20)]
         [Required]
         public string UserFirstName { get; set; }
-        public bool HasFreeQuestion { get; set; } //0 for yes & 1 for no
+        public bool HasFreeQuestion { get; set; } //true for yes & false for no
         [Required]
         public int QuestionCount { get; set; } //number of questions for the current quizz
         public string ExternalNum { get; set; }
