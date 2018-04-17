@@ -1,13 +1,10 @@
-﻿using FilRouge.Model.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FilRouge.Service
+﻿namespace FilRouge.Model.Interfaces
 {
-    interface IReferenceService
+    using System.Collections.Generic;
+
+    using FilRouge.Model.Entities;
+
+    public interface IReferenceService
     {
         #region Question
         Question GetQuestion(int id);

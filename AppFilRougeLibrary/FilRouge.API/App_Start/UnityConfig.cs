@@ -1,7 +1,7 @@
 using System;
 
 using Unity;
-
+using IReferenceService = FilRouge.Model.Interfaces.IReferenceService;
 namespace FilRouge.API
 {
     /// <summary>
@@ -10,18 +10,20 @@ namespace FilRouge.API
     public static class UnityConfig
     {
         #region Unity Container
-        private static Lazy<IUnityContainer> container =
-          new Lazy<IUnityContainer>(() =>
-          {
-              var container = new UnityContainer();
-              RegisterTypes(container);
-              return container;
-          });
+
+        private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(
+            () =>
+                {
+                    var container = new UnityContainer();
+                    RegisterTypes(container);
+                    return container;
+                });
 
         /// <summary>
         /// Configured Unity Container.
         /// </summary>
         public static IUnityContainer Container => container.Value;
+
         #endregion
 
         /// <summary>
@@ -40,8 +42,9 @@ namespace FilRouge.API
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your type's mappings here.
-            // container.RegisterType<IProductRepository, ProductRepository>();
+
+           
         }
+       
     }
 }

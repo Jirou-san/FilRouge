@@ -62,7 +62,6 @@ namespace FilRouge.Services
             _msg = string.Format($"No question found for the quizz id: {idQuizz}");
         }
     }
-    QuestionsNotFoundException
     #endregion
 
 
