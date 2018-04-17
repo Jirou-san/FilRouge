@@ -62,36 +62,36 @@ namespace FilRouge.Services
             _msg = string.Format($"No question found for the quizz id: {idQuizz}");
         }
     }
-    QuestionsNotFoundException
+    //QuestionsNotFoundException
     #endregion
 
 
     /// <summary>
     /// Classe d'exception permettant de gérer la selection de tous les quizz si jamais elle est vide
     /// </summary>
-    public sealed class ListQuizzEmpty : Exception
-    {
-        public string _msg;
-        public ListQuizzEmpty(string message) : base(message)
-        {
-            _msg = message;
-        }
-    }
-    public sealed class AlreadyInTheQuestionsList : Exception
-    {
-        public string _msg;
-        public AlreadyInTheQuestionsList(string message) : base(message)
-        {
-            _msg = message;
-        }
-    }
-    public sealed class NoQuestionsForYou : Exception
-    {
-        public string _msg;
-        public NoQuestionsForYou(string message) : base(message)
-        {
-            _msg = message;
-        }
-    }
+    //public sealed class ListQuizzEmpty : Exception Commenté par marc pour faire des tests. Cette modif ne doit pas être remontée
+    //{
+    //    public string _msg;
+    //    public ListQuizzEmpty(string message) : base(message)
+    //    {
+    //        _msg = message;
+    //    }
+    //}
+    //public sealed class AlreadyInTheQuestionsList : Exception
+    //{
+    //    public string _msg;
+    //    public AlreadyInTheQuestionsList(string message) : base(message)
+    //    {
+    //        _msg = message;
+    //    }
+    //}
+    //public sealed class NoQuestionsForYou : Exception
+    //{
+    //    public string _msg;
+    //    public NoQuestionsForYou(string message) : base(message)
+    //    {
+    //        _msg = message;
+    //    }
+    //}
 
 }
