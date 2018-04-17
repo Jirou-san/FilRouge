@@ -109,9 +109,9 @@
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\UserReponse.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.Designer.cs">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <Compile Include="Migrations\201804171013533_17_04.cs" />
+    <Compile Include="Migrations\201804171013533_17_04.Designer.cs">
+      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,8 +121,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161122499_FilRouge_v1.resx">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804171013533_17_04.resx">
+      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

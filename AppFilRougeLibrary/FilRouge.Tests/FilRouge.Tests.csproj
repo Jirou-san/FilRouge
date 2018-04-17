@@ -58,6 +58,7 @@
     <Compile Include="DataSetTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\FilRouge.Model\FilRouge.Model.csproj">
       <Project>{59946157-45d1-433f-b580-d6db6b0160fb}</Project>
       <Name>FilRouge.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FilRouge.Service\FilRouge.Service.csproj">
+      <Project>{6BC8BD20-2799-4150-9DDD-E148BD875BDE}</Project>
+      <Name>FilRouge.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

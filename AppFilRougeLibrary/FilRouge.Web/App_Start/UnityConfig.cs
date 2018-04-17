@@ -1,6 +1,13 @@
+using FilRouge.Model;
+using FilRouge.Model.Entities;
+using FilRouge.Model.Interfaces;
+using FilRouge.Service;
+using FilRouge.Web.Controllers;
 using System;
 
 using Unity;
+using Unity.AspNet.Mvc;
+using Unity.Lifetime;
 
 namespace FilRouge.Web
 {
@@ -41,7 +48,9 @@ namespace FilRouge.Web
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<FilRougeDBContext>(new PerRequestLifetimeManager());
+            //container.RegisterType<ReferencesService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IReferenceService,ReferencesService>();
         }
     }
 }

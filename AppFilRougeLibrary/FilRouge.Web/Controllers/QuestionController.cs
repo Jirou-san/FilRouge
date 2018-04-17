@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FilRouge.Service;
+using FilRouge.Model.Entities;
+using FilRouge.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,27 +9,33 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using FilRouge.Model.Models;
 
 namespace FilRouge.Web.Controllers
 {
     public class QuestionController : Controller
     {
+        private IReferenceService _service;
+        public QuestionController(IReferenceService service)
+        {
+            _service = service;
+        }
 
         // GET: Questions/(All)
         public ActionResult Index()
         {
+
             return All();
         }
 
         // GET: Question/Details/n
-        public ActionResult Details(int? id)
-
+        public ActionResult Details(int id=0)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var question = service.ShowQuestion(id);
+            var question = _service.ShowQuestion(id);
             if (question == null)
             {
                 return HttpNotFound();
@@ -38,7 +47,7 @@ namespace FilRouge.Web.Controllers
         public ActionResult All()
         {
             ICollection<QuestionModel> questionsVM = new List<QuestionModel>();
-            var questions = service.GetAllQuestion();
+            var questions = _service.GetAllQuestions();
             if (questions == null)
             {
                 return HttpNotFound();
@@ -52,32 +61,24 @@ namespace FilRouge.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var difficulties = service.GetAllDifficuty();
-            var technologies = service.GetAllTechnology();
-            var types = service.GetAllType();
+            var difficulties = _service.GetAllDifficuties();
+            var technologies = _service.GetAllTechnologies();
 
 
             IEnumerable<SelectListItem> dropDownDifficulties = difficulties.Select(d => new SelectListItem
             {
-                Value = d.DifficultyId.ToString(),
-                Text = d.DifficultyName
+                Value = d.Id.ToString(),
+                Text = d.Name
             });
 
             IEnumerable<SelectListItem> dropDownTechnologies = technologies.Select(t => new SelectListItem
             {
-                Value = t.TechnoId.ToString(),
-                Text = t.TechnoName
-            });
-
-            IEnumerable<SelectListItem> dropDownTypes = types.Select(t => new SelectListItem
-            {
-                Value = t.TypeQuestionId.ToString(),
-                Text = t.NameType
+                Value = t.Id.ToString(),
+                Text = t.Name
             });
 
             ViewBag.difficulties = dropDownDifficulties;
             ViewBag.technologies = dropDownTechnologies;
-            ViewBag.types = dropDownTypes;
 
             return View();
         }
@@ -85,23 +86,23 @@ namespace FilRouge.Web.Controllers
         // POST: Question/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology,Type")] QuestionModel questionVM)
+        public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology")] QuestionModel questionVM)
         {
             var id = new int();
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)
             {
-                service.AddQuestion(question);
+                _service.AddQuestion(question);
             }
             //Redirect pour effectuer action detail et recharger url.
-            return RedirectToAction("Details", new { id = question.QuestionId });
+            return RedirectToAction("Details", new { id = question.Id });
         }
 
         // POST: Technology/Delete/5
         [HttpGet, ActionName("Delete")]
         public ActionResult Delete(int id)
         {
-            service.DeleteQuestion(id);
+            _service.DeleteQuestion(id);
             return RedirectToAction("Index");
         }
         // POST: Technology/Delete/5

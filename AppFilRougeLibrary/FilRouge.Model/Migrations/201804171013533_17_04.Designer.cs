@@ -7,13 +7,13 @@ namespace FilRouge.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FilRouge_v1 : IMigrationMetadata
+    public sealed partial class _17_04 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FilRouge_v1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_17_04));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804161122499_FilRouge_v1"; }
+            get { return "201804171013533_17_04"; }
         }
         
         string IMigrationMetadata.Source
