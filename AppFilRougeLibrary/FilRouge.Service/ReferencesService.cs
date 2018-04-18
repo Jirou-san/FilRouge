@@ -44,6 +44,7 @@ namespace FilRouge.Service
                                     .Include("Responses")
                                     .Include("Technology")
                                     .Include("Difficulty")
+                                    .Include("UserResponses.QuestionQuizz")
                                     .Include("Responses")
                                     .FirstOrDefault(x => x.Id == id);
 

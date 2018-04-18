@@ -13,13 +13,13 @@ namespace FilRouge.Tests
     {
         static void Main(string[] args)
         {
-            //var dataset = new DataSetTest();
-            //dataset.FillAllTables();
+            var dataset = new DataSetTest();
+            dataset.FillAllTables();
 
             FilRougeDBContext db = new FilRougeDBContext();
             ServiceTest svc = new ServiceTest(new ReferencesService(db));
 
-            svc.Test();
+            //svc.Test();
             Console.ReadKey();
         }
     }
