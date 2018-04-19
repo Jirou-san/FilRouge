@@ -18,8 +18,11 @@ namespace FilRouge.Model.Models
         [MinLength(1)]
         [MaxLength(250)]
         //Aussi annoté dans le code first de la base de données
+        [Required]
         public string Content { get; set; }
-        public string Comment { get; set; }
+        public Technology Technology { get; set; }
+        public Difficulty Difficulty { get; set; }
+        public List<string> Comments { get; set; }
         public List<Response> Reponses { get; set; }
 
     }
@@ -37,7 +40,13 @@ namespace FilRouge.Model.Models
 
             questionVM.QuestionId = question.Id;
             questionVM.Content = question.Content;
+            questionVM.Technology = question.Technology;
+            questionVM.Difficulty = question.Difficulty;
+
+            // les commentaires depuis questionQuizz qui est associé a userReponse)
+            questionVM.Comments = question.UserResponses.Select(o=>o.QuestionQuizz.Comment).ToList();
             questionVM.Reponses = question.Responses.ToList();
+
             return questionVM;
         }
 
@@ -50,7 +59,9 @@ namespace FilRouge.Model.Models
 
             questionVM.QuestionId = question.Id;
             questionVM.Content = question.Content;
+
             questionVM.Reponses = question.Responses.ToList();
+
             return questionVM;
         }
 
