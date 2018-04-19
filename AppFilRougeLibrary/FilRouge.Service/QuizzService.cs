@@ -334,7 +334,7 @@
         /// <returns>Liste de quizz</returns>
         public List<Quizz> GetAllQuizz(Contact agent)
         {
-            throw new Exception("Méthode non implémentée");
+            //throw new Exception("Méthode non implémentée");
             List<Quizz> returnedQuizz = new List<Quizz>();
             using (FilRougeDBContext db = new FilRougeDBContext())
             {

@@ -1,5 +1,4 @@
 ﻿using FilRouge.Model.Entities;
-using FilRouge.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

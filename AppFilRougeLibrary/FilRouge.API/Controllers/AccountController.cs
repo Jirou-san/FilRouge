@@ -325,7 +325,7 @@ namespace FilRouge.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new Contact() { UserName = model.Email, Email = model.Email };
+            var user = new Contact() { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
             try
             {
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -334,7 +334,7 @@ namespace FilRouge.API.Controllers
                     return GetErrorResult(result);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
 
             }
