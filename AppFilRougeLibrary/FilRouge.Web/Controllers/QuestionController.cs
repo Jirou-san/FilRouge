@@ -28,7 +28,7 @@ namespace FilRouge.Web.Controllers
             return All();
         }
 
-        // GET: Question/Details/n
+        // GET: Question/Details/5
         public ActionResult Details(int id=0)
         {
             if (id == 0)
@@ -40,7 +40,7 @@ namespace FilRouge.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(question.MapToQuestionModel());
+            return View(question.MapToQuestionViewModelFull());
         }
 
         // GET: Question/All
@@ -88,7 +88,6 @@ namespace FilRouge.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology")] QuestionModel questionVM)
         {
-            var id = new int();
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)
             {
@@ -98,8 +97,23 @@ namespace FilRouge.Web.Controllers
             return RedirectToAction("Details", new { id = question.Id });
         }
 
-        // POST: Technology/Delete/5
+        // GET: Technology/Delete/5
         [HttpGet, ActionName("Delete")]
+        public ActionResult Delete()
+        {
+            var questions = _service.GetAllQuestions();
+
+            IEnumerable<SelectListItem> dropDownTechnologies = questions.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Content
+            });
+            return View();
+        }
+
+        // POST: Technology/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             _service.DeleteQuestion(id);

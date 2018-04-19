@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.QuestionId)
+            Id:
         </dt>
 
         <dd>
@@ -19,34 +19,54 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
+            Libellé:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
     </dl>
 </div>
-@foreach (var reponse in Model.Reponses)
-{
+<table>
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => reponse.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => reponse.IsTrue)
-        </td>
+        <th>
+            Propositions
+        </th>
+        <th>
+            Bonne Réponse
+        </th>
     </tr>
+    @foreach (var reponse in Model.Reponses)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => reponse.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => reponse.IsTrue)
+            </td>
+        </tr>
+    }
+</table>
+
+
+    <br />
+    <table>
+        <tr>
+            <th>
+                Commentaires
+            </th>
+        </tr>
+        @foreach (var comment in Model.Comments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => comment)
+            </td>
+        </tr>
 }
+    </table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
