@@ -38,6 +38,31 @@ namespace FilRouge.HttpHandler
             throw new NotImplementedException();
         }
 
+        public Response GetResponse(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Response> GetAllResponses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddResponse(Response response, int idQuestion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteResponse(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Response> GetAllResponseByQuizz(int idQuizz)
+        {
+            throw new NotImplementedException();
+        }
+
         public Technology GetTechnology(int id)
         {
             throw new NotImplementedException();
