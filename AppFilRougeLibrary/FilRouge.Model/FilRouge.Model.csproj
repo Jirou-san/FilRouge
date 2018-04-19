@@ -108,6 +108,8 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\UserReponse.cs" />
+    <Compile Include="Interfaces\IQuestionResponseService.cs" />
+    <Compile Include="Interfaces\IQuizzService.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
     <Compile Include="Migrations\201804171013533_17_04.cs" />
     <Compile Include="Migrations\201804171013533_17_04.Designer.cs">
