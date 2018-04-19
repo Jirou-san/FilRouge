@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using FilRouge.Model.Entities;
 
-namespace FilRouge.Model.Models
+namespace FilRouge.Web.Models
 {
     using System.ComponentModel.DataAnnotations;
 

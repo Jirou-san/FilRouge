@@ -8,6 +8,8 @@ using FilRouge.Model;
 
 namespace FilRouge.Tests
 {
+    using FilRouge.Service;
+
     class Program
     {
         static void Main(string[] args)

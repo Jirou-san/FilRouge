@@ -28,7 +28,10 @@ namespace FilRouge.Model.Entities
         }
         //Documentation http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
 
-
+        public static FilRougeDBContext Create()
+        {
+            return new FilRougeDBContext();
+        }
         //public DbSet<Contact> Contact { get; set; }
         public DbSet<QuestionQuizz> QuestionQuizz { get; set; }
         public DbSet<Difficulty> Difficulty { get; set; }

@@ -9,16 +9,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using FilRouge.Model.Models;
+using FilRouge.Model.Entities;
 
 namespace FilRouge.Web.Controllers
 {
+    using FilRouge.Web.Models;
+
     public class QuestionController : Controller
     {
-        private IReferenceService _service;
-        public QuestionController(IReferenceService service)
+        private IReferenceService _referenceService;
+
+        private IQuestionResponseService _questionService;
+        public QuestionController(IReferenceService service, IQuestionResponseService questionservice)
         {
-            _service = service;
+            _referenceService = service;
+            _questionService = questionservice;
         }
 
         // GET: Questions/(All)
@@ -35,7 +40,7 @@ namespace FilRouge.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var question = _service.ShowQuestion(id);
+            var question = _questionService.ShowQuestion(id);
             if (question == null)
             {
                 return HttpNotFound();
@@ -47,7 +52,7 @@ namespace FilRouge.Web.Controllers
         public ActionResult All()
         {
             ICollection<QuestionModel> questionsVM = new List<QuestionModel>();
-            var questions = _service.GetAllQuestions();
+            var questions = _questionService.GetAllQuestions();
             if (questions == null)
             {
                 return HttpNotFound();
@@ -61,8 +66,8 @@ namespace FilRouge.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var difficulties = _service.GetAllDifficuties();
-            var technologies = _service.GetAllTechnologies();
+            var difficulties = _referenceService.GetAllDifficuties();
+            var technologies = _referenceService.GetAllTechnologies();
 
 
             IEnumerable<SelectListItem> dropDownDifficulties = difficulties.Select(d => new SelectListItem
@@ -91,7 +96,7 @@ namespace FilRouge.Web.Controllers
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)
             {
-                _service.AddQuestion(question);
+                _questionService.AddQuestion(question);
             }
             //Redirect pour effectuer action detail et recharger url.
             return RedirectToAction("Details", new { id = question.Id });
@@ -101,7 +106,7 @@ namespace FilRouge.Web.Controllers
         [HttpGet, ActionName("Delete")]
         public ActionResult Delete()
         {
-            var questions = _service.GetAllQuestions();
+            var questions = _questionService.GetAllQuestions();
 
             IEnumerable<SelectListItem> dropDownTechnologies = questions.Select(t => new SelectListItem
             {
@@ -116,7 +121,7 @@ namespace FilRouge.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            _service.DeleteQuestion(id);
+            _questionService.DeleteQuestion(id);
             return RedirectToAction("Index");
         }
         // POST: Technology/Delete/5

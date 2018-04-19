@@ -22,6 +22,7 @@ namespace FilRouge.Model.Entities
         [Required]
         public string Content { get; set; }
         public bool IsEnable { get; set; }
+        //Todo: Changer a HasFreeAnswer
         public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
 
         

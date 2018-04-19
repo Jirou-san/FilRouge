@@ -1,24 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using FilRouge.API.Models;
-using FilRouge.API.Providers;
-using FilRouge.API.Results;
-
+﻿
 namespace FilRouge.API.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Http.ModelBinding;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.OAuth;
+    using FilRouge.Model.Entities;
+    using FilRouge.API.Providers;
+    using FilRouge.API.Results;
+    using System.Net;
+
+    using FilRouge.API.Models;
+
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -28,13 +32,6 @@ namespace FilRouge.API.Controllers
 
         public AccountController()
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
         }
 
         public ApplicationUserManager UserManager
@@ -125,7 +122,7 @@ namespace FilRouge.API.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -250,7 +247,7 @@ namespace FilRouge.API.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            Contact user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -258,9 +255,9 @@ namespace FilRouge.API.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -328,14 +325,22 @@ namespace FilRouge.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+            var user = new Contact() { UserName = model.Email, Email = model.Email };
+            try
             {
-                return GetErrorResult(result);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
             }
+            catch(Exception ex)
+            {
+
+            }
+            
+
+            
 
             return Ok();
         }
@@ -357,7 +362,7 @@ namespace FilRouge.API.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new Contact() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
@@ -368,11 +373,25 @@ namespace FilRouge.API.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
+
             return Ok();
         }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [Route("AddRole")]
+        public IHttpActionResult CreateRole(AccountRoleModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var result = UserManager.AddToRole(model.UserId, model.RoleName);
+            return GetErrorResult(result);
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -417,7 +436,7 @@ namespace FilRouge.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            return null;
+            return StatusCode(HttpStatusCode.Created);
         }
 
         private class ExternalLoginData

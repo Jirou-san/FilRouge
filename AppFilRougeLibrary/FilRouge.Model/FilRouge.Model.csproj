@@ -111,13 +111,13 @@
     <Compile Include="Interfaces\IQuestionResponseService.cs" />
     <Compile Include="Interfaces\IQuizzService.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
-    <Compile Include="Migrations\201804171013533_17_04.cs" />
-    <Compile Include="Migrations\201804171013533_17_04.Designer.cs">
-      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
+    <Compile Include="Migrations\201804191236569_identity.cs" />
+    <Compile Include="Migrations\201804191236569_identity.Designer.cs">
+      <DependentUpon>201804191236569_identity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804182221260_18_04.cs" />
-    <Compile Include="Migrations\201804182221260_18_04.Designer.cs">
-      <DependentUpon>201804182221260_18_04.cs</DependentUpon>
+    <Compile Include="Migrations\201804191240260_identity-2.cs" />
+    <Compile Include="Migrations\201804191240260_identity-2.Designer.cs">
+      <DependentUpon>201804191240260_identity-2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,11 +127,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804171013533_17_04.resx">
-      <DependentUpon>201804171013533_17_04.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191236569_identity.resx">
+      <DependentUpon>201804191236569_identity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804182221260_18_04.resx">
-      <DependentUpon>201804182221260_18_04.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191240260_identity-2.resx">
+      <DependentUpon>201804191240260_identity-2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

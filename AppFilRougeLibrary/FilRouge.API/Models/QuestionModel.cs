@@ -7,6 +7,8 @@ namespace FilRouge.API.Models
 {
     using System.ComponentModel.DataAnnotations;
 
+    using FilRouge.Model.Entities;
+
     public struct QuestionModel
     {
         
@@ -24,5 +26,6 @@ namespace FilRouge.API.Models
         public string Comment { get; set; }
         public bool IsEnable { get; set; }
         public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
+        public List<Response> Responses { get; set; }
     }
 }

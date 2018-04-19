@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using FilRouge.API.Models;
-
+using FilRouge.Model.Entities;
 namespace FilRouge.API.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
@@ -31,7 +31,7 @@ namespace FilRouge.API.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            Contact user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {

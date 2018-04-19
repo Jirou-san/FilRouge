@@ -13,9 +13,9 @@ namespace FilRouge.Model.Interfaces
     public interface IQuestionResponseService
     {
         #region Responses
-        bool UpdateQuizzAnswer(int quizzId, int questionId, Response response);
+        bool UpdateQuizzAnswer(UserResponse useresponse);
       
-        bool UpdateQuizzAnswers(int quizzId, List<Question> questions);
+        //bool UpdateQuizzAnswers(int quizzId, List<Question> questions);
        
         Response GetResponse(int id);
 
@@ -32,7 +32,7 @@ namespace FilRouge.Model.Interfaces
         int AddQuestion(Question question);
         int DeleteQuestion(int id);
         //Ne perçoit pas trop l'utilisé pour le moment, à expliquer ty
-        //Question ShowQuestion(int id);
+        Question ShowQuestion(int id);
         List<Question> GetQuestionsByQuizz(int idQuizz);
         #endregion
     }

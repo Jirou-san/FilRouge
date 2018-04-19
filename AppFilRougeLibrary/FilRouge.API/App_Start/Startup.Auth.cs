@@ -13,6 +13,8 @@ using FilRouge.API.Models;
 
 namespace FilRouge.API
 {
+    using FilRouge.Model.Entities;
+
     public partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
@@ -23,7 +25,7 @@ namespace FilRouge.API
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configurer le contexte de base de données et le gestionnaire des utilisateurs pour utiliser une instance unique par demande
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(FilRougeDBContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Activer l'application pour utiliser un cookie afin de stocker les informations de l'utilisateur connecté

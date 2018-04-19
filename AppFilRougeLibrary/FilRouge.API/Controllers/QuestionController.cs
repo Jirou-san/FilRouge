@@ -36,7 +36,7 @@ namespace FilRouge.API.Controllers
 
 
         [HttpGet]
-        [Route("{idquizz}/question")]
+        [Route("{idquizz}")]
         public IHttpActionResult GetQuestionByQuizz(int idquizz)
         {
             if (!this.ModelState.IsValid)
@@ -54,7 +54,6 @@ namespace FilRouge.API.Controllers
         /// <param name="question">Corps de la requête renseignée sous format JSON</param>
         /// <returns>Retourne le code de status 201 - Created</returns>
         [HttpPost]
-        [Route("question")]
         public IHttpActionResult Create(QuestionModel question)
         {
             if (!this.ModelState.IsValid)
@@ -81,7 +80,7 @@ namespace FilRouge.API.Controllers
         /// <param name="id">Id de la question à supprimer</param>
         /// <returns>Retourne un statut OK ainsi que l'id de la ressource supprimée</returns>
         [HttpDelete]
-        [Route("question/{id}", Name = nameof(Delete))]
+        [Route("{id}", Name = nameof(Delete))]
         public IHttpActionResult Delete(int id)
         {
             if (!this.ModelState.IsValid)
@@ -99,7 +98,7 @@ namespace FilRouge.API.Controllers
         /// <param name="id">ID de la question</param>
         /// <returns>Retourne un statut OK ainsi que le contenue de la questions au format JSON</returns>
         [HttpGet]
-        [Route("question/{id}")]
+        [Route("{id}")]
         public IHttpActionResult GetQuestionById(int id)
         {
             if (!this.ModelState.IsValid)
@@ -115,8 +114,6 @@ namespace FilRouge.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("question")]
-
         public IHttpActionResult GetAllQuestions()
         {
             if (!this.ModelState.IsValid)
