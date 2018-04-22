@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FilRouge.Web.Models
 {
-    public class QuestionQuizzModel
+    public class QuestionQuizzModels
     {
         
 

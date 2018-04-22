@@ -51,6 +51,8 @@ namespace FilRouge.Web
             container.RegisterType<FilRougeDBContext>(new PerRequestLifetimeManager());
             //container.RegisterType<ReferencesService>(new HierarchicalLifetimeManager());
             container.RegisterType<IReferenceService,ReferencesService>();
+            container.RegisterType<IQuestionResponseService, QuestionResponseService>();
+
         }
     }
 }

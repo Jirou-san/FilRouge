@@ -1,45 +1,85 @@
-﻿@model IEnumerable<FilRouge.Model.Models.QuestionModel>
+﻿@model PagedList.IPagedList<FilRouge.Web.Models.QuestionModels>
+@using PagedList.Mvc;
 
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Questions";
 }
 
-<h2>View1</h2>
+<h2>Question - Index</h2>
 
+@ViewBag.alert
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.QuestionId)
+            @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParam })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Question
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Comment)
+            @Html.ActionLink("Difficulty", "Index", new { sortOrder = ViewBag.DifficultySortParam })
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("Technology", "Index", new { sortOrder = ViewBag.TechnologySortParam })
+        </th>
+        <th>
+            Enable
+        </th>
+        <th>
+
+        </th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var question in Model)
+    {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.QuestionId)
+            @Html.DisplayFor(modelItem => question.QuestionId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Content)
+            @*<a class="a_collapse">*@
+            @Html.DisplayFor(modelItem => question.Content)
+            @*</a>*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Comment)
+            @Html.DisplayFor(modelItem => question.Difficulty.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => question.Technology.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => question.IsEnable)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = question.QuestionId }) |
+            @Html.ActionLink("Details", "Details", new { id = question.QuestionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = question.QuestionId })
         </td>
     </tr>
-}
+        @*foreach (var response in question.Reponses)
+            {
+                <tr class = "to_collapse">
+                    <td>
+                    </td>
+                    <td>s
+                            @Html.DisplayFor(modelItem => response.Content)
+                            @Html.DisplayFor(modelItem => response.IsTrue)
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            }*@
+    }
+
 
 </table>
+@ViewBag.count
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

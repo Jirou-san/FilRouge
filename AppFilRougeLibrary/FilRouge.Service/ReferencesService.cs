@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace FilRouge.Service
+﻿namespace FilRouge.Service
 {
     using FilRouge.Model.Entities;
-    using FilRouge.Service;
-    using System;
     using System.Linq;
-
     using FilRouge.Model.Interfaces;
+    using System.Collections.Generic;
+    using System.Data.Entity;
 
     /// <summary>
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
@@ -22,9 +19,11 @@ namespace FilRouge.Service
             _db = db;
         }
 
+
         #region Technology
+
         /// <summary>
-        /// Recuperer une technology par son Id
+        /// Obtenir une technology par son Id
         /// </summary>
         /// <param name="id"> id de la technology</param>
         /// <returns>Une technologie unique</returns>
@@ -42,11 +41,49 @@ namespace FilRouge.Service
         {
             return _db.Technology.ToList();
         }
+
+        /// <summary>
+        /// Insérer une technologie
+        /// </summary>
+        /// <returns>L'id de la technologie insérée/returns>
+        public int AddTechnology(Technology technology)
+        {
+            _db.Technology.Add(technology);
+            return _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Supprimer une technologie
+        /// </summary>
+        /// <returns>L'id de la technologie supprimée/returns>
+        public int DeleteTechnology(int id)
+        {
+            var technology = new Technology() { Id = id };
+
+            _db.Technology.Attach(technology);
+            _db.Technology.Remove(technology);
+
+            return _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Mettre à jour une technologie
+        /// </summary>
+        /// <returns>L'id de la technologie mis à jour/returns>
+        public int UpdateTechnology(Technology technology)
+        {
+            _db.Entry(technology).State = EntityState.Modified;
+            return _db.SaveChanges();
+        }
+
+
         #endregion
 
+
         #region Difficulty
+
         /// <summary>
-        /// Recupérer une difficulté par son id
+        /// Obtenir une difficulté par son id
         /// </summary>
         /// <param name="id"> l'id de la difficulté</param>
         /// <returns>Une difficulté (unique)</returns>
@@ -57,12 +94,46 @@ namespace FilRouge.Service
         }
 
         /// <summary>
-        /// obtenir la liste de toutes les difficultés
+        /// Obtenir la liste de toutes les difficultés
         /// </summary>
-        /// <returns>liste de difficulté/returns>
+        /// <returns>Liste de difficulté/returns>
         public List<Difficulty> GetAllDifficuties()
         {
             return _db.Difficulty.ToList(); ;
+        }
+
+        /// <summary>
+        /// Insérer une difficulté
+        /// </summary>
+        /// <returns>L'id de la diffulté insérée/returns>
+        public int AddDifficulty(Difficulty difficulty)
+        {
+            _db.Difficulty.Add(difficulty);
+            return _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Supprimer une difficulté
+        /// </summary>
+        /// <returns>L'id de la diffulté supprimée/returns>
+        public int DeleteDifficulty(int id)
+        {
+            var difficulty = new Difficulty() { Id = id };
+
+            _db.Difficulty.Attach(difficulty);
+            _db.Difficulty.Remove(difficulty);
+
+            return _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Mettre à jour une difficulté
+        /// </summary>
+        /// <returns>L'id de la difficulté mis à jour/returns>
+        public int UpdateDifficulty(Difficulty difficulty)
+        {
+            _db.Entry(difficulty).State = EntityState.Modified;
+            return _db.SaveChanges();
         }
         #endregion
 
