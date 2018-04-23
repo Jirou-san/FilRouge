@@ -328,7 +328,28 @@ public class QuizzService
         return returnedQuizz;
     }
 
-
+    /// <summary>
+    /// Permet de mettre à jour les données utilisateur pour un quiz donné
+    /// </summary>
+    /// <param name="quizId">Id du quiz que l'on souhaite modifier</param>
+    /// <param name="userFirstName">Prénom. Mettre à null si on ne souhaite pas modifier la valeur</param>
+    /// <param name="userLastName">Nom. Mettre à null si on ne souhaite pas modifier la valeur</param>
+    /// <param name="externalNumber">Numéro externe d'identification. Mettre à null si on ne souhaite pas modifier la valeur</param>
+    public void UpdateQuiz(int quizId, string userFirstName, string userLastName, string externalNumber)
+    {
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            var myQuiz = db.Quizz.Where(e => e.Id == quizId).FirstOrDefault();
+            
+            if (myQuiz != null)
+            {
+                if (userFirstName != null) myQuiz.UserFirstName = userFirstName;
+                if (userLastName != null) myQuiz.UserLastName = userLastName;
+                if (externalNumber != null) myQuiz.ExternalNum = externalNumber;
+                db.SaveChanges();
+            }
+        }
+    }
 
     public void UpdateQuizzAnswer(int QuestionQuizzId, UserResponse userAnswer)
     {
@@ -341,7 +362,7 @@ public class QuizzService
     }
 
     /// <summary>
-    /// Donne l'Id de la question en cours pour un quiz donné
+    /// Donne l'Id de la question en cours pour un quiz donné et des propositions de réponse associées
     /// </summary>
     /// <param name="quizId">Id du quiz dont on souhaite connaitre la question en cours</param>
     /// <returns>Id de la question</returns>
@@ -357,6 +378,7 @@ public class QuizzService
                         .First().ActiveQuestionNum;
 
             var questionsQuiz = db.QuestionQuizz
+                        .Include(nameof(Response))
                         .Where(e => e.QuizzId == quizId)
                         .OrderBy(e => e.DisplayNum)
                         .ToList();
@@ -380,9 +402,24 @@ public class QuizzService
     /// 
     /// </summary>
     /// <param name="questionQuizz"></param>
-    public void SetQuestionQuizAnswer(QuestionQuizz questionQuizz)
+    public void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
     {
         throw new Exception("Méthode non implémentée");
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            using(var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                // On récupère l'enregistrement qui correspond au question Quiz
+                var myQuestionQuiz = db.QuestionQuizz.Where(e => e.Id == questionQuizz.Id).FirstOrDefault();
+
+                if (myQuestionQuiz != null)
+                {
+                    //Enregistrement existe
+                    if ()
+                        myQuestionQuiz.
+                }
+            }
+        }
     }
 }
 
