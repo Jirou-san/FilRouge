@@ -55,9 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="QuestionTests\" />
-    <Folder Include="QuizzTests\" />
-    <Folder Include="ResponseTests\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Services\QuestionTests\" />
+    <Folder Include="Services\QuizzTests\" />
+    <Folder Include="Services\ResponseTests\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

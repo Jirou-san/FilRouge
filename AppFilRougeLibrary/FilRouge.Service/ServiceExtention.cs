@@ -97,7 +97,9 @@
 
         #region UriGenerator
         /// <summary>
-        /// Méthode d'extention permettant de générer une URI
+        /// Méthode d'extention permettant de gé7
+        /// 
+        /// nérer une URI
         /// </summary>
         /// <param name="baseUri">L'URL de base ex: http://localhost:81</param>
         /// <param name="externalnumber">Le numéro externe du candidat</param>
