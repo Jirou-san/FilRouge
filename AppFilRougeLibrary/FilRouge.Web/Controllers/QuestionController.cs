@@ -48,22 +48,23 @@
             switch (sortOrder)
             {
                 case "id_desc":
-                    questionModels = questionModels.OrderByDescending(q=>q.QuestionId.ToString()).ToList();
+                    //PROBLEM !!! FONCTION POUR DES STRING... donc 444 se place avant 5...
+                    questionModels = questionModels.OrderByDescending(q => q.QuestionId).ToList();
                     break;
                 case "Difficulty":
-                    questionModels = questionModels.OrderBy(q => q.Difficulty.Name).ToList();
+                    questionModels = questionModels.OrderBy(q => q.DifficultyName).ToList();
                     break;
                 case "difficulty_desc":
-                    questionModels = questionModels.OrderByDescending(q => q.Difficulty.Name).ToList();
+                    questionModels = questionModels.OrderByDescending(q => q.DifficultyName).ToList();
                     break;
                 case "Technology":
-                    questionModels = questionModels.OrderBy(q => q.Technology.Name).ToList();
+                    questionModels = questionModels.OrderBy(q => q.TechnologyName).ToList();
                     break;
                 case "technology_desc":
-                    questionModels = questionModels.OrderByDescending(q => q.Technology.Name).ToList();
+                    questionModels = questionModels.OrderByDescending(q => q.TechnologyName).ToList();
                     break;
                 default:
-                    questionModels = questionModels.OrderBy(q => q.QuestionId.ToString()).ToList();
+                    questionModels = questionModels.OrderBy(q => q.QuestionId).ToList();
                     break;
             }
             return View(questionModels.ToPagedList(pageNumber, pageSize));
@@ -113,7 +114,7 @@
         // POST: Question/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Difficulty,Technology,Content,IsEnable")] QuestionModels questionVM)
+        public ActionResult Create([Bind(Include = "DifficultyId,TechnologyId,Content,IsEnable")] QuestionModels questionVM)
         {
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)

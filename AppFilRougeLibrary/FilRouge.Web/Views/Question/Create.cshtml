@@ -17,18 +17,18 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Difficulty, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DifficultyId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Difficulty", (IEnumerable<SelectListItem>)ViewBag.difficulties, "...", new { @class = "extra-class" })
-            @Html.ValidationMessage("Difficulty", "Please choose a difficulty.", new { @class = "text-danger" })
+            @Html.DropDownList("DifficultyId", (IEnumerable<SelectListItem>)ViewBag.difficulties, "...", new { @class = "extra-class" })
+            @Html.ValidationMessage("DifficultyName", "Please choose a difficulty.", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Technology, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.TechnologyName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Technology", (IEnumerable<SelectListItem>)ViewBag.technologies, "...", new { @class = "extra-class" })
-            @Html.ValidationMessage("Technology", "Please choose a technology.", new { @class = "text-danger" })
+            @Html.DropDownList("TechnologyId", (IEnumerable<SelectListItem>)ViewBag.technologies, "...", new { @class = "extra-class" })
+            @Html.ValidationMessage("Technology", "Please choose a technologie.", new { @class = "text-danger" })
             @*@Html.ValidationMessageFor(model => model.Technology, "", new { @class = "text-danger" })*@
         </div>
     </div>

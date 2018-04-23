@@ -22,8 +22,12 @@ namespace FilRouge.Web.Models
         public string Content { get; set; }
         public bool IsEnable { get; set; }
 
-        public Technology Technology { get; set; }
-        public Difficulty Difficulty { get; set; }
+        public int TechnologyId { get; set; }
+        public string TechnologyName { get; set; }
+
+        public int DifficultyId { get; set; }
+        public string DifficultyName { get; set; }
+
         public List<string> Comments { get; set; }
         public ICollection<Response> Responses { get; set; }
 
@@ -42,8 +46,8 @@ namespace FilRouge.Web.Models
 
             questionVM.QuestionId = question.Id;
             questionVM.Content = question.Content;
-            questionVM.Technology = question.Technology;
-            questionVM.Difficulty = question.Difficulty;
+            questionVM.TechnologyId = question.Technology.Id;
+            questionVM.DifficultyId = question.DifficultyId;
             questionVM.IsEnable = question.IsEnable;
 
             // les commentaires depuis questionQuizz qui est associé a userReponse)
@@ -62,8 +66,10 @@ namespace FilRouge.Web.Models
 
             questionVM.QuestionId = question.Id;
             questionVM.Content = question.Content;
-            questionVM.Difficulty = question.Difficulty;
-            questionVM.Technology = question.Technology;
+            questionVM.DifficultyId = question.DifficultyId;
+            questionVM.DifficultyName = question.Difficulty.Name;
+            questionVM.TechnologyId = question.TechnologyId;
+            questionVM.TechnologyName = question.Technology.Name;
             questionVM.Responses = question.Responses;
             questionVM.IsEnable = question.IsEnable;
 
@@ -78,8 +84,8 @@ namespace FilRouge.Web.Models
                 return question;
             }
             question.Content = questionVM.Content;
-            question.DifficultyId = questionVM.Difficulty.Id;
-            question.TechnologyId = questionVM.Technology.Id;
+            question.DifficultyId = questionVM.DifficultyId;
+            question.TechnologyId =  questionVM.TechnologyId;
             question.IsEnable = questionVM.IsEnable;
             question.Responses = questionVM.Responses;
 
