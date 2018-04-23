@@ -28,6 +28,7 @@
         // GET: Questions/
         public ViewResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.alert = TempData["Alert"];
 
             //Nb item per page
             int pageSize = 25;
@@ -125,26 +126,28 @@
             return RedirectToAction("Details", new { id = question.Id });
         }
 
-        // GET: Technology/Delete/5
+        // GET: Question/Delete/5
         [HttpGet, ActionName("Delete")]
         public ActionResult Delete()
         {
-            var questions = _questionService.GetAllQuestions();
-
-            IEnumerable<SelectListItem> dropDownTechnologies = questions.Select(t => new SelectListItem
-            {
-                Value = t.Id.ToString(),
-                Text = t.Content
-            });
             return View();
         }
 
-        // POST: Technology/Delete/5
+        // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            _questionService.DeleteQuestion(id);
+            var status =  _questionService.DeleteQuestion(id);
+
+            if (id == 0 || status == 0)
+            {
+                TempData["Alert"] = "Error: Problême durant la suppression de la question";
+            }
+            else
+            {
+                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{id}");
+            }
             return RedirectToAction("Index");
         }
         // POST: Technology/Delete/5

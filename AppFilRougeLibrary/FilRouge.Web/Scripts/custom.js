@@ -18,14 +18,11 @@
 //} 
 
 
-//$(document).ready(function () {
 
-//    $('#clickable_row').click(function () {
+$("#alert").delay(1800).slideUp(300);
+//$("#alert").delay(1600).fadeOut(600);
 
-//    });
-
-//});
-
+    
 
 //$(document).ready(function ($) {
 //    $(".a_collapse").click(function () {

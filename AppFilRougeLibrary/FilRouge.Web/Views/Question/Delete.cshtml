@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FilRouge.Model.Models.QuestionModel>
+﻿@model FilRouge.Web.Models.QuestionModels
 
 @{
     ViewBag.Title = "Delete";
@@ -8,7 +8,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>QuestionModel</h4>
+    <h4>QuestionModels</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -28,17 +28,48 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Comment)
+            @Html.DisplayNameFor(model => model.IsEnable)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comment)
+            @Html.DisplayFor(model => model.IsEnable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnologyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnologyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DifficultyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DifficultyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyName)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

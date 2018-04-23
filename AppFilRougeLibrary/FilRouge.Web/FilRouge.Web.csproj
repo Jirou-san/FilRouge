@@ -274,7 +274,7 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Registe1r.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -291,13 +291,15 @@
     <Content Include="Views\Quizz\Index.cshtml" />
     <Content Include="Views\Quizz\_question.cshtml" />
     <Content Include="Views\Question\Details.cshtml" />
-    <Content Include="Views\Question\Delete.cshtml" />
     <Content Include="Views\Technology\Index.cshtml" />
     <Content Include="Views\Technology\Create.cshtml" />
     <Content Include="Views\Technology\Details.cshtml" />
     <Content Include="Views\Technology\Edit.cshtml" />
     <Content Include="Views\Technology\Delete.cshtml" />
     <Content Include="Views\Question\Create.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Question\Edit.cshtml" />
+    <Content Include="Views\Question\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

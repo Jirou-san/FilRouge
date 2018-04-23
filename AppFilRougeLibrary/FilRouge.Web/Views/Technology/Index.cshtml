@@ -9,6 +9,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @if (ViewBag.alert != null)
+    {
+        <div class="alert alert-success" id="alert">
+            @ViewBag.alert
+        </div>
+    }
+
+</p>
 <table class="table">
     <tr>
         <th>
@@ -45,5 +54,3 @@
 
 </table>
 @ViewBag.count
-
-@ViewBag.alert

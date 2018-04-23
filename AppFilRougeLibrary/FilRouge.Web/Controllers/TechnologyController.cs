@@ -22,7 +22,7 @@ namespace FilRouge.Web.Controllers
         // GET: Technology
         public ActionResult Index()
         {
-            //ViewBag.message = this.ViewBag.message;
+            ViewBag.alert = TempData["Alert"];
             var technologyModels = new List<TechnologyModel>();
             var technologies = _referenceService.GetAllTechnologies();
 
@@ -105,19 +105,19 @@ namespace FilRouge.Web.Controllers
             {
                 _referenceService.UpdateTechnology(technologyModel.MapToTechnology());
 
-                ViewBag.alert = string.Format($"Technology = {technology.Name}, mis à jour.-");
+                ViewBag.alert = string.Format($"Technology = {technology.Name} mis à jour");
 
                 return View();
             }
             catch
             {
-                ViewBag.message = string.Format($"Problême durant la mise à jour de la technologie {technology.Name})");
+                ViewBag.message = string.Format($"Problême durant la mise à jour de la technologie ({technology.Name})");
                 return View();
             }
         }
 
         // GET: Technology/Delete/5
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             var technology = _referenceService.GetTechnology(id);
             return View(technology.MapToTechnologyModel());
@@ -127,15 +127,17 @@ namespace FilRouge.Web.Controllers
         [HttpPost]
         public ActionResult Delete(TechnologyModel technology)
         {
-            try
+            var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
+
+            if (deletedTechnologyId == 0)
             {
-                _referenceService.DeleteTechnology(technology.Id);
-                return RedirectToAction("Index");
+                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
             }
-            catch
+            else
             {
-                return View();
+                TempData["Alert"] = string.Format($"Success: suppression de la technologie (id: {deletedTechnologyId})");
             }
+            return RedirectToAction("Index");
         }
     }
 }
