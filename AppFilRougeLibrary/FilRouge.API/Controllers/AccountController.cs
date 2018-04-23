@@ -342,7 +342,7 @@ namespace FilRouge.API.Controllers
 
             
 
-            return Ok();
+            return this.StatusCode(HttpStatusCode.Created);
         }
 
         // POST api/Account/RegisterExternal

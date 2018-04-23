@@ -17,10 +17,11 @@ namespace FilRouge.Model.Entities
     using System;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    
+
+
     public class FilRougeDBContext : IdentityDbContext<Contact>
     {
-        
+
         public FilRougeDBContext() :base("name=ConnexionStringFilRouge")
         {
            //Database.SetInitializer(new FilRougeDbContextInit());
