@@ -412,11 +412,39 @@ public class QuizzService
                 // On récupère l'enregistrement qui correspond au question Quiz
                 var myQuestionQuiz = db.QuestionQuizz.Where(e => e.Id == questionQuizz.Id).FirstOrDefault();
 
-                if (myQuestionQuiz != null)
+                if (myQuestionQuiz == null)
+                {
+                    dbContextTransaction.Rollback();
+                    throw new Exception("QuestionQuiz Id non trouvé");
+                }
+                else
                 {
                     //Enregistrement existe
-                    if ()
-                        myQuestionQuiz.
+                    //On vérifie si certains champs ont été modifiés et on réalise la modif le cas échéant
+                    if (questionQuizz.FreeAnswer != null) myQuestionQuiz.FreeAnswer = questionQuizz.FreeAnswer;
+                    if (questionQuizz.RefuseToAnswer == true) myQuestionQuiz.RefuseToAnswer = questionQuizz.RefuseToAnswer;
+                    //On écrit la liste des réponses de l'utilisateur
+                    throw new Exception("Méthode non implémentée"); // A traiter
+
+
+
+                    //On met à jour le numéro de la question active
+                    var myQuiz = db.Quizz.Where(e => e.Id == myQuestionQuiz.QuizzId).FirstOrDefault();
+                    if (myQuiz == null)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw new Exception("Quiz Id non trouvé");
+                    }
+                    else
+                    {
+                        //On incrément la question active
+                        myQuiz.ActiveQuestionNum += 1;
+                        //Si on est arrivé à la fin du quiz on le marque dans la table
+                        if (myQuiz.QuestionCount < myQuiz.ActiveQuestionNum) myQuiz.QuizzState = QuizzStateEnum.Done;
+                    }
+                    db.SaveChanges();
+                    // On est ici donc tout c'est bien passé
+                    dbContextTransaction.Commit();
                 }
             }
         }
