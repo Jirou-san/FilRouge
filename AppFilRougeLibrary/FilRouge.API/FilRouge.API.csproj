@@ -253,6 +253,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuizzController.cs" />
+    <Compile Include="Controllers\ReferenceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -330,6 +331,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Messages\" />
     <Folder Include="Views\Quizz\" />
+    <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
