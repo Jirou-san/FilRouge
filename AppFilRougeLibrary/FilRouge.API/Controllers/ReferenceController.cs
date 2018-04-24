@@ -36,7 +36,7 @@ namespace FilRouge.API.Controllers
         /// </summary>
         /// <returns>Le statut 200 OK et toutes les technologies au format JSON</returns>
         [HttpGet]
-        public IHttpActionResult GetAllQuizz()
+        public IHttpActionResult GetTechnologies()
         {
             if (!this.ModelState.IsValid)
             {
@@ -45,5 +45,20 @@ namespace FilRouge.API.Controllers
 
             return this.Ok(this._referenceService.GetAllTechnologies());
         }
+
+        [HttpPost]
+        public IHttpActionResult AddTechnology(TechnologyModel technologyVM)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            _referenceService.AddTechnology()
+
+            return this.StatusCode(HttpStatusCode.Created);
+        }
+
+        
     }
 }
