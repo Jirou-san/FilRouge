@@ -1,10 +1,10 @@
-﻿@model FilRouge.Model.Models.QuestionModel
+﻿@model FilRouge.Web.Models.QuestionModels
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Question - Details</h2>
 
 <div>
     <h4>QuestionModel</h4>
@@ -36,14 +36,14 @@
             Bonne Réponse
         </th>
     </tr>
-    @foreach (var reponse in Model.Reponses)
+    @foreach (var response in Model.Responses)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => reponse.Content)
+                @Html.DisplayFor(modelItem => response.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => reponse.IsTrue)
+                @Html.DisplayFor(modelItem => response.IsTrue)
             </td>
         </tr>
     }

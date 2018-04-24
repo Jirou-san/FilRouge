@@ -1,35 +1,74 @@
-﻿using FilRouge.Service;
-using FilRouge.Model.Entities;
-using FilRouge.Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-
-namespace FilRouge.Web.Controllers
+﻿namespace FilRouge.Web.Controllers
 {
+    using FilRouge.Service;
+    using FilRouge.Model.Entities;
+    using FilRouge.Model.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
+    using PagedList;
     using FilRouge.Web.Models;
 
     public class QuestionController : Controller
     {
         private IReferenceService _referenceService;
-
         private IQuestionResponseService _questionService;
+
         public QuestionController(IReferenceService service, IQuestionResponseService questionservice)
         {
             _referenceService = service;
             _questionService = questionservice;
         }
 
-        // GET: Questions/(All)
-        public ActionResult Index()
+        // GET: Questions/
+        public ViewResult Index(string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.alert = TempData["Alert"];
 
-            return All();
+            //Nb item per page
+            int pageSize = 25;
+            //Default page 
+            int pageNumber = (page ?? 1);
+
+            //Order filter
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.DifficultySortParam = sortOrder == "Difficulty" ? "difficulty_desc" : "Difficulty";
+            ViewBag.TechnologySortParam = sortOrder == "Technology" ? "technology_desc" : "Technology";
+
+            ICollection<QuestionModels> questionModels = new List<QuestionModels>();
+            var questions = _questionService.GetAllQuestions();
+            @ViewBag.count = string.Format($"{questions.Count()} item(s) found");
+
+            questions.ForEach(question => questionModels.Add(question.MapToQuestionModel()));
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    //PROBLEM !!! FONCTION POUR DES STRING... donc 444 se place avant 5...
+                    questionModels = questionModels.OrderByDescending(q => q.QuestionId).ToList();
+                    break;
+                case "Difficulty":
+                    questionModels = questionModels.OrderBy(q => q.DifficultyName).ToList();
+                    break;
+                case "difficulty_desc":
+                    questionModels = questionModels.OrderByDescending(q => q.DifficultyName).ToList();
+                    break;
+                case "Technology":
+                    questionModels = questionModels.OrderBy(q => q.TechnologyName).ToList();
+                    break;
+                case "technology_desc":
+                    questionModels = questionModels.OrderByDescending(q => q.TechnologyName).ToList();
+                    break;
+                default:
+                    questionModels = questionModels.OrderBy(q => q.QuestionId).ToList();
+                    break;
+            }
+            return View(questionModels.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Question/Details/5
@@ -45,20 +84,6 @@ namespace FilRouge.Web.Controllers
                 return HttpNotFound();
             }
             return View(question.MapToQuestionViewModelFull());
-        }
-
-        // GET: Question/All
-        public ActionResult All()
-        {
-            ICollection<QuestionModel> questionsVM = new List<QuestionModel>();
-            var questions = _questionService.GetAllQuestions();
-            if (questions == null)
-            {
-                return HttpNotFound();
-            }
-
-            questions.ForEach(question => questionsVM.Add(Map.MapToQuestionModel(question)));
-            return View(questionsVM);
         }
 
         // GET: Question/Create
@@ -90,7 +115,7 @@ namespace FilRouge.Web.Controllers
         // POST: Question/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology")] QuestionModel questionVM)
+        public ActionResult Create([Bind(Include = "DifficultyId,TechnologyId,Content,IsEnable")] QuestionModels questionVM)
         {
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)
@@ -101,26 +126,28 @@ namespace FilRouge.Web.Controllers
             return RedirectToAction("Details", new { id = question.Id });
         }
 
-        // GET: Technology/Delete/5
+        // GET: Question/Delete/5
         [HttpGet, ActionName("Delete")]
         public ActionResult Delete()
         {
-            var questions = _questionService.GetAllQuestions();
-
-            IEnumerable<SelectListItem> dropDownTechnologies = questions.Select(t => new SelectListItem
-            {
-                Value = t.Id.ToString(),
-                Text = t.Content
-            });
             return View();
         }
 
-        // POST: Technology/Delete/5
+        // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            _questionService.DeleteQuestion(id);
+            var status =  _questionService.DeleteQuestion(id);
+
+            if (id == 0 || status == 0)
+            {
+                TempData["Alert"] = "Error: Problême durant la suppression de la question";
+            }
+            else
+            {
+                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{id}");
+            }
             return RedirectToAction("Index");
         }
         // POST: Technology/Delete/5
