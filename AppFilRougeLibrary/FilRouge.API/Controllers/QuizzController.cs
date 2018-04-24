@@ -19,8 +19,8 @@ namespace FilRouge.API.Controllers
         /// Interface permettant d'utiliser directement les méthodes qui lui sont associés
         /// Plutot que les classes
         /// </summary>
-        private readonly IQuizzService quizzService;
-
+        private readonly IQuizzService _quizzService;
+        
         // A déclarer sur le container unity
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace FilRouge.API.Controllers
         /// </param>
         public QuizzController(IQuizzService quizzservice)
         {
-            this.quizzService = quizzservice;
+            this._quizzService = quizzservice;
         }
 
         /// <summary>
@@ -49,14 +49,8 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            this.quizzService.CreateQuizz(
-                quizz.ContactId,
-                quizz.TechnologyId,
-                quizz.DifficultyId,
-                quizz.UserLastName,
-                quizz.UserFirstName,
-                quizz.ExternalNum,
-                quizz.QuestionCount);
+            this._quizzService.CreateQuizz(quizz.ContactId, quizz.TechnologyId, quizz.DifficultyId, quizz.UserLastName,
+                quizz.UserFirstName, quizz.ExternalNum, quizz.QuestionCount);
 
             return this.StatusCode(HttpStatusCode.Created);
         }
@@ -75,7 +69,7 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetQuizById(id));
+            return this.Ok(this._quizzService.GetQuizById(id));
         }
 
         /// <summary>
@@ -94,7 +88,7 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetQuizz(filter));
+            return this.Ok(this._quizzService.GetQuizz(filter));
         }
 
         /// <summary>
@@ -115,7 +109,7 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetAllQuizz(contact));
+            return this.Ok(this._quizzService.GetAllQuizz(contact));
         }
 
         /// <summary>
@@ -130,7 +124,7 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetAllQuizz());
+            return this.Ok(this._quizzService.GetAllQuizz());
         }
     }
 }

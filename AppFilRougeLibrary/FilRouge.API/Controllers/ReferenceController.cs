@@ -1,17 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿
 
 namespace FilRouge.API.Controllers
 {
-    public class ReferenceController : Controller
+    using System.Net;
+    using System.Web.Http;
+    using FilRouge.API.Models;
+    using FilRouge.Model.Entities;
+    using FilRouge.Model.Interfaces;
+
+    [RoutePrefix("api/reference")]
+    [Authorize]
+    public class ReferenceController : ApiController
     {
-        // GET: Reference
-        public ActionResult Index()
+
+        /// <summary>
+        /// Interface permettant d'utiliser directement les méthodes qui lui sont associés
+        /// Plutot que les classes
+        /// </summary>
+        private readonly IReferenceService _referenceService;
+
+        private Map mapping = new Map();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReferenceController"/> class.
+        /// </summary>
+        /// <param name="referenceService">
+        /// The reference service.
+        /// </param>
+        public ReferenceController(IReferenceService referenceService)
         {
-            return View();
+            this._referenceService = referenceService;
+        }
+
+        /// <summary>
+        /// Controleur permettant d'obtenir toutes les technologies
+        /// </summary>
+        /// <returns>Le statut 200 OK et toutes les technologies au format JSON</returns>
+        [HttpGet]
+        public IHttpActionResult GetAllQuizz()
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            return this.Ok(this._referenceService.GetAllTechnologies());
         }
     }
 }

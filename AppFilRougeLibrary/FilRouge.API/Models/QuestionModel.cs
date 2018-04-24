@@ -23,9 +23,40 @@ namespace FilRouge.API.Models
         
         public string Content { get; set; }
         [MaxLength(500)]
-        public string Comment { get; set; }
         public bool IsEnable { get; set; }
         public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
-        public List<Response> Responses { get; set; }
+        public ICollection<Response> Responses { get; set; }
+    }
+    public partial class Map
+    {
+        public QuestionModel MapToQuestionModel(Question question)
+        {
+            var questionVM = new QuestionModel();
+            if (question == null)
+            {
+                return questionVM;
+            }
+            questionVM.Content = question.Content;
+            questionVM.DifficultyId = question.DifficultyId;
+            questionVM.IsEnable = question.IsEnable;
+            questionVM.IsFreeAnswer = question.IsFreeAnswer;
+            questionVM.TechnologyId = question.TechnologyId;
+            questionVM.Responses = question.Responses;
+
+            return questionVM;
+        }
+        public Question MapToQuestion(QuestionModel questionVM)
+        {
+            var question = new Question();
+
+            question.Content = questionVM.Content;
+            question.DifficultyId = questionVM.DifficultyId;
+            question.IsEnable = questionVM.IsEnable;
+            question.IsFreeAnswer = questionVM.IsFreeAnswer;
+            question.TechnologyId = questionVM.TechnologyId;
+            question.Responses = questionVM.Responses;
+
+            return question;
+        }
     }
 }
