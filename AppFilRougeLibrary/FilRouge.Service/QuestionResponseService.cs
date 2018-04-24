@@ -24,7 +24,12 @@ namespace FilRouge.Service
         public Question GetQuestion(int id)
         {
             var question = _db.Question.Find(id);
-            return question ?? throw new NotFoundException(string.Format($"No question found with the id: {id}"));
+            if (question == null)
+            {
+                throw new NotFoundException(string.Format($"No question found with the id: {id}"));
+            }
+
+            return question;
         }
 
         /// <summary>
@@ -42,7 +47,11 @@ namespace FilRouge.Service
                                     .Include("Responses")
                                     .FirstOrDefault(x => x.Id == id);
 
-            return question ?? throw new NotFoundException(string.Format($"No question found with the id: {id}"));
+            if (question == null)
+            {
+                throw new NotFoundException(string.Format($"No question found with the id: {id}"));
+            }
+            return question;
         }
 
         /// <summary>
@@ -115,7 +124,11 @@ namespace FilRouge.Service
         public Response GetResponse(int id)
         {
             var response = _db.Response.Find(id);
-            return response ?? throw new NotFoundException(string.Format($"No response found with the id: {id}"));
+            if (response == null)
+            {
+                throw new NotFoundException(string.Format($"No response found with the id: {id}"));
+            }
+            return response;
         }
 
         /// <summary>

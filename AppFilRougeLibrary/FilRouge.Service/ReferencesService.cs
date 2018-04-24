@@ -31,7 +31,11 @@ namespace FilRouge.Service
         public Technology GetTechnology(int id)
         {
             var technology = _db.Technology.Find(id);
-            return technology ?? throw new NotFoundException(string.Format($"No technology found with the id: {id}"));
+            if (technology == null)
+            {
+                 throw new NotFoundException(string.Format($"No technology found with the id: {id}"));
+            }
+            return technology;
         }
 
         /// <summary>
@@ -53,7 +57,11 @@ namespace FilRouge.Service
         public Difficulty GetDifficulty(int id)
         {
             var difficulty = _db.Difficulty.Find(id);
-            return difficulty ?? throw new NotFoundException(string.Format($"No difficulty found with the id: {id}"));
+            if (difficulty == null)
+            {
+                throw new NotFoundException(string.Format($"No difficulty found with the id: {id}"));
+            }
+            return difficulty;
         }
 
         /// <summary>
