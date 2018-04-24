@@ -108,14 +108,16 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\Technology.cs" />
     <Compile Include="Entities\UserReponse.cs" />
+    <Compile Include="Interfaces\IQuestionResponseService.cs" />
+    <Compile Include="Interfaces\IQuizzService.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.cs" />
-    <Compile Include="Migrations\201804161122499_FilRouge_v1.Designer.cs">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <Compile Include="Migrations\201804191236569_identity.cs" />
+    <Compile Include="Migrations\201804191236569_identity.Designer.cs">
+      <DependentUpon>201804191236569_identity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804170940262_FilRouge_v2.1.cs" />
-    <Compile Include="Migrations\201804170940262_FilRouge_v2.1.Designer.cs">
-      <DependentUpon>201804170940262_FilRouge_v2.1.cs</DependentUpon>
+    <Compile Include="Migrations\201804191240260_identity-2.cs" />
+    <Compile Include="Migrations\201804191240260_identity-2.Designer.cs">
+      <DependentUpon>201804191240260_identity-2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,11 +127,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161122499_FilRouge_v1.resx">
-      <DependentUpon>201804161122499_FilRouge_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191236569_identity.resx">
+      <DependentUpon>201804191236569_identity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804170940262_FilRouge_v2.1.resx">
-      <DependentUpon>201804170940262_FilRouge_v2.1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191240260_identity-2.resx">
+      <DependentUpon>201804191240260_identity-2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,11 @@
 using System;
-
 using Unity;
 using IReferenceService = FilRouge.Model.Interfaces.IReferenceService;
 namespace FilRouge.API
 {
+    using FilRouge.Model.Interfaces;
+    using FilRouge.Service;
+
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -42,8 +44,11 @@ namespace FilRouge.API
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-
-           
+            // TODO: Register your type's mappings here.
+            //container.RegisterType<ReferencesService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IQuizzService, QuizzService>();
+            container.RegisterType<IReferenceService, ReferencesService>();
+            container.RegisterType<IQuestionResponseService, QuestionResponseService>();
         }
        
     }

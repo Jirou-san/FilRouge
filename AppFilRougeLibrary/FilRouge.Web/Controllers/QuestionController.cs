@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FilRouge.Service;
+using FilRouge.Model.Entities;
+using FilRouge.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,39 +9,50 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using FilRouge.Model.Entities;
 
 namespace FilRouge.Web.Controllers
 {
+    using FilRouge.Web.Models;
+
     public class QuestionController : Controller
     {
+        private IReferenceService _referenceService;
+
+        private IQuestionResponseService _questionService;
+        public QuestionController(IReferenceService service, IQuestionResponseService questionservice)
+        {
+            _referenceService = service;
+            _questionService = questionservice;
+        }
 
         // GET: Questions/(All)
         public ActionResult Index()
         {
+
             return All();
         }
 
-        // GET: Question/Details/n
-        public ActionResult Details(int? id)
-
+        // GET: Question/Details/5
+        public ActionResult Details(int id=0)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var question = service.ShowQuestion(id);
+            var question = _questionService.ShowQuestion(id);
             if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(question.MapToQuestionModel());
+            return View(question.MapToQuestionViewModelFull());
         }
 
         // GET: Question/All
         public ActionResult All()
         {
             ICollection<QuestionModel> questionsVM = new List<QuestionModel>();
-            var questions = service.GetAllQuestion();
+            var questions = _questionService.GetAllQuestions();
             if (questions == null)
             {
                 return HttpNotFound();
@@ -52,32 +66,24 @@ namespace FilRouge.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var difficulties = service.GetAllDifficuty();
-            var technologies = service.GetAllTechnology();
-            var types = service.GetAllType();
+            var difficulties = _referenceService.GetAllDifficuties();
+            var technologies = _referenceService.GetAllTechnologies();
 
 
             IEnumerable<SelectListItem> dropDownDifficulties = difficulties.Select(d => new SelectListItem
             {
-                Value = d.DifficultyId.ToString(),
-                Text = d.DifficultyName
+                Value = d.Id.ToString(),
+                Text = d.Name
             });
 
             IEnumerable<SelectListItem> dropDownTechnologies = technologies.Select(t => new SelectListItem
             {
-                Value = t.TechnoId.ToString(),
-                Text = t.TechnoName
-            });
-
-            IEnumerable<SelectListItem> dropDownTypes = types.Select(t => new SelectListItem
-            {
-                Value = t.TypeQuestionId.ToString(),
-                Text = t.NameType
+                Value = t.Id.ToString(),
+                Text = t.Name
             });
 
             ViewBag.difficulties = dropDownDifficulties;
             ViewBag.technologies = dropDownTechnologies;
-            ViewBag.types = dropDownTypes;
 
             return View();
         }
@@ -85,23 +91,37 @@ namespace FilRouge.Web.Controllers
         // POST: Question/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology,Type")] QuestionModel questionVM)
+        public ActionResult Create([Bind(Include = "Content,Active,Difficulty,Technology")] QuestionModel questionVM)
         {
-            var id = new int();
             Question question = questionVM.MapToQuestion();
             if (ModelState.IsValid)
             {
-                service.AddQuestion(question);
+                _questionService.AddQuestion(question);
             }
             //Redirect pour effectuer action detail et recharger url.
-            return RedirectToAction("Details", new { id = question.QuestionId });
+            return RedirectToAction("Details", new { id = question.Id });
+        }
+
+        // GET: Technology/Delete/5
+        [HttpGet, ActionName("Delete")]
+        public ActionResult Delete()
+        {
+            var questions = _questionService.GetAllQuestions();
+
+            IEnumerable<SelectListItem> dropDownTechnologies = questions.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Content
+            });
+            return View();
         }
 
         // POST: Technology/Delete/5
-        [HttpGet, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            service.DeleteQuestion(id);
+            _questionService.DeleteQuestion(id);
             return RedirectToAction("Index");
         }
         // POST: Technology/Delete/5

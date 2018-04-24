@@ -7,13 +7,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FilRouge.Model;
-using FilRouge.Model.Models;
+using FilRouge.Service;
 
 namespace FilRouge.Web.Controllers
 {
     public class QuizzController : Controller
     {
-        private ReferencesService service = new ReferencesService();
+        private ReferencesService service;
         //private QuizzService quizzService = new QuizzService();
 
 

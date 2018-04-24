@@ -4,23 +4,40 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Question - Detail</h2>
-<hr />
-<h3> @Html.DisplayFor(modelItem => modelItem.Content)</h3><br/>
-@Html.DisplayFor(modelItem => modelItem.Technology)
+<h2>Details</h2>
 
+<div>
+    <h4>QuestionModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Id:
+        </dt>
 
-<table class="table table-dark table-hover">
+        <dd>
+            @Html.DisplayFor(model => model.QuestionId)
+        </dd>
+
+        <dt>
+            Libellé:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+    </dl>
+</div>
+<table>
     <tr>
         <th>
-            Answer
+            Propositions
         </th>
         <th>
-            True Answer
+            Bonne Réponse
         </th>
-
-        @foreach (var reponse in Model.Reponses)
-        {
+    </tr>
+    @foreach (var reponse in Model.Reponses)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => reponse.Content)
@@ -30,7 +47,27 @@
             </td>
         </tr>
     }
+</table>
+
+
+    <br />
+    <table>
+        <tr>
+            <th>
+                Commentaires
+            </th>
+        </tr>
+        @foreach (var comment in Model.Comments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => comment)
+            </td>
+        </tr>
+}
     </table>
-    <p>
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
