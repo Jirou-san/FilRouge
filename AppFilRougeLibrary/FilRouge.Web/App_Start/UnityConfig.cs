@@ -7,6 +7,7 @@ using System;
 
 using Unity;
 using Unity.AspNet.Mvc;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace FilRouge.Web
@@ -51,6 +52,8 @@ namespace FilRouge.Web
             container.RegisterType<FilRougeDBContext>(new PerRequestLifetimeManager());
             //container.RegisterType<ReferencesService>(new HierarchicalLifetimeManager());
             container.RegisterType<IReferenceService,ReferencesService>();
+            container.RegisterType<IQuestionResponseService, QuestionResponseService>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
         }
     }
 }

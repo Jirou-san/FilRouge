@@ -79,6 +79,18 @@ namespace FilRouge.Web.Models
         [Display(Name = "Confirmer le mot de passe ")]
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        [Display(Name = "Nom")]
+        public string LastName { get; set; }
+        [Display(Name = "Prénom")]
+        [MaxLength(20)]
+        [Required]
+        public string FirstName { get; set; }
+        [MaxLength(256)]
+        [Required]
+        public string Username { get; set; }
     }
 
     public class ResetPasswordViewModel
