@@ -49,20 +49,17 @@ namespace FilRouge.API.Models
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
 
+        [MaxLength(20)]
         [Required]
-        [StringLength(20, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 2)]
-        [Display(Name = "LastName")]
+        [Display(Name = "Nom")]
         public string LastName { get; set; }
-
+        [Display(Name = "Prénom")]
+        [MaxLength(20)]
         [Required]
-        [StringLength(20, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 2)]
-        [Display(Name = "FirstName")]
         public string FirstName { get; set; }
-
+        [MaxLength(256)]
         [Required]
-        [StringLength(256, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 2)]
-        [Display(Name = "UserName")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
     }
 
     public class RegisterExternalBindingModel

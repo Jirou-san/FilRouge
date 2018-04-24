@@ -36,7 +36,7 @@ namespace FilRouge.API.Controllers
 
 
         [HttpGet]
-        [Route("{idquizz}")]
+        [Route("quizz/{idquizz}")]
         public IHttpActionResult GetQuestionByQuizz(int idquizz)
         {
             if (!this.ModelState.IsValid)

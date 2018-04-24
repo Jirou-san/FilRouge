@@ -85,6 +85,7 @@
     <Compile Include="QuizzExceptions.cs" />
     <Compile Include="QuizzService.cs" />
     <Compile Include="ReferencesService.cs" />
+    <Compile Include="ServiceExtention.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

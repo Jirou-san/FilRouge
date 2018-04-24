@@ -43,6 +43,7 @@ namespace FilRouge.Model.Entities
         public virtual Technology Technology { get; set; }
         public virtual Contact Contact { get; set; }
         public virtual Difficulty Difficulty { get; set; }
+        public virtual List<QuestionQuizz> QuestionQuizz { get; set; }
         #endregion
     }
 }

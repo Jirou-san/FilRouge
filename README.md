@@ -1,7 +1,1 @@
-# FilRouge
-Le projet fil rouge est un projet de formation qui a pour but de créer un quizz
-
-@Nicolas : Projet récupéré 20180403 21:27 --> tu peux faire le ménage 
-
-/!\ J'ai ajouté un répertoire "Analyse - Documents" à la racine. Si on peut le conserver
-
+[![Build status](https://ci.appveyor.com/api/projects/status/js4sp6akntnfsf3k?svg=true)](https://ci.appveyor.com/project/Jirou-san/filrouge)
