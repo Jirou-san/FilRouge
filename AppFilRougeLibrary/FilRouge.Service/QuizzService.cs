@@ -3,10 +3,12 @@ using FilRouge.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using FilRouge.Model.Interfaces;
 /// <summary>
 /// Services liés au quizz, pdf, gestion, mails, CRUD...
 /// </summary>
-public class QuizzService
+public class QuizzService : IQuizzService
 {
     #region Properties
 
@@ -299,7 +301,7 @@ public class QuizzService
     /// </summary>
     /// <param name="agent">Agent recruteur ou admin qui a généré les quizz</param>
     /// <returns>Liste de quizz</returns>
-    public List<Quizz> GetAllQuizzies(Contact agent)
+    public List<Quizz> GetAllQuizz(Contact agent)
     {
         //throw new Exception("Méthode non implémentée");
         List<Quizz> returnedQuizz = new List<Quizz>();
@@ -312,7 +314,7 @@ public class QuizzService
         return returnedQuizz;
     }
 
-    public List<Quizz> GetQuizzies(Quizz quizzFilter)
+    public List<Quizz> GetQuizz(Quizz quizzFilter)
     {
         List<Quizz> returnedQuizz = new List<Quizz>();
         using (FilRougeDBContext db = new FilRougeDBContext())

@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
-using FilRouge.API;
 
 namespace FilRouge.Tests
 {

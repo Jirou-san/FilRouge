@@ -19,10 +19,12 @@ namespace FilRouge.UnitTests.Services.QuestionTests
             
 
             var questionHandler = new QuestionReference();
-            var reference = TestReference.QuestionResponseService();
             Assert.IsNotNull(questionHandler.NewQuestion());
             //Bug bizzare
-            Assert.AreSame(questionHandler.NewQuestion(), typeof(int));
+
+            Assert.IsInstanceOfType(questionHandler.NewQuestion(), typeof(int));
+
+            //Assert.AreSame(questionHandler.NewQuestion(), typeof());
 
         }
     }

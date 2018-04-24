@@ -40,10 +40,6 @@ namespace FilRouge.UnitTests
     /// </summary>
     public class QuestionReference
     {
-        public QuestionReference()
-        {
-
-        }
         public int NewQuestion()
         {
             Question question = new Question()
