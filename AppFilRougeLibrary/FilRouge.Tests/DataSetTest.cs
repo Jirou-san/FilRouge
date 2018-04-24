@@ -1,5 +1,4 @@
 ﻿using FilRouge.Model.Entities;
-using FilRouge.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +6,23 @@ using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using FilRouge.API;
 
 namespace FilRouge.Tests
 {
     public class DataSetTest
     {
+
+        public bool IsNull()
+        {
+            if(GetDifficultyDebutant().ToString() == String.Empty)
+            {
+                return true;
+            }
+           
+            return false;
+        }
+
         public void FillAllTables()
         {
             Console.WriteLine("Ajout des rôles");
@@ -68,6 +79,7 @@ namespace FilRouge.Tests
 
         public void AddUsers()
         {
+        
             IdentityRole adminRole = GetRoleByName("Admin");
             //IdentityUserRole userAdminRole = new IdentityUserRole()
             //{
@@ -76,6 +88,8 @@ namespace FilRouge.Tests
 
             using (var db = new FilRougeDBContext())
             {
+                
+
 
                 Contact user1 = new Contact()
                 {

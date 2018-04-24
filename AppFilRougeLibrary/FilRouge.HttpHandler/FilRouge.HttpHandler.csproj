@@ -15,6 +15,8 @@
     <Compile Include="..\FilRouge.Model\Entities\Response.cs" Link="EntityLinks\Response.cs" />
     <Compile Include="..\FilRouge.Model\Entities\Technology.cs" Link="EntityLinks\Technology.cs" />
     <Compile Include="..\FilRouge.Model\Entities\UserReponse.cs" Link="EntityLinks\UserReponse.cs" />
+    <Compile Include="..\FilRouge.Model\Interfaces\IQuestionResponseService.cs" Link="InterfaceLinks\IQuestionResponseService.cs" />
+    <Compile Include="..\FilRouge.Model\Interfaces\IQuizzService.cs" Link="InterfaceLinks\IQuizzService.cs" />
     <Compile Include="..\FilRouge.Model\Interfaces\IReferenceService.cs" Link="InterfaceLinks\IReferenceService.cs" />
   </ItemGroup>
 

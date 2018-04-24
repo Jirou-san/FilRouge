@@ -14,12 +14,48 @@ namespace FilRouge.Tests
     {
         static void Main(string[] args)
         {
-            ////Chargement d'un jeux de données
+            var again = "Y";
             var dataset = new DataSetTest();
-            //dataset.FillAllTables();
 
+
+            //Menu pour gérer les tests
+            Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}");
+            Console.WriteLine($"Selectionnez une option");
+            int choix = int.Parse(Console.ReadLine());
+            while (again.ToUpper() == "Y")
+            {
+                switch(choix)
+                {
+                    case 1: // Chargement d'un jeu de données     
+                        try
+                        {
+                            if(dataset.IsNull())
+                            {
+                                dataset.FillAllTables();
+                            }
+                            else
+                            {
+                                throw new Exception("La base de données contient déjà un jeu de données");
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Console.WriteLine($"ERROR: {ex.Message}{Environment.NewLine}");
+                        }
+                        
+                        Console.WriteLine($"{Environment.NewLine}Souhaitez vous continuer?");
+                        again = Console.ReadLine();
+                        break;
+
+                    default:
+                        Console.WriteLine("Fin des tests");
+                        break;
+                }
+            }
             //Test création d'un quiz
-            var myService = new QuizzService();
+            /*var myService = new QuizzService();
             string marcId = "ca4fd903-b099-470b-a19c-69ab8e54233e";
             int QuizId = myService.CreateQuizz(marcId
                         , dataset.GetTechnologyIdByName("C#")
@@ -31,7 +67,7 @@ namespace FilRouge.Tests
                         , 0  //int freeAnswerMax = 0
                         , 10  //int freeAnswerMin = 0
                         );
-            Console.WriteLine("QuizId = " + QuizId);
+            Console.WriteLine("QuizId = " + QuizId);*/
             Console.ReadKey();
         }
     }

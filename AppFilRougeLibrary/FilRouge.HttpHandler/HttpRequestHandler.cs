@@ -16,23 +16,25 @@ namespace FilRouge.HttpHandler
         [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; set; }
     }
+
     /// <summary>
     /// Classe instanciée uniquement pour la fonction Login --> Voir définition de la fonction
     /// </summary>
     public class HttpRequestHandler
     {
         //Définition d'un client
-        private System.Net.Http.HttpClient _client;
+        public System.Net.Http.HttpClient client;
         //URI de base utilisée
-        private string _baseUri;
+        public string baseUri;
         //Token utilisé
         private string _token;
 
-        public HttpRequestHandler(string baseuri)
+        public HttpRequestHandler(string baseUri)
         {
-            this._baseUri = baseuri;
-            this._client = new HttpClient();
+            this.baseUri = baseUri;
+            this.client = new HttpClient();
         }
+
         /// <summary>
         /// Procédure Login qui permettra à un utilisateur de l'application de se connecter, il aura un token temporaire
         /// </summary>
@@ -40,8 +42,8 @@ namespace FilRouge.HttpHandler
         /// <param name="password"></param>
         public void Login(string username, string password)
         {
-            _token = _client.PostAsFormAsync<TokenResponse>(
-                $"{_baseUri}/api/token",
+            _token = client.PostAsFormAsync<TokenResponse>(
+                $"{baseUri}/api/token",
                 new List<KeyValuePair<string, string>>()
                     {
                         new KeyValuePair<string, string>("grant_type", "password"),

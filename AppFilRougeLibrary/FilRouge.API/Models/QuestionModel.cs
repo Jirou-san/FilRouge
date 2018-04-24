@@ -13,14 +13,14 @@ namespace FilRouge.API.Models
     {
         
         public int Id { get; set; }
-        [Required]
+        
         public int TechnologyId { get; set; }
 
-        [Required]
+        
         public int DifficultyId { get; set; }
 
         [MaxLength(300)]
-        [Required]
+        
         public string Content { get; set; }
         [MaxLength(500)]
         public string Comment { get; set; }

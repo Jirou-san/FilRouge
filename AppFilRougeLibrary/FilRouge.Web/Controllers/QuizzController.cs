@@ -1,5 +1,5 @@
 ﻿using FilRouge.Model.Entities;
-using FilRouge.Services;
+using FilRouge.Service;
 using FilRouge.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FilRouge.Model;
-using FilRouge.Service;
 
 namespace FilRouge.Web.Controllers
 {
