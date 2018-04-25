@@ -473,6 +473,54 @@ public class QuizzService : IQuizzService
             }
         }
     }
+
+    #region analyse des réponses
+    /// <summary>
+    /// Récupère une liste des mauvaises userResponse pour une questionQuiz donnée.
+    /// Si userResponse.Response.IsTrue = true c'est que le user n'a pas sélectionné la réponse alors que c'étatit une bonne réponse
+    /// </summary>
+    /// <param name="questionQuizId">Id de la questionQuiz</param>
+    /// <returns></returns>
+    public List<UserResponse> GetFalseAnswersForAQuestionQuiz(int questionQuizId)
+    {
+        var returnedResponses = new List<UserResponse>();
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            var myQuestionQuiz = db.QuestionQuizz.Where(e => e.Id == questionQuizId).FirstOrDefault();
+
+            //Liste des réponse répondues et fausses
+            var myBadResponses = db.UserResponse
+                                .Include(nameof(Response))
+                                .Where(e => (e.QuestionQuizzId == myQuestionQuiz.Id) && (e.Response.IsTrue == false))
+                                .ToList();
+            //Liste des réponses bonne mais non sélectionnées par l'utilisateur
+            List<Response> myResponses = db.UserResponse
+                                .Include(nameof(Response))
+                                .Where(e => (e.QuestionQuizzId == myQuestionQuiz.Id))
+                                .Select(e => e.Response).ToList();
+            var myForgetResponses = db.Response
+                                .Where(e => ((e.IsTrue == true) && (e.QuestionId == myQuestionQuiz.Id) && !(myResponses.Contains(e))))
+                                .ToList();
+
+            var myForgetUserResponses = new List<UserResponse>();
+
+            foreach(var myForgetResponse in myForgetResponses)
+            {
+                myForgetUserResponses.Add(new UserResponse()
+                {
+                    QuestionQuizzId = myQuestionQuiz.Id,
+                    Response=myForgetResponse,
+                });
+            }
+            myBadResponses.AddRange(myForgetUserResponses.ToArray());
+            returnedResponses.AddRange(myBadResponses);
+        }
+            
+
+
+        return returnedResponses;
+    }
+    #endregion
 }
 
 
