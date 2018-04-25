@@ -32,7 +32,7 @@
             var technology = _db.Technology.Find(id);
             if (technology == null)
             {
-                 throw new NotFoundException(string.Format($"No technology found with the id: {id}"));
+                 throw new NotFoundException(string.Format($"Aucune technologie ({id}) trouvée" ));
             }
             return technology;
         }
@@ -79,7 +79,6 @@
             _db.Entry(technology).State = EntityState.Modified;
             return _db.SaveChanges();
         }
-
 
         #endregion
 
