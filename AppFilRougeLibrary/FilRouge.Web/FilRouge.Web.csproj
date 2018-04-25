@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TechnologyModels.cs" />
     <Compile Include="Models\QuestionModels.cs" />
     <Compile Include="Models\QuestionQuizzModels.cs" />
