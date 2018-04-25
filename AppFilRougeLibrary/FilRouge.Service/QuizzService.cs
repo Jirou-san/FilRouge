@@ -353,15 +353,15 @@ public class QuizzService : IQuizzService
         }
     }
 
-    public void UpdateQuizzAnswer(int QuestionQuizzId, UserResponse userAnswer)
-    {
-        throw new Exception("Méthode non implémentée");
-    }
+    //public void UpdateQuizzAnswer(int QuestionQuizzId, UserResponse userAnswer)
+    //{
+    //    throw new Exception("Méthode non implémentée");
+    //}
 
-    public void UpdateQuizzAnswers(Quizz quiz)
-    {
-        throw new Exception("Méthode non implémentée");
-    }
+    //public void UpdateQuizzAnswers(Quizz quiz)
+    //{
+    //    throw new Exception("Méthode non implémentée");
+    //}
 
     /// <summary>
     /// Donne l'Id de la question en cours pour un quiz donné et des propositions de réponse associées
@@ -401,12 +401,13 @@ public class QuizzService : IQuizzService
     }
 
     /// <summary>
-    /// 
+    /// Ecrit les réponses pour un un questionQuizz donné et donne le focus à la question suivante
     /// </summary>
-    /// <param name="questionQuizz"></param>
+    /// <param name="questionQuizz">QuestionQuiz sur lequel on souhaite répondre. Met à jour La réponse libre ou le refus de réponse le cas échéant</param>
+    /// <param name="userResponses">Liste des réponses utilisateur associées au questionQuiz</param>
     public void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
     {
-        throw new Exception("Méthode non implémentée");
+        //throw new Exception("Méthode non implémentée");
         using (FilRougeDBContext db = new FilRougeDBContext())
         {
             using(var dbContextTransaction = db.Database.BeginTransaction())
@@ -425,10 +426,30 @@ public class QuizzService : IQuizzService
                     //On vérifie si certains champs ont été modifiés et on réalise la modif le cas échéant
                     if (questionQuizz.FreeAnswer != null) myQuestionQuiz.FreeAnswer = questionQuizz.FreeAnswer;
                     if (questionQuizz.RefuseToAnswer == true) myQuestionQuiz.RefuseToAnswer = questionQuizz.RefuseToAnswer;
+
+
                     //On écrit la liste des réponses de l'utilisateur
                     throw new Exception("Méthode non implémentée"); // A traiter
+                    try
+                    {
+                        foreach (var userResponse in userResponses)
+                        {
+                            // Vérification que la réponse utilisateur est apporté pour le questionQuiz donné et qu'il répond aussi à une proposition de réponse associé au questionQuiz
+                            if (questionQuizz.Id != userResponse.QuestionQuizzId) throw new Exception("Discordance userRéponse et questionQuiz");
+                            var questionId = (db.Response.Where(e => e.Id == userResponse.ResponseId).FirstOrDefault()).QuestionId;
+                            if (questionQuizz.QuestionId != ((db.Response.Where(e => e.Id == userResponse.ResponseId).FirstOrDefault()).QuestionId))
+                                throw new Exception("Discordance userResponse et questionId du questionQuiz");
 
+                            // Ajout de la userResponse
+                            db.UserResponse.Add(userResponse);
+                            db.SaveChanges();
 
+                        }
+                    } catch (NullReferenceException)
+                    {
+                        //On passe cette exception sans la lever
+                    }
+                    
 
                     //On met à jour le numéro de la question active
                     var myQuiz = db.Quizz.Where(e => e.Id == myQuestionQuiz.QuizzId).FirstOrDefault();
@@ -443,6 +464,7 @@ public class QuizzService : IQuizzService
                         myQuiz.ActiveQuestionNum += 1;
                         //Si on est arrivé à la fin du quiz on le marque dans la table
                         if (myQuiz.QuestionCount < myQuiz.ActiveQuestionNum) myQuiz.QuizzState = QuizzStateEnum.Done;
+                        else myQuiz.QuizzState = QuizzStateEnum.InProgress;
                     }
                     db.SaveChanges();
                     // On est ici donc tout c'est bien passé

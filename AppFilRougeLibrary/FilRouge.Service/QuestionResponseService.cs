@@ -23,7 +23,9 @@ namespace FilRouge.Service
         /// <returns>Retourne une Question</returns>
         public Question GetQuestion(int id)
         {
-            var question = _db.Question.Find(id);
+            var question = _db.Question
+                            //.Include(nameof(Response))
+                            .Where(e => e.Id == id).FirstOrDefault();
             if (question == null)
             {
                 throw new NotFoundException(string.Format($"No question found with the id: {id}"));
