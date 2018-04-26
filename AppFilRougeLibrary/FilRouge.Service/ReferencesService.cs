@@ -92,6 +92,7 @@
         /// <returns>Une difficulté (unique)</returns>
         public Difficulty GetDifficulty(int id)
         {
+            
             var difficulty = _db.Difficulty.Find(id);
             if (difficulty == null)
             {
@@ -106,7 +107,8 @@
         /// <returns>Liste de difficulté/returns>
         public List<Difficulty> GetAllDifficuties()
         {
-            return _db.Difficulty.ToList(); ;
+            var difficulties = _db.Difficulty.ToList();
+            return _db.Difficulty.ToList();
         }
 
         /// <summary>
