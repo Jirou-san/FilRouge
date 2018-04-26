@@ -9,20 +9,18 @@ namespace FilRouge.API.Models
 
     using FilRouge.Model.Entities;
 
+    #region Question
     public struct QuestionModel
     {
         
-        public int Id { get; set; }
-        
         public int TechnologyId { get; set; }
 
-        
         public int DifficultyId { get; set; }
 
-        [MaxLength(300)]
-        
-        public string Content { get; set; }
+
         [MaxLength(500)]
+        public string Content { get; set; }
+
         public bool IsEnable { get; set; }
         public bool IsFreeAnswer { get; set; } // True pour libre et False pour pas libre
         public ICollection<Response> Responses { get; set; }
@@ -57,6 +55,52 @@ namespace FilRouge.API.Models
             question.Responses = questionVM.Responses;
 
             return question;
+        }
+        #endregion
+    }
+    public struct ResponseModel
+    {
+
+        public int QuestionId { get; set; }
+        [MaxLength(100)]
+        [Required]
+        public string Content { get; set; }
+        public string Explanation { get; set; }
+
+        public bool IsTrue { get; set; }
+        public Question Question { get; set; }
+    }
+    public partial class Map
+    {
+        public Response MapToResponse (ResponseModel responseVM)
+        {
+            var response = new Response();
+
+            response.Content = responseVM.Content;
+            response.Explanation = responseVM.Explanation;
+            response.IsTrue = responseVM.IsTrue;
+            response.QuestionId = responseVM.QuestionId;
+            response.Question = responseVM.Question;
+
+            return response;
+        }
+
+        public ResponseModel MapToResponse(Response response)
+        {
+            var responseVM = new ResponseModel();
+
+            if(response==null)
+            {
+                return responseVM;
+            }
+
+            responseVM.Content = response.Content;
+            responseVM.Explanation = response.Explanation;
+            responseVM.IsTrue = response.IsTrue;
+            responseVM.QuestionId = response.QuestionId;
+            responseVM.Question = response.Question;
+
+            return responseVM;
         }
     }
 }

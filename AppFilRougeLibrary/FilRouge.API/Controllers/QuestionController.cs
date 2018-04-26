@@ -1,6 +1,7 @@
 ﻿
 namespace FilRouge.API.Controllers
 {
+    using System;
     using System.Net;
     using System.Web.Http;
     using FilRouge.API.Models;
@@ -20,7 +21,8 @@ namespace FilRouge.API.Controllers
         /// Plutot que les classes
         /// </summary>
         private readonly IQuestionResponseService questionService;
-
+        public Map mapping = new Map();
+        public string message = "";
         // A déclarer sur le container unity
 
         /// <summary>
@@ -39,11 +41,6 @@ namespace FilRouge.API.Controllers
         [Route("quizz/{idquizz}")]
         public IHttpActionResult GetQuestionByQuizz(int idquizz)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             return this.Ok(this.questionService.GetQuestionsByQuizz(idquizz));
         }
 
@@ -54,22 +51,23 @@ namespace FilRouge.API.Controllers
         /// <param name="question">Corps de la requête renseignée sous format JSON</param>
         /// <returns>Retourne le code de status 201 - Created</returns>
         [HttpPost]
-        public IHttpActionResult Create(QuestionModel question)
+        public IHttpActionResult Create(QuestionModel questionVM)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
-
-            var newQuestion = new Question
-                               {
-                                   TechnologyId = question.TechnologyId,
-                                   DifficultyId = question.DifficultyId,
-                                   Content = question.Content,
-                                   IsEnable = question.IsEnable,
-                                   IsFreeAnswer = question.IsFreeAnswer
-                               };
-            this.questionService.AddQuestion(newQuestion);
+            try
+            {
+                var newQuestion = mapping.MapToQuestion(questionVM);
+                this.questionService.AddQuestion(newQuestion);
+                message = "La ressource a bien été crée";
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            
 
             return this.StatusCode(HttpStatusCode.Created);
         }
@@ -80,15 +78,19 @@ namespace FilRouge.API.Controllers
         /// <param name="id">Id de la question à supprimer</param>
         /// <returns>Retourne un statut OK ainsi que l'id de la ressource supprimée</returns>
         [HttpDelete]
-        [Route("{id}", Name = nameof(Delete))]
+        [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
-            if (!this.ModelState.IsValid)
+            try
             {
-                return this.BadRequest(this.ModelState);
+                this.questionService.DeleteQuestion(id);
+                message = "La ressource a bien été crée";
             }
-
-            this.questionService.DeleteQuestion(id);
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+           
             return this.Ok(id);
         }
 
@@ -101,11 +103,6 @@ namespace FilRouge.API.Controllers
         [Route("{id}")]
         public IHttpActionResult GetQuestionById(int id)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             return this.Ok(this.questionService.GetQuestion(id));
         }
 
@@ -116,11 +113,6 @@ namespace FilRouge.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllQuestions()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             return this.Ok(this.questionService.GetAllQuestions());
         }
     }
