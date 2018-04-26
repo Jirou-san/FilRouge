@@ -10,7 +10,7 @@ namespace FilRouge.Web.Models
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class TechnologyModel
+    public struct TechnologyModel
     {
         public int Id { get; set; }
         [Display(Name = "Nom", Prompt = "Entrez une technology", Description = "Technology unique ou multiple")]
@@ -42,15 +42,13 @@ namespace FilRouge.Web.Models
 
         public static Technology MapToTechnology(this TechnologyModel technologyModel)
         {
-            var technology = new Technology();
-            if (technologyModel == null)
+            var technology = new Technology
             {
-                return technology;
-            }
-            technology.Id = technologyModel.Id;
-            technology.Name = technologyModel.Name;
-            technology.IsActive = technologyModel.IsActive;
-            technology.DisplayNum = technologyModel.DisplayNum;
+                Id = technologyModel.Id,
+                Name = technologyModel.Name,
+                IsActive = technologyModel.IsActive,
+                DisplayNum = technologyModel.DisplayNum
+            };
 
             return technology;
         }

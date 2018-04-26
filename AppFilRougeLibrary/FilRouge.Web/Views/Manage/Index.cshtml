@@ -1,4 +1,4 @@
-﻿@*@*@model FilRouge.Web.Models.IndexViewModel
+﻿@model FilRouge.Web.Models.IndexViewModel
 @{
     ViewBag.Title = "Gérer";
 }
@@ -30,13 +30,13 @@
         </dd>
         @*
             Les numéros de téléphone peuvent être utilisés comme second facteur de vérification dans un système d'authentification à 2 facteurs.
-             
+
              Consultez <a href="https://go.microsoft.com/fwlink/?LinkId=403804">cet article</a>
                 pour plus de détails sur la configuration de cette application ASP.NET afin qu'elle prenne en charge l'utilisation de l'authentification à 2 facteurs à l'aide de SMS.
-             
+
              Décommentez le bloc suivant après avoir configuré l'authentification à 2 facteurs
         *@
-        @*  
+        @*
             <dt>Numéro de téléphone :</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -84,4 +84,4 @@
                 }*@
         </dd>
     </dl>
-</div>*@*@
+</div>

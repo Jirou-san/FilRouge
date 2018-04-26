@@ -3,8 +3,11 @@ using FilRouge.Model.Entities;
 using FilRouge.Model.Interfaces;
 using FilRouge.Service;
 using FilRouge.Web.Controllers;
+using FilRouge.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-
+using System.Data.Entity;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
@@ -53,7 +56,10 @@ namespace FilRouge.Web
             //container.RegisterType<ReferencesService>(new HierarchicalLifetimeManager());
             container.RegisterType<IReferenceService,ReferencesService>();
             container.RegisterType<IQuestionResponseService, QuestionResponseService>();
+            container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<IUserStore<Contact>, UserStore<Contact>>();
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
         }
     }
 }
