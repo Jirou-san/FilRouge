@@ -120,6 +120,11 @@
             return _db.SaveChanges();
         }
 
+        public int AddDifficultyRate(DifficultyRate difficultyRate)
+        {
+            _db.DifficultyRate.Add(difficultyRate);
+            return _db.SaveChanges();
+        }
         /// <summary>
         /// Supprimer une difficulté
         /// </summary>
@@ -142,6 +147,31 @@
         {
             _db.Entry(difficulty).State = EntityState.Modified;
             return _db.SaveChanges();
+        }
+
+        public DifficultyRate GetDifficultyRate(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<DifficultyRate> GetAllDifficultyRates()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int AddDifficulty(DifficultyRate difficultyrate)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int DeleteDifficultyRate(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int UpdateDifficultyRate(DifficultyRate difficultyRate)
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
 

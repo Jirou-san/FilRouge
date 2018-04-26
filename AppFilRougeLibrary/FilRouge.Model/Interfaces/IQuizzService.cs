@@ -28,5 +28,7 @@ namespace FilRouge.Model.Interfaces
         List<Quizz> GetAllQuizz(Contact agent);
 
         List<Quizz> GetQuizz(Quizz quizzFilter);
+
+        void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses);
     }
 }

@@ -13,9 +13,6 @@ namespace FilRouge.Model.Interfaces
     public interface IQuestionResponseService
     {
         #region Responses
-        bool UpdateQuizzAnswer(UserResponse useresponse);
-      
-        //bool UpdateQuizzAnswers(int quizzId, List<Question> questions);
        
         Response GetResponse(int id);
 
