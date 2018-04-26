@@ -19,6 +19,8 @@ namespace FilRouge.Tests
 
 
             //Menu pour gérer les tests
+
+
             Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}");
             
             while (again == "Y" || again == "O")
@@ -26,20 +28,14 @@ namespace FilRouge.Tests
                 Console.WriteLine($"Selectionnez une option");
                 int choix = int.Parse(Console.ReadLine());
                 again = again[0].ToString().ToUpper();
+
                 switch (choix)
                 {
                     case 1: // Chargement d'un jeu de données     
                         try
                         {
-                            if(dataset.IsNull())
-                            {
-                                dataset.FillAllTables();
-                            }
-                            else
-                            {
-                                throw new Exception("La base de données contient déjà un jeu de données");
-
-                            }
+                            dataset.FillAllTables();
+                            
                         }
                         catch (Exception ex)
                         {
