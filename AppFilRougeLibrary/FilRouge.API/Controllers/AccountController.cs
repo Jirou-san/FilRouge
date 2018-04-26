@@ -326,6 +326,7 @@ namespace FilRouge.API.Controllers
             }
 
             var user = new Contact() { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
+            //var toto = 0;
             try
             {
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -334,9 +335,10 @@ namespace FilRouge.API.Controllers
                     return GetErrorResult(result);
                 }
             }
-            catch(Exception)
+            catch(Exception e) 
             {
-
+                if (e.Source == "EntityFramework") return Ok("Message pour Admin : MaJ Entity");
+                else return Ok("Error : "+e.Message);
             }
             
 
