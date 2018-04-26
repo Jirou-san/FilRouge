@@ -1,15 +1,12 @@
 ﻿namespace FilRouge.Web.Controllers
 {
-    using FilRouge.Service;
     using FilRouge.Model.Entities;
     using FilRouge.Model.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Entity;
     using System.Linq;
     using System.Net;
-    using System.Web;
     using System.Web.Mvc;
     using PagedList;
     using FilRouge.Web.Models;
