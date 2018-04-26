@@ -23,11 +23,11 @@ namespace FilRouge.HttpHandler
     public class HttpRequestHandler
     {
         //Définition d'un client
-        public System.Net.Http.HttpClient client;
+        public System.Net.Http.HttpClient client { get; set; }
         //URI de base utilisée
-        public string baseUri;
+        public string baseUri { get; set; }
         //Token utilisé
-        private string _token;
+        public string token { get; set; }
 
         public HttpRequestHandler(string baseUri)
         {
@@ -42,7 +42,7 @@ namespace FilRouge.HttpHandler
         /// <param name="password"></param>
         public void Login(string username, string password)
         {
-            _token = client.PostAsFormAsync<TokenResponse>(
+            token = client.PostAsFormAsync<TokenResponse>(
                 $"{baseUri}/api/token",
                 new List<KeyValuePair<string, string>>()
                     {
@@ -54,7 +54,7 @@ namespace FilRouge.HttpHandler
                             "password",
                             password)
                     }).Result?.AccessToken;
-            if (_token == null)
+            if (token == null)
             {
                 throw new ExceptionLogin("Identifiants invalides");
             }
