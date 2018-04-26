@@ -115,5 +115,17 @@
             return newUri;
         }
         #endregion
+
+        public static void SendMail()
+        {
+            //TODO
+            //La fonction qui permettra d'envoyer un mail via l'appli mobile
+        }
+
+        public static void GeneratePdf()
+        {
+            //TODO
+            //La fonction qui permettra de générer un PDF du résultat du quizz ainsi qu'une correction
+        }
     }
 }
