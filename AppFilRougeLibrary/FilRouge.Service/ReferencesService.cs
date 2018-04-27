@@ -30,6 +30,7 @@
         public Technology GetTechnology(int id)
         {
             var technology = _db.Technology.Find(id);
+
             if (technology == null)
             {
                 throw new NotFoundException(string.Format($"Aucune technologie ({id}) trouvée"));
