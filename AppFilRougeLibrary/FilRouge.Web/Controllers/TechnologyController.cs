@@ -67,7 +67,9 @@ namespace FilRouge.Web.Controllers
         // GET: Technology/Create
         public ActionResult Create()
         {
-            return View();
+            var emptyModel = new TechnologyModel();
+
+            return View(emptyModel);
         }
 
         // POST: Technology/Create
@@ -132,7 +134,7 @@ namespace FilRouge.Web.Controllers
                     ViewBag.alert = "Problême durant la mise à jour de la technologie";
                 }
             }
-            return View();
+            return View(technologyModel);
         }
 
         // GET: Technology/Delete/5
@@ -156,25 +158,18 @@ namespace FilRouge.Web.Controllers
         public ActionResult Delete(TechnologyModel technology)
         {
 
-            if (ModelState.IsValid)
-            {
-                var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
+           
+            var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
 
-                if (deletedTechnologyId == 0)
-                {
-                    TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
-                }
-                else
-                {
-                    TempData["Alert"] = string.Format($"Suppression de la technologie (id: {deletedTechnologyId})");
-                }
+            if (deletedTechnologyId == 0)
+            {
+                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
             }
             else
             {
-                TempData["Alert"] = "Les champs ne sont pas tous remplis.";
-
+                TempData["Alert"] = string.Format($"Suppression de la technologie (id: {technology.Id})");
             }
-
+        
             return RedirectToAction("Index");
         }
     }
