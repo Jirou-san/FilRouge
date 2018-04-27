@@ -24,7 +24,7 @@
         #region DifficultyRate
         DifficultyRate GetDifficultyRate(int id);
         List<DifficultyRate> GetAllDifficultyRates();
-        int AddDifficulty(DifficultyRate difficultyrate);
+        int AddDifficultyRate(DifficultyRate difficultyrate);
         int DeleteDifficultyRate(int id);
         int UpdateDifficultyRate(DifficultyRate difficultyRate);
         #endregion

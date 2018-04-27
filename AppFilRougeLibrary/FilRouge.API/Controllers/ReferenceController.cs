@@ -236,11 +236,99 @@ namespace FilRouge.API.Controllers
         }
         #endregion
         #region DifficultyRate
+        
+        /// <summary>
+        /// Contrôleur permettant de récupérer un taux de difficulté par son ID
+        /// </summary>
+        /// <param name="id">L'id du taux</param>
+        /// <returns>Le taux au format JSON</returns>
         [Route("difficultyrate/{id}")]
         [HttpGet]
         public IHttpActionResult GetDifficultyRate(int id)
         {
             return this.Ok(this._referenceService.GetDifficultyRate(id));
+        }
+
+        /// <summary>
+        /// Contrôleur permettant de récupérer tous les taux de difficulté
+        /// </summary>
+        /// <returns>Les taux au format JSON</returns>
+        [Route("difficultyrates")]
+        [HttpGet]
+        public IHttpActionResult GetDifficultyRates()
+        {
+            return this.Ok(this._referenceService.GetAllDifficultyRates());
+        }
+
+        /// <summary>
+        /// Contrôleur permettant d'ajouter un taux 
+        /// </summary>
+        /// <param name="difficultyRateVM">Le corps de la requête</param>
+        /// <returns>Retourne OK 200 ainsi qu'un message</returns>
+        [Route("difficultyrate")]
+        [HttpPost]
+        public IHttpActionResult AddDifficultyRate(DifficultyRateModel difficultyRateVM)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+            try
+            {
+                _referenceService.AddDifficultyRate(this.mapping.MapToDifficultyRate(difficultyRateVM));
+                message = "La ressource a bien été crée";
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            return this.Ok(message);
+        }
+
+        /// <summary>
+        /// Contrôleur permettant de modifier un taux
+        /// </summary>
+        /// <param name="difficultyRateVM">Le corps de la requête</param>
+        /// <returns>Retourne OK 200 ainsi qu'un message</returns>
+        [Route("difficultyrate")]
+        [HttpPatch]
+        public IHttpActionResult UpdateDifficultyRate(DifficultyRateModel difficultyRateVM)
+        {
+            try
+            {
+                _referenceService.UpdateDifficultyRate(mapping.MapToDifficultyRate(difficultyRateVM));
+                message = "La ressource a bien été modifiée";
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            return this.Ok(message);
+        }
+
+        /// <summary>
+        /// Contrôleur permettant de supprimer un taux 
+        /// </summary>
+        /// <param name="id">L'id a supprimer</param>
+        /// <returns>Retourne OK 200 ainsi qu'un message</returns>
+        [Route("difficultyrate/{id}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteDifficultyRate(int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+            try
+            {
+                _referenceService.DeleteDifficultyRate(id);
+                message = "La ressource a bien été suprimée";
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            return this.Ok(message);
         }
         #endregion
     }
