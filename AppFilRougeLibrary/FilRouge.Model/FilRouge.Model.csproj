@@ -111,9 +111,9 @@
     <Compile Include="Interfaces\IQuestionResponseService.cs" />
     <Compile Include="Interfaces\IQuizzService.cs" />
     <Compile Include="Interfaces\IReferenceService.cs" />
-    <Compile Include="Migrations\201804261319156_26_04_1519.cs" />
-    <Compile Include="Migrations\201804261319156_26_04_1519.Designer.cs">
-      <DependentUpon>201804261319156_26_04_1519.cs</DependentUpon>
+    <Compile Include="Migrations\201804191826412_FilRougeDBContext_init.cs" />
+    <Compile Include="Migrations\201804191826412_FilRougeDBContext_init.Designer.cs">
+      <DependentUpon>201804191826412_FilRougeDBContext_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,8 +123,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804261319156_26_04_1519.resx">
-      <DependentUpon>201804261319156_26_04_1519.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191826412_FilRougeDBContext_init.resx">
+      <DependentUpon>201804191826412_FilRougeDBContext_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

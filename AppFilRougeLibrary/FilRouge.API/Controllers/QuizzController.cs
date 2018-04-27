@@ -77,7 +77,7 @@ namespace FilRouge.API.Controllers
         [Route("{id}")]
         public IHttpActionResult GetQuizzId(int id)
         {
-            return this.Ok(this._quizzService.GetQuizById(id));
+            return this.Ok(this._quizzService.GetQuizzById(id));
         }
 
         /// <summary>

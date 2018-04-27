@@ -21,7 +21,7 @@ namespace FilRouge.Model.Interfaces
             int freeAnswerMax = 0,
             int freeAnswerMin = 0);
 
-        Quizz GetQuizById(int id);
+        Quizz GetQuizzById(int id);
 
         List<Quizz> GetAllQuizz();
 
@@ -29,6 +29,8 @@ namespace FilRouge.Model.Interfaces
 
         List<Quizz> GetQuizz(Quizz quizzFilter);
 
-        void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses);
+        void SetQuestionQuizzAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses);
+
+        int GetActiveQuestion(int quizzId);
     }
 }

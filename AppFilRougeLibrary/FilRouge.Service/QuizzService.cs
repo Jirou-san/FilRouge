@@ -260,7 +260,7 @@ public class QuizzService : IQuizzService
     /// </summary>
     /// <param name="id">Id du Quiz à récupérer</param>
     /// <returns>Quiz</returns>
-    public Quizz GetQuizById(int id)
+    public Quizz GetQuizzById(int id)
     {
         //throw new Exception("Méthode non implémentée");
         Quizz returnedQuiz=null;
@@ -271,9 +271,7 @@ public class QuizzService : IQuizzService
             
             returnedQuiz = db.Quizz
                             .Include(nameof(QuestionQuizz))
-                            .Include(nameof(Question))
-                            .Include(nameof(Response))
-                            .Include(nameof(UserResponse))
+                            .Include(nameof(Technology))
                             .Where(e => e.Id == id)
                             .FirstOrDefault();
         }     
@@ -366,9 +364,9 @@ public class QuizzService : IQuizzService
     /// <summary>
     /// Donne l'Id de la question en cours pour un quiz donné et des propositions de réponse associées
     /// </summary>
-    /// <param name="quizId">Id du quiz dont on souhaite connaitre la question en cours</param>
+    /// <param name="quizzId">Id du quiz dont on souhaite connaitre la question en cours</param>
     /// <returns>Id de la question</returns>
-    public int GetActiveQuestion(int quizId)
+    public int GetActiveQuestion(int quizzId)
     {
         int returnedQuestionId = 0;
 
@@ -376,12 +374,12 @@ public class QuizzService : IQuizzService
         {
             //Récupération du numéro de la question active
             var numQ = db.Quizz
-                        .Where(e => e.Id == quizId)
+                        .Where(e => e.Id == quizzId)
                         .First().ActiveQuestionNum;
 
             var questionsQuiz = db.QuestionQuizz
                         .Include(nameof(Response))
-                        .Where(e => e.QuizzId == quizId)
+                        .Where(e => e.QuizzId == quizzId)
                         .OrderBy(e => e.DisplayNum)
                         .ToList();
 
@@ -405,7 +403,7 @@ public class QuizzService : IQuizzService
     /// </summary>
     /// <param name="questionQuizz">QuestionQuiz sur lequel on souhaite répondre. Met à jour La réponse libre ou le refus de réponse le cas échéant</param>
     /// <param name="userResponses">Liste des réponses utilisateur associées au questionQuiz</param>
-    public void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
+    public void SetQuestionQuizzAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
     {
         //throw new Exception("Méthode non implémentée");
         using (FilRougeDBContext db = new FilRougeDBContext())
