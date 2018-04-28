@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/AppFilRougeLibrary/FilRouge.Model/Migrations/201804261240176_init.cs
+/AppFilRougeLibrary/FilRouge.Model/Migrations/201804261240176_init.Designer.cs
+/AppFilRougeLibrary/FilRouge.Model/Migrations/201804261240176_init.resx

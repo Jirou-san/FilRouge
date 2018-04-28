@@ -50,9 +50,14 @@ namespace FilRouge.API.Controllers
             }
             try
             {
-                this._quizzService.CreateQuizz(quizz.ContactId, quizz.TechnologyId, quizz.DifficultyId, quizz.UserLastName,
+                int idQuizz = this._quizzService.CreateQuizz(quizz.ContactId, quizz.TechnologyId, quizz.DifficultyId, quizz.UserLastName,
                 quizz.UserFirstName, quizz.ExternalNum, quizz.QuestionCount);
                 message = "La ressource a bien été crée";
+                if(idQuizz == 0)
+                {
+                    throw new Exception("Impossible de créer le quizz - Un paramètre est défectueux");
+                }
+                
             }
             catch (Exception e)
             {

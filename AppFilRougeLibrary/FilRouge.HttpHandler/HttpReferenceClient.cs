@@ -69,6 +69,11 @@ namespace FilRouge.HttpHandler
             return valideResult;
         }
 
+        public int UpdateDifficulty(Difficulty difficulty)
+        {
+            throw new NotImplementedException();
+        }
+
         public Difficulty GetDifficulty(int id)
         {
             var response = new Difficulty();
@@ -89,7 +94,7 @@ namespace FilRouge.HttpHandler
         }
 
 
-        public int UpdateDifficulty(Difficulty difficulty)
+        /*public int UpdateDifficulty(Difficulty difficulty)
         {
             var response = new Difficulty();
             try
@@ -101,10 +106,16 @@ namespace FilRouge.HttpHandler
             {
                 
             }
-        }
+        }*/
         #endregion
 
         #region DifficultyRate
+
+        public int AddDifficultyRate(DifficultyRate difficultyrate)
+        {
+            throw new NotImplementedException();
+        }
+
         public int DeleteDifficultyRate(int id)
         {
             throw new NotImplementedException();
