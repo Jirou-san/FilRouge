@@ -156,8 +156,10 @@ public class QuizzService : IQuizzService
                 }
                 catch (Exception e )
                 {
-                    Console.WriteLine("Une erreur est survenue\n" + e.Message);
+                    //Console.WriteLine("Une erreur est survenue\n" + e.Message);
+
                     dbContextTransaction.Rollback();
+                    throw new Exception("CreateQuiz Error : "+e.Message);
                 }
             }
         }
@@ -314,21 +316,35 @@ public class QuizzService : IQuizzService
         return returnedQuizz;
     }
 
-    public List<Quizz> GetQuizz(Quizz quizzFilter)
+    /// <summary>
+    /// Retourne une liste de quiz en fonction du filtre
+    /// </summary>
+    /// <param name="quizzFilter">Filtre à affecter (ne setter que ce dont on veut filter</param>
+    /// <param name="extended">True si on veut récupérer les questionsQuiz (Faux par défaut)</param>
+    /// <returns></returns>
+    public List<Quizz> GetQuizz(Quizz quizzFilter, bool extended=false)
     {
-        List<Quizz> returnedQuizz = new List<Quizz>();
+        List<Quizz> returnedQuizzResult = new List<Quizz>();
         using (FilRougeDBContext db = new FilRougeDBContext())
         {
-            returnedQuizz = db.Quizz.ToList();
-            if (quizzFilter.DifficultyId != 0) returnedQuizz = returnedQuizz.Where(e => e.DifficultyId == quizzFilter.DifficultyId).ToList();
-            if (quizzFilter.TechnologyId != 0) returnedQuizz = returnedQuizz.Where(e => e.TechnologyId == quizzFilter.TechnologyId).ToList();
-            if (quizzFilter.ContactId != "") returnedQuizz = returnedQuizz.Where(e => e.ContactId == quizzFilter.ContactId).ToList();
-            if (quizzFilter.UserLastName !="") returnedQuizz = returnedQuizz.Where(e => e.UserLastName == quizzFilter.UserLastName).ToList();
-            if (quizzFilter.UserFirstName != "") returnedQuizz = returnedQuizz.Where(e => e.UserFirstName == quizzFilter.UserFirstName).ToList();
-            if (quizzFilter.ExternalNum != "") returnedQuizz = returnedQuizz.Where(e => e.ExternalNum == quizzFilter.ExternalNum).ToList();
+            IQueryable<Quizz> returnedQuizz = db.Quizz;
+            if (extended)
+                returnedQuizz = db.Quizz.Include(nameof(QuestionQuizz));
+         
+                
+            if (quizzFilter.Id !=0) returnedQuizz = returnedQuizz.Where(e => e.Id == quizzFilter.Id);
+            if (quizzFilter.DifficultyId != 0) returnedQuizz = returnedQuizz.Where(e => e.DifficultyId == quizzFilter.DifficultyId);
+            if (quizzFilter.TechnologyId != 0) returnedQuizz = returnedQuizz.Where(e => e.TechnologyId == quizzFilter.TechnologyId);
+            if (quizzFilter.ContactId != null) returnedQuizz = returnedQuizz.Where(e => e.ContactId == quizzFilter.ContactId);
+            if (quizzFilter.UserLastName != null) returnedQuizz = returnedQuizz.Where(e => e.UserLastName == quizzFilter.UserLastName);
+            if (quizzFilter.UserFirstName != null) returnedQuizz = returnedQuizz.Where(e => e.UserFirstName == quizzFilter.UserFirstName);
+            if (quizzFilter.ExternalNum != null) returnedQuizz = returnedQuizz.Where(e => e.ExternalNum == quizzFilter.ExternalNum);
+            returnedQuizzResult = returnedQuizz.ToList();
         }
-        return returnedQuizz;
+        return returnedQuizzResult;
     }
+
+
 
     /// <summary>
     /// Permet de mettre à jour les données utilisateur pour un quiz donné

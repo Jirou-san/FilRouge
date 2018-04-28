@@ -332,6 +332,35 @@ namespace FilRouge.Tests
             return id;
         }
 
+        /// <summary>
+        /// Retourne un utilisateur qui correspond au userName
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public Contact GetUserByUserName(string userName)
+        {
+            var returnedUser = new Contact();
+            using (var db = new FilRougeDBContext())
+            {
+                returnedUser = db.Users
+                                .Where(e => e.UserName == userName)
+                                .FirstOrDefault();
+            }
+            return returnedUser;
+        }
+
+        public string GetUserId(string userName)
+        {
+            var returnedUser = "";
+            using (var db = new FilRougeDBContext())
+            {
+                returnedUser = db.Users
+                                .FirstOrDefault(e => e.UserName == userName)
+                                .Id;
+            }
+            return returnedUser;
+        }
+
         public int GetTechnologyIdByName(string name)
         {
             int id = 0;
