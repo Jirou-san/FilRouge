@@ -1,18 +1,16 @@
 ﻿namespace FilRouge.Web.Controllers
 {
-    using FilRouge.Service;
     using FilRouge.Model.Entities;
     using FilRouge.Model.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Entity;
     using System.Linq;
     using System.Net;
-    using System.Web;
     using System.Web.Mvc;
     using PagedList;
     using FilRouge.Web.Models;
+    using FilRouge.Service;
 
     public class QuestionController : Controller
     {
@@ -128,25 +126,37 @@
 
         // GET: Question/Delete/5
         [HttpGet, ActionName("Delete")]
-        public ActionResult Delete()
+        public ActionResult Delete(int id)
         {
-            return View();
+            var question = new Question();
+            var questionModel = new QuestionModels();
+            try
+            {
+                question = _questionService.GetQuestion(id);
+                questionModel = question.MapToQuestionModel();
+            }
+            catch (NotFoundException e)
+            {
+
+                TempData["alert"] = string.Format($"Problême lors de la suppression de la Question (id: {id}");
+            }
+            return View(questionModel);
         }
 
         // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Question question)
         {
-            var status =  _questionService.DeleteQuestion(id);
+            var status =  _questionService.DeleteQuestion(question.Id);
 
-            if (id == 0 || status == 0)
+            if (question.Id == 0 || status == 0)
             {
                 TempData["Alert"] = "Error: Problême durant la suppression de la question";
             }
             else
             {
-                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{id}");
+                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{question.Id}");
             }
             return RedirectToAction("Index");
         }

@@ -1,6 +1,7 @@
 ﻿
 namespace FilRouge.API.Controllers
 {
+    using System;
     using System.Net;
     using System.Web.Http;
     using FilRouge.API.Models;
@@ -19,9 +20,9 @@ namespace FilRouge.API.Controllers
         /// Interface permettant d'utiliser directement les méthodes qui lui sont associés
         /// Plutot que les classes
         /// </summary>
-        private readonly IQuizzService quizzService;
+        private readonly IQuizzService _quizzService;
 
-        // A déclarer sur le container unity
+        public string message = "";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuizzController"/> class.
@@ -31,7 +32,7 @@ namespace FilRouge.API.Controllers
         /// </param>
         public QuizzController(IQuizzService quizzservice)
         {
-            this.quizzService = quizzservice;
+            this._quizzService = quizzservice;
         }
 
         /// <summary>
@@ -41,24 +42,30 @@ namespace FilRouge.API.Controllers
         /// <param name="quizz">Corps de la requête renseignée sous format JSON</param>
         /// <returns>Retourne le code de status 201 - Created</returns>
         [HttpPost]
-        [Route("create", Name = nameof(Create))]
         public IHttpActionResult Create(QuizzModel quizz)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
+            try
+            {
+                int idQuizz = this._quizzService.CreateQuizz(quizz.ContactId, quizz.TechnologyId, quizz.DifficultyId, quizz.UserLastName,
+                quizz.UserFirstName, quizz.ExternalNum, quizz.QuestionCount);
+                message = "La ressource a bien été crée";
+                if(idQuizz == 0)
+                {
+                    throw new Exception("Impossible de créer le quizz - Un paramètre est défectueux");
+                }
+                
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            
 
-            this.quizzService.CreateQuizz(
-                quizz.ContactId,
-                quizz.TechnologyId,
-                quizz.DifficultyId,
-                quizz.UserLastName,
-                quizz.UserFirstName,
-                quizz.ExternalNum,
-                quizz.QuestionCount);
-
-            return this.StatusCode(HttpStatusCode.Created);
+            return Ok(message);
         }
 
         /// <summary>
@@ -70,12 +77,7 @@ namespace FilRouge.API.Controllers
         [Route("{id}")]
         public IHttpActionResult GetQuizzId(int id)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
-            return this.Ok(this.quizzService.GetQuizById(id));
+            return this.Ok(this._quizzService.GetQuizzById(id));
         }
 
         /// <summary>
@@ -94,7 +96,7 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetQuizz(filter));
+            return this.Ok(this._quizzService.GetQuizz(filter));
         }
 
         /// <summary>
@@ -115,22 +117,20 @@ namespace FilRouge.API.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok(this.quizzService.GetAllQuizz(contact));
+            return this.Ok(this._quizzService.GetAllQuizz(contact));
         }
 
         /// <summary>
         /// Requête HTTP GET permettant de récupérer tous les quizz
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet]
         public IHttpActionResult GetAllQuizz()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
-            return this.Ok(this.quizzService.GetAllQuizz());
+            return this.Ok(this._quizzService.GetAllQuizz());
         }
+
+        
     }
 }

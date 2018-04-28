@@ -260,7 +260,7 @@ public class QuizzService : IQuizzService
     /// </summary>
     /// <param name="id">Id du Quiz à récupérer</param>
     /// <returns>Quiz</returns>
-    public Quizz GetQuizById(int id)
+    public Quizz GetQuizzById(int id)
     {
         //throw new Exception("Méthode non implémentée");
         Quizz returnedQuiz=null;
@@ -271,9 +271,7 @@ public class QuizzService : IQuizzService
             
             returnedQuiz = db.Quizz
                             .Include(nameof(QuestionQuizz))
-                            .Include(nameof(Question))
-                            .Include(nameof(Response))
-                            .Include(nameof(UserResponse))
+                            .Include(nameof(Technology))
                             .Where(e => e.Id == id)
                             .FirstOrDefault();
         }     
@@ -353,22 +351,22 @@ public class QuizzService : IQuizzService
         }
     }
 
-    public void UpdateQuizzAnswer(int QuestionQuizzId, UserResponse userAnswer)
-    {
-        throw new Exception("Méthode non implémentée");
-    }
+    //public void UpdateQuizzAnswer(int QuestionQuizzId, UserResponse userAnswer)
+    //{
+    //    throw new Exception("Méthode non implémentée");
+    //}
 
-    public void UpdateQuizzAnswers(Quizz quiz)
-    {
-        throw new Exception("Méthode non implémentée");
-    }
+    //public void UpdateQuizzAnswers(Quizz quiz)
+    //{
+    //    throw new Exception("Méthode non implémentée");
+    //}
 
     /// <summary>
     /// Donne l'Id de la question en cours pour un quiz donné et des propositions de réponse associées
     /// </summary>
-    /// <param name="quizId">Id du quiz dont on souhaite connaitre la question en cours</param>
+    /// <param name="quizzId">Id du quiz dont on souhaite connaitre la question en cours</param>
     /// <returns>Id de la question</returns>
-    public int GetActiveQuestion(int quizId)
+    public int GetActiveQuestion(int quizzId)
     {
         int returnedQuestionId = 0;
 
@@ -376,12 +374,12 @@ public class QuizzService : IQuizzService
         {
             //Récupération du numéro de la question active
             var numQ = db.Quizz
-                        .Where(e => e.Id == quizId)
+                        .Where(e => e.Id == quizzId)
                         .First().ActiveQuestionNum;
 
             var questionsQuiz = db.QuestionQuizz
                         .Include(nameof(Response))
-                        .Where(e => e.QuizzId == quizId)
+                        .Where(e => e.QuizzId == quizzId)
                         .OrderBy(e => e.DisplayNum)
                         .ToList();
 
@@ -401,12 +399,13 @@ public class QuizzService : IQuizzService
     }
 
     /// <summary>
-    /// 
+    /// Ecrit les réponses pour un un questionQuizz donné et donne le focus à la question suivante
     /// </summary>
-    /// <param name="questionQuizz"></param>
-    public void SetQuestionQuizAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
+    /// <param name="questionQuizz">QuestionQuiz sur lequel on souhaite répondre. Met à jour La réponse libre ou le refus de réponse le cas échéant</param>
+    /// <param name="userResponses">Liste des réponses utilisateur associées au questionQuiz</param>
+    public void SetQuestionQuizzAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses)
     {
-        throw new Exception("Méthode non implémentée");
+        //throw new Exception("Méthode non implémentée");
         using (FilRougeDBContext db = new FilRougeDBContext())
         {
             using(var dbContextTransaction = db.Database.BeginTransaction())
@@ -425,10 +424,30 @@ public class QuizzService : IQuizzService
                     //On vérifie si certains champs ont été modifiés et on réalise la modif le cas échéant
                     if (questionQuizz.FreeAnswer != null) myQuestionQuiz.FreeAnswer = questionQuizz.FreeAnswer;
                     if (questionQuizz.RefuseToAnswer == true) myQuestionQuiz.RefuseToAnswer = questionQuizz.RefuseToAnswer;
+
+
                     //On écrit la liste des réponses de l'utilisateur
                     throw new Exception("Méthode non implémentée"); // A traiter
+                    try
+                    {
+                        foreach (var userResponse in userResponses)
+                        {
+                            // Vérification que la réponse utilisateur est apporté pour le questionQuiz donné et qu'il répond aussi à une proposition de réponse associé au questionQuiz
+                            if (questionQuizz.Id != userResponse.QuestionQuizzId) throw new Exception("Discordance userRéponse et questionQuiz");
+                            var questionId = (db.Response.Where(e => e.Id == userResponse.ResponseId).FirstOrDefault()).QuestionId;
+                            if (questionQuizz.QuestionId != ((db.Response.Where(e => e.Id == userResponse.ResponseId).FirstOrDefault()).QuestionId))
+                                throw new Exception("Discordance userResponse et questionId du questionQuiz");
 
+                            // Ajout de la userResponse
+                            db.UserResponse.Add(userResponse);
+                            db.SaveChanges();
 
+                        }
+                    } catch (NullReferenceException)
+                    {
+                        //On passe cette exception sans la lever
+                    }
+                    
 
                     //On met à jour le numéro de la question active
                     var myQuiz = db.Quizz.Where(e => e.Id == myQuestionQuiz.QuizzId).FirstOrDefault();
@@ -443,6 +462,7 @@ public class QuizzService : IQuizzService
                         myQuiz.ActiveQuestionNum += 1;
                         //Si on est arrivé à la fin du quiz on le marque dans la table
                         if (myQuiz.QuestionCount < myQuiz.ActiveQuestionNum) myQuiz.QuizzState = QuizzStateEnum.Done;
+                        else myQuiz.QuizzState = QuizzStateEnum.InProgress;
                     }
                     db.SaveChanges();
                     // On est ici donc tout c'est bien passé
@@ -451,6 +471,54 @@ public class QuizzService : IQuizzService
             }
         }
     }
+
+    #region analyse des réponses
+    /// <summary>
+    /// Récupère une liste des mauvaises userResponse pour une questionQuiz donnée.
+    /// Si userResponse.Response.IsTrue = true c'est que le user n'a pas sélectionné la réponse alors que c'étatit une bonne réponse
+    /// </summary>
+    /// <param name="questionQuizId">Id de la questionQuiz</param>
+    /// <returns></returns>
+    public List<UserResponse> GetFalseAnswersForAQuestionQuiz(int questionQuizId)
+    {
+        var returnedResponses = new List<UserResponse>();
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            var myQuestionQuiz = db.QuestionQuizz.Where(e => e.Id == questionQuizId).FirstOrDefault();
+
+            //Liste des réponse répondues et fausses
+            var myBadResponses = db.UserResponse
+                                .Include(nameof(Response))
+                                .Where(e => (e.QuestionQuizzId == myQuestionQuiz.Id) && (e.Response.IsTrue == false))
+                                .ToList();
+            //Liste des réponses bonne mais non sélectionnées par l'utilisateur
+            List<Response> myResponses = db.UserResponse
+                                .Include(nameof(Response))
+                                .Where(e => (e.QuestionQuizzId == myQuestionQuiz.Id))
+                                .Select(e => e.Response).ToList();
+            var myForgetResponses = db.Response
+                                .Where(e => ((e.IsTrue == true) && (e.QuestionId == myQuestionQuiz.Id) && !(myResponses.Contains(e))))
+                                .ToList();
+
+            var myForgetUserResponses = new List<UserResponse>();
+
+            foreach(var myForgetResponse in myForgetResponses)
+            {
+                myForgetUserResponses.Add(new UserResponse()
+                {
+                    QuestionQuizzId = myQuestionQuiz.Id,
+                    Response=myForgetResponse,
+                });
+            }
+            myBadResponses.AddRange(myForgetUserResponses.ToArray());
+            returnedResponses.AddRange(myBadResponses);
+        }
+            
+
+
+        return returnedResponses;
+    }
+    #endregion
 }
 
 

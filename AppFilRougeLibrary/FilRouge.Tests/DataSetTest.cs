@@ -14,7 +14,15 @@ namespace FilRouge.Tests
 
         public bool IsNull()
         {
-            if(GetDifficultyDebutant().ToString() == String.Empty)
+            int? id = 0;
+            using (var db = new FilRougeDBContext())
+            {
+                id = db.Difficulty
+                    .Where(e => e.Name == "Débutant")
+                    .Select(e => e.Id).FirstOrDefault();
+
+            }
+            if (id == null)
             {
                 return true;
             }
@@ -49,6 +57,11 @@ namespace FilRouge.Tests
         {
             using (var db = new FilRougeDBContext())
             {
+                IdentityRole role0 = new IdentityRole()
+                {
+                    Name = "None",
+                };
+                db.Roles.Add(role0);
                 IdentityRole role1 = new IdentityRole()
                 {
                     Name = "Admin",
@@ -71,7 +84,7 @@ namespace FilRouge.Tests
             IdentityRole myRole;
             using (var db = new FilRougeDBContext())
             {
-                myRole = db.Roles.Where(e => e.Name == name).First();
+                myRole = db.Roles.Where(e => e.Name == name).FirstOrDefault();
             }
             return myRole;
         }
@@ -217,7 +230,7 @@ namespace FilRouge.Tests
             {
                 id = db.Difficulty
                     .Where(e => e.Name == "Débutant")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -229,7 +242,7 @@ namespace FilRouge.Tests
             {
                 id = db.Difficulty
                     .Where(e => e.Name == "Intermédiaire")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -241,7 +254,7 @@ namespace FilRouge.Tests
             {
                 id = db.Difficulty
                     .Where(e => e.Name == "Expert")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -253,7 +266,7 @@ namespace FilRouge.Tests
             {
                 id = db.Difficulty
                     .Where(e => e.Name == "Expert sénior")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -265,7 +278,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == "C#")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -277,7 +290,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == "C")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -289,7 +302,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == "C++")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -301,7 +314,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == "Pascal")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -313,7 +326,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == "Java")
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -326,7 +339,7 @@ namespace FilRouge.Tests
             {
                 id = db.Technology
                     .Where(e => e.Name == name)
-                    .Select(e => e.Id).First();
+                    .Select(e => e.Id).FirstOrDefault();
 
             }
             return id;
@@ -339,7 +352,7 @@ namespace FilRouge.Tests
             {
                 result = db.Technology
                     .Where(e => e.Id == id)
-                    .Select(e => e.Name).First().ToString();
+                    .Select(e => e.Name).FirstOrDefault().ToString();
 
             }
             return result;
@@ -351,7 +364,7 @@ namespace FilRouge.Tests
             {
                 result = db.Difficulty
                     .Where(e => e.Id == id)
-                    .Select(e => e.Name).First().ToString();
+                    .Select(e => e.Name).FirstOrDefault().ToString();
 
             }
             return result;
