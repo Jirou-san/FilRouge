@@ -43,7 +43,7 @@
         /// <returns>Une liste de technology/returns>
         public List<Technology> GetAllTechnologies()
         {
-            return _db.Technology.ToList();
+            return _db.Technology.OrderBy(technology => technology.DisplayNum).ToList();
         }
 
         /// <summary>

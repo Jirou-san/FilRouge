@@ -13,7 +13,7 @@ namespace FilRouge.Web.Models
     public struct TechnologyModel
     {
         public int Id { get; set; }
-        [Display(Name = "Nom", Prompt = "Entrez une technology", Description = "Technology unique ou multiple")]
+        [Display(Name = "Nom", Prompt = "Entrez une technology", Description = "Technology")]
         [MinLength(1)]
         [MaxLength(50)]
         [Required]
