@@ -1,143 +1,130 @@
-﻿@model FilRouge.Web.Models.QuestionModels
+﻿@*TO DO
+GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
+
+@model FilRouge.Web.Models.QuestionModels
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Question - Edit</h2>
+<h2>Question - Edition</h2>
 
 
 @using (Html.BeginForm("actionName", "controllerName", FormMethod.Post, new { id = "response_form", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>QuestionModels</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.QuestionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.QuestionId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.QuestionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
+    <h4>Modification des informations d'une question</h4>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsEnable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsEnable)
-                    @Html.ValidationMessageFor(model => model.IsEnable, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuestionId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.QuestionId, new { htmlAttributes = new { @class = "form-control" } })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TechnologyId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TechnologyId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TechnologyId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TechnologyName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TechnologyName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TechnologyName, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsEnable, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsEnable)
+                @Html.ValidationMessageFor(model => model.IsEnable, "ddd", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DifficultyId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DifficultyId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DifficultyId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DifficultyId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("DifficultyId", (IEnumerable<SelectListItem>)ViewBag.difficulties, new { @class = "form-control" })
+            @Html.ValidationMessage("DifficultyId", "Please choose a difficulty.", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DifficultyName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DifficultyName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DifficultyName, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TechnologyName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("TechnologyId", (IEnumerable<SelectListItem>)ViewBag.technologies, new { @class = "form-control" })
+            @Html.ValidationMessage("Technologie", "Please choose a technology.", new { @class = "text-danger" })
         </div>
-        <hr>
-        <div class="form-group">
-            <div class="col-sm-10">
-                <a id="add">ajouter une réponse</a>
-                <br><br>
-            </div>
-        </div>
-        <div class="form-group" id="to_clone">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="input-group">
+    </div>
 
-                    @Html.Editor("response.Content", new { htmlAttributes = new { @class = "form-control", id = "" } })
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" name="del">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Entrez votre réponse" name="reponse" style="border-color:red">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" name="del">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
-            </span>
-        </div>
+    <hr>
 
-        <div class="form-group" id="title">
-            <div class="col-xs-7 col-md-9">
-                Les différentes propositions
-            </div>
-            <div class="col-xs-5 col-md-3" style="text-align: center">
-                <p>Bonne(s) réponses</p>
-            </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <a id="add">ajouter une réponse</a>
+            <br><br>
         </div>
-        <script type="text/javascript">var i = '@Model.Responses.Count()';</script>
+    </div>
 
 
+    @*--------------------Zone reponse a cloner------------------------*@
+
+
+    <div class="form-group" id="to_clone">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="input-group">
+                @Html.Editor("response.Content", new { htmlAttributes = new { @class = "form-control", id = "", style = "border-color:red" } })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" name="del">x</button>
+                </span>
+            </div>
+            <input type="checkbox" name="response.IsTrue" />
+            <label for="customInput">Bonne réponse</label>
+        </div>
+    </div>  
+
+    @*------------------Fin de zone a cloner------------------------------*@
+
+
+    @*initialisation du nombre de propositions*@
+    <script type="text/javascript">var nbReponse = '@Model.Responses.Count()';</script>
+    <section class="section_reponse">
         @foreach (var response in Model.Responses)
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-
-                    @Html.EditorFor(model => response.Content, new { htmlAttributes = new { @class = "form-control" } })
-                    <button class="btn btn-default" type="button" name="del">x</button>
-
+                    <div class="input-group">
+                        @Html.EditorFor(model => response.Content, new { htmlAttributes = new { @class = "form-control", id = "reponse" + response.Id } })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" name="del">x</button>
+                        </span>
+                    </div>
+                    @Html.EditorFor(modelItem => response.IsTrue)
+                    @Html.LabelFor(modelItem => response.IsTrue)
                 </div>
             </div>
         }
+    </section>
 
-        <div class="form-group" id="submitquestionedit">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+
+    <div class="form-group" id="submitquestionedit">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

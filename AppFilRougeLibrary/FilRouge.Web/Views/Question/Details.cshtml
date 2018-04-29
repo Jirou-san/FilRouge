@@ -7,21 +7,30 @@
 <h2>Question - Details</h2>
 
 <div>
-    <h4>QuestionModel</h4>
+    <h4>Informations détaillées d'une question</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             Id:
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.QuestionId)
         </dd>
-
+        <dt>
+            Difficulté:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyName)
+        </dd>
+        <dt>
+            Technologie:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyName)
+        </dd>
         <dt>
             Libellé:
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>

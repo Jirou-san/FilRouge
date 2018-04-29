@@ -47,7 +47,7 @@ namespace FilRouge.Service
                                     .Include("Difficulty")
                                     .Include("UserResponses.QuestionQuizz")
                                     .Include("Responses")
-                                    .FirstOrDefault(x => x.Id == id);
+                                    .Single(x => x.Id == id);
 
             if (question == null)
             {

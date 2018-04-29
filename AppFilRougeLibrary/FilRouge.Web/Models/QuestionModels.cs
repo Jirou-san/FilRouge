@@ -46,8 +46,8 @@ namespace FilRouge.Web.Models
 
             questionVM.QuestionId = question.Id;
             questionVM.Content = question.Content;
-            questionVM.TechnologyId = question.Technology.Id;
-            questionVM.DifficultyId = question.DifficultyId;
+            questionVM.TechnologyName = question.Technology.Name;
+            questionVM.DifficultyName = question.Difficulty.Name;
             questionVM.IsEnable = question.IsEnable;
 
             // les commentaires depuis questionQuizz qui est associé a userReponse)

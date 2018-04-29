@@ -201,6 +201,25 @@
             else
             {
                 questionModel = question.MapToQuestionModel();
+
+                //ordonne les listes pour afficher les valeurs de la question a editer, puis les autres valeurs disponibles.
+                var difficulties = _referenceService.GetAllDifficuties().OrderByDescending(i => i.Id == question.Id).ThenBy(i => i.Id); 
+                var technologies = _referenceService.GetAllTechnologies().OrderByDescending(i => i.Id == question.Id).ThenBy(i => i.Id);
+
+                IEnumerable<SelectListItem> dropDownDifficulties = difficulties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name
+                });
+
+                IEnumerable<SelectListItem> dropDownTechnologies = technologies.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = t.Name
+                });
+
+                ViewBag.difficulties = dropDownDifficulties;
+                ViewBag.technologies = dropDownTechnologies;
             }
             return View(questionModel);
         }

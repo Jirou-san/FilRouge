@@ -4,6 +4,8 @@ using FilRouge.Service;
 using FilRouge.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -87,7 +89,7 @@ namespace FilRouge.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    TempData["Alert"] = string.Format($"Erreur durant l'insertion de la technologie: {technology.Name}");
+                    TempData["Alert"] = string.Format($"Erreur lors de l'insertion de la technologie: {technology.Name}");
                 }
             }
             else
@@ -131,7 +133,7 @@ namespace FilRouge.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    ViewBag.alert = "Problême durant la mise à jour de la technologie";
+                    ViewBag.alert = "Erreur lors de la mise à jour de la technologie";
                 }
             }
             return View(technologyModel);
@@ -148,7 +150,19 @@ namespace FilRouge.Web.Controllers
             }
             catch (NotFoundException)
             {
-                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
+                TempData["Alert"] = "Erreur: Problême durant la suppression de la technologie";
+            }
+            catch (DbUpdateException exception)
+            {
+                var sqlException = exception.GetBaseException() as SqlException;
+                if (sqlException.Number == 547)
+                {
+                    TempData["Alert"] = $"Impossible de supprimé une technologie ({id}) utilisée";
+                }
+                else
+                {
+                    TempData["Alert"] = $"Erreur lors de la suppresion de la technologie ({id})";
+                }
             }
             return View(technologyModel);
         }

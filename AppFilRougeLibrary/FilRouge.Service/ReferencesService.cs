@@ -5,7 +5,7 @@
     using FilRouge.Model.Interfaces;
     using System.Collections.Generic;
     using System.Data.Entity;
-
+    using System.Data.Entity.Infrastructure;
     /// <summary>
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
@@ -64,11 +64,20 @@
         public int DeleteTechnology(int id)
         {
             var technology = new Technology() { Id = id };
+            int deletedId; 
 
-            _db.Technology.Attach(technology);
-            _db.Technology.Remove(technology);
+            //try
+            //{
+                _db.Technology.Attach(technology);
+                _db.Technology.Remove(technology);
+                deletedId =_db.SaveChanges();
+            //}
+            //catch (DbUpdateException updateException)
+            //{
+            //    throw new CustomDbUpdateException(updateException, $"suppresion de la technologie ({id})");
+            //}
+            return deletedId;
 
-            return _db.SaveChanges();
         }
 
         /// <summary>
