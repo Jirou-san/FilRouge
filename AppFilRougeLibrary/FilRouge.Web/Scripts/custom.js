@@ -1,35 +1,54 @@
-﻿//var acc = document.getElementsByClassName("result");
-//var i;
+﻿$("#to_clone").hide();
+$("#title").hide();
 
-//for (i = 0; i < acc.length; i++) {
-//    acc[i].addEventListener("click", function () {
-//        /* Toggle between adding and removing the "active" class,
-//        to highlight the button that controls the panel */
-//        this.classList.toggle("active");
+const max = 4;
+let iCheck = 0;
+const maxTrue = 3;
 
-//        /* Toggle between hiding and showing the active panel */
-//        var panel = this.nextElementSibling;
-//        if (panel.style.display === "block") {
-//            panel.style.display = "none";
-//        } else {
-//            panel.style.display = "block";
-//        }
-//    });
-//} 
+
+$("#add").click(function (event) {
+    event.preventDefault();
+    $("#title").show();
+    if (i < max) {
+        $("#to_clone").clone().appendTo("#response_form").removeAttr("id").show();
+        i++;
+    }
+});
+
+$('#response_form').on('click', 'button', function (evt) {
+    $(this).closest(".form-group").remove();
+    i--;
+    if (i == 0) {
+        $("#title").hide();
+    }
+    iCheck--;
+    checkboxLocker(iCheck, maxTrue);
+});
+
+$('#response_form').on('change', ':checkbox', function (event) {
+
+    if ($(this).prop("checked")) {
+        $(this).closest(".form-group").find(".form-control").css("border-color", "green");
+        iCheck++;
+    }
+    else {
+        $(this).closest(".form-group").find(".form-control").css("border-color", "red");
+        iCheck--;
+    }
+    checkboxLocker(iCheck, maxTrue);
+});
+
+function checkboxLocker(iterator, maxSelected) {
+    if (iterator == maxTrue) {
+        $('input:checkbox').not(':checked').prop('disabled', true);
+    }
+    else {
+        $('input:checkbox').not(':checked').prop('disabled', false);
+    }
+}
 
 
 
 $("#alert").delay(1800).slideUp(300);
-//$("#alert").delay(1600).fadeOut(600);
 
-    
-
-//$(document).ready(function ($) {
-//    $(".a_collapse").click(function () {
-//        $(this).closest('.to_collapse').toggle("slow", function () { })
-//        return false
-//    });
-//    alert("OK");
-
-//});
 

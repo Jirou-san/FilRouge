@@ -70,7 +70,7 @@
         }
 
         // GET: Question/Details/5
-        public ActionResult Details(int id=0)
+        public ActionResult Details(int id = 0)
         {
             if (id == 0)
             {
@@ -148,7 +148,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Question question)
         {
-            var status =  _questionService.DeleteQuestion(question.Id);
+            var status = _questionService.DeleteQuestion(question.Id);
 
             if (question.Id == 0 || status == 0)
             {
@@ -183,20 +183,27 @@
         //    return View(technology);
         //}
 
-        //// GET: Technology/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Technology technology = db.Technology.Find(id);
-        //    if (technology == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(technology);
-        //}
+        // GET: Question/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Question question = _questionService.ShowQuestion(id);
+            QuestionModels questionModel = new QuestionModels();
+
+            if (question == null)
+            {
+                throw new NotFoundException("Question à editer non trouvée");
+            }
+            else
+            {
+                questionModel = question.MapToQuestionModel();
+            }
+            return View(questionModel);
+        }
 
         //// POST: Technology/Edit/5
         //// Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 

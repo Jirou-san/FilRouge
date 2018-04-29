@@ -63,6 +63,8 @@ namespace FilRouge.Service
         public List<Question> GetAllQuestions()
         {
             return _db.Question
+                                .Include("Technology")
+                                .Include("Difficulty")
                                 .ToList();
         }
 
@@ -73,16 +75,9 @@ namespace FilRouge.Service
         /// <returns>Liste de question (d'un quizz)</returns>
         public List<Question> GetQuestionsByQuizz(int quizzId)
         {
-            //var questions = _db.Question
-            //                            .Join(_db.QuestionQuizz,
-            //                                question => question.Id,
-            //                                questionQuizz => questionQuizz.QuestionId,
-            //                                (question, questionQuizz) => new { question, questionQuizz })
-            //                                .Where(o => o.questionQuizz.QuizzId == quizzId)
-            //                            .Select(p => p.question).ToList();
             var questions = _db.QuestionQuizz
                             .Where(e => e.QuizzId == quizzId)
-                            .Select(e=>e.Question)
+                            .Select(e => e.Question)
                             .ToList();
             return questions;
         }
@@ -176,7 +171,5 @@ namespace FilRouge.Service
             return null;
         }
         #endregion
-
-
     }
 }

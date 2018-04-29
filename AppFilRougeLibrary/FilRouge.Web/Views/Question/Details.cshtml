@@ -50,24 +50,25 @@
 </table>
 
 
-    <br />
-    <table>
-        <tr>
-            <th>
-                Commentaires
-            </th>
-        </tr>
-        @foreach (var comment in Model.Comments)
+<br />
+<table>
+    <tr>
+        <th>
+            Commentaires
+        </th>
+    </tr>
+    @foreach (var comment in Model.Comments)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => comment)
             </td>
         </tr>
-}
-    </table>
+    }
+</table>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.QuestionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+    
