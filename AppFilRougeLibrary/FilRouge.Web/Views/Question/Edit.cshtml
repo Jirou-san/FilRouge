@@ -10,7 +10,7 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
 <h2>Question - Edition</h2>
 
 
-@using (Html.BeginForm("actionName", "controllerName", FormMethod.Post, new { id = "response_form", @class = "form-horizontal" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 

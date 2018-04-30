@@ -223,17 +223,20 @@
             }
             return View(questionModel);
         }
+        //TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
-        //// POST: Technology/Edit/5
-        //// Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        //// plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        // POST: Technology/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "TechnoId,TechnoName,Active")] Technology technology)
+        //public ActionResult Edit([Bind(Include = "TechnoId,TechnoName,Active")] QuestionModels questionModel)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(technology).State = EntityState.Modified;
+        //        _questionService.UpdateQuestion()
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
