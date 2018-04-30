@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FilRouge.Tests;
+using System.Linq;
 //using Microsoft.AspNet.Identity;
 using FilRouge.Model.Entities;
 
@@ -108,15 +109,14 @@ namespace FilRouge.UnitTests.Services.QuizzTests
             using (FilRougeDBContext db = new FilRougeDBContext())
             {
                 var toDelete = db.Quizz
-                            .Include(nameof(QuestionQuizz))
-                            //.Where(e => e.Id == myQuiz.Id)
-                            ;
-                throw new Exception("Erreur clause Where non implémentée\n impossible de supprimer les quizz en l'état");
+                                .Include(nameof(QuestionQuizz))
+                                .Where(e => e.Id == myQuiz[0].Id);
+                //throw new Exception("Erreur clause Where non implémentée\n impossible de supprimer les quizz en l'état");
                 //Message pour le formidable dev qui va me lire :
                 //Pour une raison inconnue la clause where n'est pas 
                 //reconnue comme étant utilisable. C'estr troublant et désagréable.
                 //Je noie mon chagrin dans le cognac en attendant ;-)
-
+                // Le formidable dev c'est Nicolas ;-) Manquait un using mais message pas clair de MS VS
                 db.Quizz.RemoveRange(toDelete);
             }
             #endregion
