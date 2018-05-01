@@ -20,7 +20,37 @@ namespace FilRouge.HttpHandler
             return response;
         }
 
+        public int AddDifficulty(Difficulty difficulty)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteDifficulty(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateDifficulty(Difficulty difficulty)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Technology> GetAllTechnologies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddTechnology(Technology technology)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteTechnology(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateTechnology(Technology technology)
         {
             throw new NotImplementedException();
         }

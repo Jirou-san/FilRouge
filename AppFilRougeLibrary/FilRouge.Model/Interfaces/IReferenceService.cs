@@ -3,6 +3,10 @@
     using System.Collections.Generic;
     using FilRouge.Model.Entities;
 
+    /// <summary>
+    /// Interface de référence permettant d'effectuer les opérations basiques sur les données
+    /// de référence
+    /// </summary>
     public interface IReferenceService
     {
         #region Technology

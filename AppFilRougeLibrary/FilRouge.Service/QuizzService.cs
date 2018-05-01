@@ -451,6 +451,13 @@ public class QuizzService : IQuizzService
             }
         }
     }
+
+    /// <summary>
+    /// Permet d'obtenir la liste des questionquizz
+    /// </summary>
+    /// <param name="quizzId">Id du quizz donné</param>
+    /// <returns>La liste des questions quizz associé à un quizz</returns>
+    
 }
 
 

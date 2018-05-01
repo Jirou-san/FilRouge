@@ -1,4 +1,5 @@
 using System;
+using FilRouge.Model.Entities;
 using Unity;
 using IReferenceService = FilRouge.Model.Interfaces.IReferenceService;
 namespace FilRouge.API
@@ -49,6 +50,7 @@ namespace FilRouge.API
             container.RegisterType<IQuizzService, QuizzService>();
             container.RegisterType<IReferenceService, ReferencesService>();
             container.RegisterType<IQuestionResponseService, QuestionResponseService>();
+            container.RegisterType<IQuestionQuizzService,QuestionQuizzService>()
         }
        
     }
