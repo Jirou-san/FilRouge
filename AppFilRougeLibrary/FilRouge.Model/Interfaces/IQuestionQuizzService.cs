@@ -10,7 +10,7 @@ namespace FilRouge.Model.Interfaces
     public interface IQuestionQuizzService
     {
         /// <summary>
-        /// Permet d'obtenir une liste de questions quizz par l'id deu quizz
+        /// Permet d'obtenir une liste de questions quizz par l'id d'unquizz
         /// </summary>
         /// <param name="quizzid">Id du quizz </param>
         /// <returns>La liste de questions quizz</returns>
@@ -35,7 +35,7 @@ namespace FilRouge.Model.Interfaces
         /// </summary>
         /// <param name="idQuestionQuizz">Id d ela question quizz a supprimer</param>
         /// <returns>Retourne success or fail</returns>
-        bool DeleteQuestrionQuizz(int idQuestionQuizz);
+        bool DeleteQuestionQuizz(int idQuestionQuizz);
 
         /// <summary>
         /// Mise à jour d'une question quizz 

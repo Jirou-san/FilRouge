@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,7 +113,16 @@ namespace FilRouge.Service
 
         public bool UpdateQuizzAnswer(UserResponse useresponse)
         {
-            //TODO: A faire
+            try
+            {
+                _db.Entry(useresponse).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
             return true;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,30 +16,57 @@ namespace FilRouge.Service
         {
             _db = db;
         }
+
         public List<QuestionQuizz> GetQuestionQuizz(int quizzid)
         {
-            return _db.QuestionQuizz.Where(e => e.QuizzId == quizzid).ToList();
+            return _db.QuestionQuizz.Where(e => e.QuizzId == quizzid)
+                   .Include(nameof(UserResponse)) 
+                   .Include(nameof(Quizz))
+                   .ToList()
+                ;
         }
 
         public QuestionQuizz GetQuestionQuizzById(int idQuestionQuizz)
         {
-            return 
+            return _db.QuestionQuizz.Find(idQuestionQuizz);
         }
 
 
         public int AddQuestionQuizz(QuestionQuizz questionQuizz)
         {
-            throw new NotImplementedException();
+            _db.QuestionQuizz.Add(questionQuizz);
+            return _db.SaveChanges();
         }
 
-        public bool DeleteQuestrionQuizz(int idQuestionQuizz)
+        public bool DeleteQuestionQuizz(int idQuestionQuizz)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var questionQuizz = new QuestionQuizz() { Id = idQuestionQuizz };
+                _db.QuestionQuizz.Attach(questionQuizz);
+                _db.QuestionQuizz.Remove(questionQuizz);
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool UpdateQuestionQuizz(QuestionQuizz questionQuizz)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(questionQuizz).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -50,8 +50,7 @@ namespace FilRouge.API
             container.RegisterType<IQuizzService, QuizzService>();
             container.RegisterType<IReferenceService, ReferencesService>();
             container.RegisterType<IQuestionResponseService, QuestionResponseService>();
-            container.RegisterType<IQuestionQuizzService,QuestionQuizzService>()
-        }
-       
+            container.RegisterType<IQuestionQuizzService, QuestionQuizzService>();
+        }    
     }
 }
