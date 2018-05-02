@@ -64,18 +64,18 @@
         public int DeleteTechnology(int id)
         {
             var technology = new Technology() { Id = id };
-            int deletedId; 
+            int deletedId;
 
-            //try
-            //{
+            try
+            {
                 _db.Technology.Attach(technology);
                 _db.Technology.Remove(technology);
-                deletedId =_db.SaveChanges();
-            //}
-            //catch (DbUpdateException updateException)
-            //{
-            //    throw new CustomDbUpdateException(updateException, $"suppresion de la technologie ({id})");
-            //}
+                deletedId = _db.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                deletedId = 0;
+            }
             return deletedId;
 
         }

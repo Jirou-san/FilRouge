@@ -8,6 +8,7 @@ namespace FilRouge.Service
 {
     using FilRouge.Model.Entities;
     using FilRouge.Model.Interfaces;
+    using System.Data.Entity;
 
     public class QuestionResponseService : IQuestionResponseService
     {
@@ -103,6 +104,17 @@ namespace FilRouge.Service
             _db.Question.Remove(question);
             return _db.SaveChanges();
         }
+
+        /// <summary>
+        /// met a jour une question
+        /// </summary>
+        /// <returns>Retourne l'id de la question supprimée</returns>
+        public int UpdateQuestion(Question question)
+        {
+            _db.Entry(question).State = EntityState.Modified;
+            return _db.SaveChanges();
+        }
+
         #endregion
 
 
@@ -169,6 +181,20 @@ namespace FilRouge.Service
         {
             var responses = new List<Response>();
             return null;
+        }
+
+        public int UpdateResponse(Response response)
+        {
+            if (response.Content == null)
+            {
+                _db.Entry(response).State = EntityState.Deleted;
+            }
+            else
+            {
+                _db.Entry(response).State = EntityState.Modified;
+            }
+            return _db.SaveChanges();
+
         }
         #endregion
     }

@@ -18,19 +18,13 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
     <h4>Modification des informations d'une question</h4>
 
     <hr />
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.QuestionId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.QuestionId, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-    </div>
+    @Html.HiddenFor(model => model.QuestionId)
+    @{TempData["responses"] = Model.Responses;}
 
     <div class="form-group">
         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Content,  new { @class = "form-control" })
+            @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -75,7 +69,7 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
 
 
     <div class="form-group" id="to_clone">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2">Question</label>
         <div class="col-md-10">
             <div class="input-group">
                 @Html.Editor("response.Content", new { htmlAttributes = new { @class = "form-control", id = "", style = "border-color:red" } })
@@ -83,10 +77,12 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
                     <button class="btn btn-default" type="button" name="del">x</button>
                 </span>
             </div>
-            <input type="checkbox" name="response.IsTrue" />
-            <label for="customInput">Bonne réponse</label>
+            <label>
+                <input type="checkbox" name="response.IsTrue" />
+                <em>Bonne réponse</em>
+            </label>
         </div>
-    </div>  
+    </div>
 
     @*------------------Fin de zone a cloner------------------------------*@
 
@@ -94,24 +90,28 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
     @*initialisation du nombre de propositions*@
     <script type="text/javascript">var nbReponse = '@Model.Responses.Count()';</script>
     <section class="section_reponse">
-        @foreach (var response in Model.Responses)
+        @for (var i = 0; i < Model.Responses.Count(); i++)
         {
+            @Html.HiddenFor(model => model.Responses[i].Id)
+            @Html.HiddenFor(model => model.Responses[i].QuestionId)
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2">Question</label>
                 <div class="col-md-10">
                     <div class="input-group">
-                        @Html.EditorFor(model => response.Content, new { htmlAttributes = new { @class = "form-control", id = "reponse" + response.Id } })
+                        @Html.EditorFor(model => model.Responses[i].Content, new { htmlAttributes = new { @class = "form-control" } })
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" name="del">x</button>
                         </span>
                     </div>
-                    @Html.EditorFor(modelItem => response.IsTrue)
-                    @Html.LabelFor(modelItem => response.IsTrue)
+                    <label class="control-label">
+                        @Html.EditorFor(model => model.Responses[i].IsTrue)
+                        <em>Bonne réponse</em>
+                    </label>
                 </div>
             </div>
         }
     </section>
-
 
     <div class="form-group" id="submitquestionedit">
         <div class="col-md-offset-2 col-md-10">
@@ -120,7 +120,7 @@ GERER LES LABELS DES REPONSES (BESOIN D'UN ID DYNAMIC POUR LE FOR DU LABEL*@
     </div>
 </div>
     }
-
+ViewBag.questionModel
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>

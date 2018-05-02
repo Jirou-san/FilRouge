@@ -16,7 +16,7 @@ namespace FilRouge.Service
         }
     }
 
-    public sealed class CustomDbUpdateException : InvalidOperationException
+    public sealed class CustomDbUpdateException : DbUpdateException
     {
         public string _msg;
 

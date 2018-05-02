@@ -152,17 +152,10 @@ namespace FilRouge.Web.Controllers
             {
                 TempData["Alert"] = "Erreur: Problême durant la suppression de la technologie";
             }
-            catch (DbUpdateException exception)
+            catch (DbUpdateException e)
             {
-                var sqlException = exception.GetBaseException() as SqlException;
-                if (sqlException.Number == 547)
-                {
-                    TempData["Alert"] = $"Impossible de supprimé une technologie ({id}) utilisée";
-                }
-                else
-                {
-                    TempData["Alert"] = $"Erreur lors de la suppresion de la technologie ({id})";
-                }
+                TempData["Alert"] = $"Erreur: Problême durant la suppression de la technologie (id: {id}";
+
             }
             return View(technologyModel);
         }

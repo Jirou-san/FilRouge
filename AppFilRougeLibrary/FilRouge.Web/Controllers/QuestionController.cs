@@ -221,27 +221,52 @@
                 ViewBag.difficulties = dropDownDifficulties;
                 ViewBag.technologies = dropDownTechnologies;
             }
+            TempData["responses"] = question.Responses;
             return View(questionModel);
         }
         //TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 
 
-        // POST: Technology/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Technology/Edit/5
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "TechnoId,TechnoName,Active")] QuestionModels questionModel)
+        //public ActionResult Edit(QuestionModels questionModel, List<ResponseModels> responsesModel)
         //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _questionService.UpdateQuestion()
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(technology);
+        //    Question question = questionModel.MapToQuestion();
+        //    List<Response> responses = new List<Response>();
+
+        //    responsesModel.ForEach(r => responses.Add(r.MapToResponse()));
+
+        //    _questionService.UpdateQuestion(question);
+        //    return View(questionModel);
         //}
+
+        [HttpPost]
+        public ActionResult Edit(QuestionModels questionModel)
+        {
+            Question question = questionModel.MapToQuestion();
+
+           
+            List <Response> originResponse = (List<Response>)TempData["responses"];
+            List<Response> reponsesToUpdate = new List<Response>();
+            var oldResponses = questionModel.Responses.Where(r => r.Id != 0);
+
+            _questionService.UpdateQuestion(question);
+
+            foreach (Response oldResponse in oldResponses)
+            {
+                if ((originResponse.Where(x=>x.Content != oldResponse.Content)).Count() == oldResponses.Count())
+                {
+                    reponsesToUpdate.Add(oldResponse);
+
+                }
+
+            }
+            reponsesToUpdate.ForEach(r => _questionService.UpdateResponse(r));
+
+            return RedirectToAction("Details", new { id = questionModel.QuestionId });
+        }
 
         //// GET: Technology/Delete/5
         //public ActionResult Delete(int? id)
