@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FilRouge.Model;
+using FilRouge.HttpHandler;
 
 
 namespace FilRouge.Tests
@@ -50,7 +51,24 @@ namespace FilRouge.Tests
                         Console.WriteLine($"{Environment.NewLine}Souhaitez vous continuer?");
                         again = Console.ReadLine();
                         break;
+                    case 2: // Consommation de l'API    
+                        try
+                        {
+                            var HttpHandler = new HttpQuestionQuizz();
+                            foreach (var item in HttpHandler.GetQuestionQuizz(1, "string","string"))
+                            {
+                                Console.WriteLine($@"L'id du quizz est:{item.QuizzId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
 
+                            Console.WriteLine($"ERROR: {ex.Message}{Environment.NewLine}");
+                        }
+
+                        Console.WriteLine($"{Environment.NewLine}Souhaitez vous continuer?");
+                        again = Console.ReadLine();
+                        break;
                     default:
                         Console.WriteLine("Fin des tests");
                         break;

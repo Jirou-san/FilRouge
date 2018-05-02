@@ -263,6 +263,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DifficultyModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\QuestionQuizzModel.cs" />
     <Compile Include="Models\QuizzModel.cs" />
     <Compile Include="Models\TechnologyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -305,7 +306,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\NicolasHome.pubxml" />
+    <None Include="Properties\PublishProfiles\NicolasProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
