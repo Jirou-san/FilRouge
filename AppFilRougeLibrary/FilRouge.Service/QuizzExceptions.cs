@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace FilRouge.Service
 {
@@ -9,6 +11,35 @@ namespace FilRouge.Service
     {
         public string _msg;
         public NotFoundException(string message) : base(message)
+        {
+            _msg = message;
+        }
+    }
+    
+    public sealed class CustomDbUpdateException : DbUpdateException
+    {
+        public string _msg;
+       
+        public CustomDbUpdateException(DbUpdateException dbUpdateException, string message) : base(message)
+        {
+            var sqlException = dbUpdateException.GetBaseException() as SqlException;
+
+            switch (sqlException.Number)
+            {
+                case 547:
+                    message = $"{dbUpdateException.Message} - (utilisé par un autre composant de l'application)";
+                    break;
+                default:
+                    message = "Exception non géré";
+                    break;
+            }
+        }
+    }
+
+    public sealed class FkConstraintException : Exception
+    {
+        public string _msg;
+        public FkConstraintException(string message) : base(message)
         {
             _msg = message;
         }

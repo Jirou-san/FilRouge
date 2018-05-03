@@ -1,0 +1,30 @@
+﻿
+@{
+	ViewBag.Title = "UserQuizz";
+	Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+    <h2>
+        Quizz
+    </h2>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-10 col-md-12 col-sm-12">
+            <div>
+                @ViewBag.userFirstName
+                <br />
+                @ViewBag.userLastName
+                <br />
+                @ViewBag.date
+                <br />
+                @ViewBag.technology
+            </div>
+
+
+            <div>
+                @Html.Partial("_QuestionResponses")
+            </div>
+		</div>
+	</div>
+</div>
+
+

@@ -5,7 +5,7 @@
     using FilRouge.Model.Interfaces;
     using System.Collections.Generic;
     using System.Data.Entity;
-
+    using System.Data.Entity.Infrastructure;
     /// <summary>
     /// Classe ReferencesService permettant d'utiliser les entités associés au Quizz
     /// Difficulté et Technologies
@@ -30,6 +30,7 @@
         public Technology GetTechnology(int id)
         {
             var technology = _db.Technology.Find(id);
+
             if (technology == null)
             {
                 throw new NotFoundException(string.Format($"Aucune technologie ({id}) trouvée"));
@@ -43,7 +44,7 @@
         /// <returns>Une liste de technology/returns>
         public List<Technology> GetAllTechnologies()
         {
-            return _db.Technology.ToList();
+            return _db.Technology.OrderBy(technology => technology.DisplayNum).ToList();
         }
 
         /// <summary>
@@ -63,11 +64,19 @@
         public int DeleteTechnology(int id)
         {
             var technology = new Technology() { Id = id };
+            int deletedId;
 
-            _db.Technology.Attach(technology);
-            _db.Technology.Remove(technology);
-
-            return _db.SaveChanges();
+            try
+            {
+                _db.Technology.Attach(technology);
+                _db.Technology.Remove(technology);
+                deletedId = _db.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new CustomDbUpdateException(ex, $"Problême lors de la mise à jour de la technologie (id: {id})"); 
+            }
+            return deletedId;
         }
 
         /// <summary>
@@ -79,9 +88,7 @@
             _db.Entry(technology).State = EntityState.Modified;
             return _db.SaveChanges();
         }
-
         #endregion
-
 
         #region Difficulty
 

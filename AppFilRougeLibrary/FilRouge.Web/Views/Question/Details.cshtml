@@ -7,21 +7,30 @@
 <h2>Question - Details</h2>
 
 <div>
-    <h4>QuestionModel</h4>
+    <h4>Informations détaillées d'une question</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             Id:
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.QuestionId)
         </dd>
-
+        <dt>
+            Difficulté:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyName)
+        </dd>
+        <dt>
+            Technologie:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyName)
+        </dd>
         <dt>
             Libellé:
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>
@@ -50,24 +59,25 @@
 </table>
 
 
-    <br />
-    <table>
-        <tr>
-            <th>
-                Commentaires
-            </th>
-        </tr>
-        @foreach (var comment in Model.Comments)
+<br />
+<table>
+    <tr>
+        <th>
+            Commentaires
+        </th>
+    </tr>
+    @foreach (var comment in Model.Comments)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => comment)
             </td>
         </tr>
-}
-    </table>
+    }
+</table>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.QuestionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+    

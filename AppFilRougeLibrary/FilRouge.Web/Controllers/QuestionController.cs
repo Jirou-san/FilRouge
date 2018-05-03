@@ -10,6 +10,7 @@
     using System.Web.Mvc;
     using PagedList;
     using FilRouge.Web.Models;
+    using FilRouge.Service;
 
     public class QuestionController : Controller
     {
@@ -69,7 +70,7 @@
         }
 
         // GET: Question/Details/5
-        public ActionResult Details(int id=0)
+        public ActionResult Details(int id = 0)
         {
             if (id == 0)
             {
@@ -125,25 +126,37 @@
 
         // GET: Question/Delete/5
         [HttpGet, ActionName("Delete")]
-        public ActionResult Delete()
+        public ActionResult Delete(int id)
         {
-            return View();
+            var question = new Question();
+            var questionModel = new QuestionModels();
+            try
+            {
+                question = _questionService.GetQuestion(id);
+                questionModel = question.MapToQuestionModel();
+            }
+            catch (NotFoundException e)
+            {
+
+                TempData["alert"] = string.Format($"Problême lors de la suppression de la Question (id: {id}");
+            }
+            return View(questionModel);
         }
 
         // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Question question)
         {
-            var status =  _questionService.DeleteQuestion(id);
+            var status = _questionService.DeleteQuestion(question.Id);
 
-            if (id == 0 || status == 0)
+            if (question.Id == 0 || status == 0)
             {
                 TempData["Alert"] = "Error: Problême durant la suppression de la question";
             }
             else
             {
-                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{id}");
+                TempData["Alert"] = string.Format($"Success: suppression de la question (id:{question.Id}");
             }
             return RedirectToAction("Index");
         }
@@ -170,36 +183,73 @@
         //    return View(technology);
         //}
 
-        //// GET: Technology/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Technology technology = db.Technology.Find(id);
-        //    if (technology == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(technology);
-        //}
+        // GET: Question/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Question question = _questionService.ShowQuestion(id);
+            QuestionModels questionModel = new QuestionModels();
 
-        //// POST: Technology/Edit/5
-        //// Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        //// plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "TechnoId,TechnoName,Active")] Technology technology)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(technology).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(technology);
-        //}
+            if (question == null)
+            {
+                throw new NotFoundException("Question à editer non trouvée");
+            }
+            else
+            {
+                questionModel = question.MapToQuestionModel();
+
+                //ordonne les listes pour afficher les valeurs de la question a editer, puis les autres valeurs disponibles.
+                var difficulties = _referenceService.GetAllDifficuties().OrderByDescending(i => i.Id == question.Id).ThenBy(i => i.Id); 
+                var technologies = _referenceService.GetAllTechnologies().OrderByDescending(i => i.Id == question.Id).ThenBy(i => i.Id);
+
+                IEnumerable<SelectListItem> dropDownDifficulties = difficulties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name
+                });
+
+                IEnumerable<SelectListItem> dropDownTechnologies = technologies.Select(t => new SelectListItem
+                {
+                    Value = t.Id.ToString(),
+                    Text = t.Name
+                });
+
+                ViewBag.difficulties = dropDownDifficulties;
+                ViewBag.technologies = dropDownTechnologies;
+            }
+            TempData["responses"] = question.Responses;
+            return View(questionModel);
+        }
+        //TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
+        [HttpPost]
+        public ActionResult Edit(QuestionModels questionModel)
+        {
+            Question question = questionModel.MapToQuestion();
+
+           
+            List <Response> originResponse = (List<Response>)TempData["responses"];
+            List<Response> reponsesToUpdate = new List<Response>();
+            var oldResponses = questionModel.Responses.Where(r => r.Id != 0);
+
+            _questionService.UpdateQuestion(question);
+
+            foreach (Response oldResponse in oldResponses)
+            {
+                if ((originResponse.Where(x=>x.Content != oldResponse.Content)).Count() == oldResponses.Count())
+                {
+                    reponsesToUpdate.Add(oldResponse);
+
+                }
+            }
+            reponsesToUpdate.ForEach(r => _questionService.UpdateResponse(r));
+
+            return RedirectToAction("Details", new { id = questionModel.QuestionId });
+        }
 
         //// GET: Technology/Delete/5
         //public ActionResult Delete(int? id)

@@ -24,7 +24,7 @@ namespace FilRouge.Model.Entities
 
         public FilRougeDBContext() :base("name=ConnexionStringFilRouge")
         {
-            this.Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
            //Database.SetInitializer(new FilRougeDbContextInit());
            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FilRougeDBContext, Migrations.Configuration>()); //Pour la migration
         }

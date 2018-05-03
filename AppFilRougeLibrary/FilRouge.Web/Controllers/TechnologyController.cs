@@ -4,6 +4,8 @@ using FilRouge.Service;
 using FilRouge.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -67,7 +69,9 @@ namespace FilRouge.Web.Controllers
         // GET: Technology/Create
         public ActionResult Create()
         {
-            return View();
+            var emptyModel = new TechnologyModel();
+
+            return View(emptyModel);
         }
 
         // POST: Technology/Create
@@ -85,7 +89,7 @@ namespace FilRouge.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    TempData["Alert"] = string.Format($"Erreur durant l'insertion de la technologie: {technology.Name}");
+                    TempData["Alert"] = string.Format($"Erreur lors de l'insertion de la technologie: {technology.Name}");
                 }
             }
             else
@@ -129,10 +133,10 @@ namespace FilRouge.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    ViewBag.alert = "Problême durant la mise à jour de la technologie";
+                    ViewBag.alert = "Erreur lors de la mise à jour de la technologie";
                 }
             }
-            return View();
+            return View(technologyModel);
         }
 
         // GET: Technology/Delete/5
@@ -146,7 +150,12 @@ namespace FilRouge.Web.Controllers
             }
             catch (NotFoundException)
             {
-                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
+                TempData["Alert"] = "Erreur: Problême durant la suppression de la technologie";
+            }
+            catch (DbUpdateException e)
+            {
+                TempData["Alert"] = $"Erreur: Problême durant la suppression de la technologie (id: {id}";
+
             }
             return View(technologyModel);
         }
@@ -156,23 +165,17 @@ namespace FilRouge.Web.Controllers
         public ActionResult Delete(TechnologyModel technology)
         {
 
-            if (ModelState.IsValid)
+           
+
+
+            try
             {
                 var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
 
-                if (deletedTechnologyId == 0)
-                {
-                    TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
-                }
-                else
-                {
-                    TempData["Alert"] = string.Format($"Suppression de la technologie (id: {deletedTechnologyId})");
-                }
             }
-            else
+            catch (CustomDbUpdateException e)
             {
-                TempData["Alert"] = "Les champs ne sont pas tous remplis.";
-
+                TempData["Alert"] = e.Message;
             }
 
             return RedirectToAction("Index");

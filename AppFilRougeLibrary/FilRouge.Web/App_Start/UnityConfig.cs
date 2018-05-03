@@ -60,6 +60,9 @@ namespace FilRouge.Web
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<IUserStore<Contact>, UserStore<Contact>>();
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
+
+            container.RegisterType<IQuizzService, QuizzService>();
+
         }
     }
 }

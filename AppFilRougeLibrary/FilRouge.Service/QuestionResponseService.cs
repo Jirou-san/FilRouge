@@ -9,6 +9,7 @@ namespace FilRouge.Service
 {
     using FilRouge.Model.Entities;
     using FilRouge.Model.Interfaces;
+    using System.Data.Entity;
 
     public class QuestionResponseService : IQuestionResponseService
     {
@@ -48,7 +49,7 @@ namespace FilRouge.Service
                                     .Include("Difficulty")
                                     .Include("UserResponses.QuestionQuizz")
                                     .Include("Responses")
-                                    .FirstOrDefault(x => x.Id == id);
+                                    .Single(x => x.Id == id);
 
             if (question == null)
             {
@@ -64,6 +65,8 @@ namespace FilRouge.Service
         public List<Question> GetAllQuestions()
         {
             return _db.Question
+                                .Include("Technology")
+                                .Include("Difficulty")
                                 .ToList();
         }
 
@@ -74,16 +77,9 @@ namespace FilRouge.Service
         /// <returns>Liste de question (d'un quizz)</returns>
         public List<Question> GetQuestionsByQuizz(int quizzId)
         {
-            //var questions = _db.Question
-            //                            .Join(_db.QuestionQuizz,
-            //                                question => question.Id,
-            //                                questionQuizz => questionQuizz.QuestionId,
-            //                                (question, questionQuizz) => new { question, questionQuizz })
-            //                                .Where(o => o.questionQuizz.QuizzId == quizzId)
-            //                            .Select(p => p.question).ToList();
             var questions = _db.QuestionQuizz
                             .Where(e => e.QuizzId == quizzId)
-                            .Select(e=>e.Question)
+                            .Select(e => e.Question)
                             .ToList();
             return questions;
         }
@@ -109,6 +105,17 @@ namespace FilRouge.Service
             _db.Question.Remove(question);
             return _db.SaveChanges();
         }
+
+        /// <summary>
+        /// met a jour une question
+        /// </summary>
+        /// <returns>Retourne l'id de la question supprimée</returns>
+        public int UpdateQuestion(Question question)
+        {
+            _db.Entry(question).State = EntityState.Modified;
+            return _db.SaveChanges();
+        }
+
         #endregion
 
 
@@ -185,8 +192,20 @@ namespace FilRouge.Service
             var responses = new List<Response>();
             return null;
         }
+
+        public int UpdateResponse(Response response)
+        {
+            if (response.Content == null)
+            {
+                _db.Entry(response).State = EntityState.Deleted;
+            }
+            else
+            {
+                _db.Entry(response).State = EntityState.Modified;
+            }
+            return _db.SaveChanges();
+
+        }
         #endregion
-
-
     }
 }
