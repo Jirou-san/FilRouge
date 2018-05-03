@@ -7,6 +7,7 @@ export class QuestionServiceService {
     public quizId: number;
     public questionQuiz: JSON;
     
+<<<<<<< HEAD
     public userFirstName: string;
     public userLastName: string;
     public technology: string;
@@ -21,6 +22,8 @@ export class QuestionServiceService {
     public freeAnswer: string;
     public refuseToAnswer: string;
 
+=======
+>>>>>>> bc483000296259d713836c627d9a42e22f7fb663
 constructor(private httpClient: HttpClient) {
     //this.server = 'localhost:81';
     this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503

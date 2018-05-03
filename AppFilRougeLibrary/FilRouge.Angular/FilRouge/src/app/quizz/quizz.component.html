@@ -3,12 +3,27 @@
    <div class="row">
        <div class="col-12">
            <div class="quizz-container">
-                <nav class="navbar navbar-expand-sm|md|lg|-xl navbar-dark|light" style="background-color: #8d2a2a86;" id="navbar-quizz">
+                <nav class="navbar navbar-expand-sm|md|lg|-xl navbar-dark|light" style="color:#15232c;background-color: rgb(221, 149, 116);" id="navbar-quizz">
                     <ul class="navbar nav" id="navbar-content">
-                        <li class="nav-item "></li>
-                        <li class="nav-item">{{Date}}</li>
+                        <div class="col-3">
+                            <li class="nav-item ">{{UserLastName}}LastName</li>
+                        </div>                   
+                        <div class="col-3">
+                            <li class="nav-item">{{UserFirstName}}FirstName</li>
+                        </div>
+                        <div class="col-3">
+                            <li class="nav-item ">{{Technology}}Technology</li>
+                        </div>
+                        <div class="col-3">
+                            <li class="nav-item">{{Timer}}Timer</li>
+                        </div>                       
                     </ul>
                 </nav>
+                <div class="panel-group">               
+                            <app-questionsreponses >
+
+                            </app-questionsreponses>
+                </div>
            </div>    
        </div>
    </div> 
