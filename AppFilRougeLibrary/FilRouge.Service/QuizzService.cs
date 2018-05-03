@@ -272,10 +272,13 @@ public class QuizzService : IQuizzService
             //On n'est pas des fénéant ! On récupère jusqu'aux rréponses de l'utilisateur
             
             returnedQuiz = db.Quizz
-                            .Include(nameof(QuestionQuizz))
-                            .Include(nameof(Question))
-                            .Include(nameof(Response))
-                            .Include(nameof(UserResponse))
+                            //.Include(nameof(QuestionQuizz))
+                            //.Include(nameof(Question))
+                            //.Include(nameof(Response))
+                            //.Include(nameof(UserResponse))
+                            .Include(nameof(Contact))
+                            .Include(nameof(Technology))
+                            .Include(nameof(Difficulty))
                             .Where(e => e.Id == id)
                             .FirstOrDefault();
         }     
