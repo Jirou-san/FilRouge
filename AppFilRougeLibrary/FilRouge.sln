@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Phone.Android", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Phone.iOS", "FilRouge.Phone\FilRouge.Phone.iOS\FilRouge.Phone.iOS.csproj", "{697C4C08-052D-4AC2-BA50-4FE60BDCBBD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge.Phone", "FilRouge.Phone\FilRouge.Phone\FilRouge.Phone.csproj", "{27030B2A-90CF-4D2B-BF98-35C3AE51F8B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilRouge.Phone", "FilRouge.Phone\FilRouge.Phone\FilRouge.Phone.csproj", "{27030B2A-90CF-4D2B-BF98-35C3AE51F8B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -539,22 +539,6 @@ Global
 		{27030B2A-90CF-4D2B-BF98-35C3AE51F8B0}.Release|x64.Build.0 = Release|Any CPU
 		{27030B2A-90CF-4D2B-BF98-35C3AE51F8B0}.Release|x86.ActiveCfg = Release|Any CPU
 		{27030B2A-90CF-4D2B-BF98-35C3AE51F8B0}.Release|x86.Build.0 = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|ARM.Build.0 = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|x64.Build.0 = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Debug|x86.Build.0 = Debug|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|ARM.ActiveCfg = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|ARM.Build.0 = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|x64.ActiveCfg = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|x64.Build.0 = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|x86.ActiveCfg = Release|Any CPU
-		{AC894DF5-9202-42F2-B69B-D277EA19075E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
