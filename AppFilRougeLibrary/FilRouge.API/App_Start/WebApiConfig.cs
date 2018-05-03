@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 namespace FilRouge.API
 {
     using Swashbuckle.Application;
+    using System.Web.Http.Cors;
 
     public static class WebApiConfig
     {
@@ -18,6 +19,9 @@ namespace FilRouge.API
             // Configurer l'API Web pour utiliser uniquement l'authentification de jeton du porteur.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+
+
 
             // Itinéraires de l'API Web
             config.EnableSwagger(
@@ -29,6 +33,10 @@ namespace FilRouge.API
                     }).EnableSwaggerUi(c =>
                 c.EnableApiKeySupport("Authorization", "header"));
             config.MapHttpAttributeRoutes();
+
+            // Ajout MBa résolution problématique : No 'Access-Control-Allow-Origin'
+            var cors = new EnableCorsAttribute("*","*","*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
