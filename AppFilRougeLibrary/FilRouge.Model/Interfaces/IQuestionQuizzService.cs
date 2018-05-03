@@ -38,10 +38,16 @@ namespace FilRouge.Model.Interfaces
         bool DeleteQuestionQuizz(int idQuestionQuizz);
 
         /// <summary>
-        /// Mise à jour d'une question quizz 
+        /// Ecrit les réponses pour un un questionQuizz donné et donne le focus à la question suivante
         /// </summary>
-        /// <param name="questionQuizz">La question quizz</param>
-        /// <returns>Success or fail</returns>
-        bool UpdateQuestionQuizz(QuestionQuizz questionQuizz);
+        /// <param name="questionQuizz">QuestionQuiz sur lequel on souhaite répondre. Met à jour La réponse libre ou le refus de réponse le cas échéant</param>
+        void SetQuestionQuizAnswer(QuestionQuizz questionQuizz);
+
+        /// <summary>
+        /// Donne l'Id de la question en cours pour un quiz donné et des propositions de réponse associées
+        /// </summary>
+        /// <param name="quizId">Id du quiz dont on souhaite connaitre la question en cours</param>
+        /// <returns>questionQuiz active avec la question et les choix de réponse</returns>
+        QuestionQuizz GetActiveQuestion(int quizId);
     }
 }

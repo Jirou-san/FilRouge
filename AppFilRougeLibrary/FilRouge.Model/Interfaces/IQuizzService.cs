@@ -58,8 +58,7 @@ namespace FilRouge.Model.Interfaces
         /// </summary>
         /// <param name="quizzFilter"></param>
         /// <returns>Retourne les quizz</returns>
-        List<Quizz> GetQuizz(Quizz quizzFilter);
-
+        List<Quizz> GetQuizz(Quizz quizzFilter,bool extended= false);
 
     }
 }

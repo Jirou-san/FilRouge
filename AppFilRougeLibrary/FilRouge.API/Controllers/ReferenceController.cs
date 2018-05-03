@@ -41,7 +41,6 @@ namespace FilRouge.API.Controllers
         [AllowAnonymous]
         [Route("technologies")]
         [HttpGet]
-        [AllowAnonymous]
         public IHttpActionResult GetTechnologies()
         {
             return this.Ok(this._referenceService.GetAllTechnologies());

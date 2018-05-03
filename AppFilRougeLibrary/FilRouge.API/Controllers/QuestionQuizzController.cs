@@ -98,11 +98,12 @@ namespace FilRouge.API.Controllers
         /// <param name="questionQuizzVM">BODY de la requête HTTP</param>
         /// <returns>Retourne un message</returns>
         [HttpPatch]
+        [AllowAnonymous]
         public IHttpActionResult UpdateQuestionQuizz(QuestionQuizzModel questionQuizzVM)
         {
             try
             {
-                _questionQuizzService.UpdateQuestionQuizz(mapping.MapToQuestionQuizz(questionQuizzVM));
+                _questionQuizzService.SetQuestionQuizAnswer(mapping.MapToQuestionQuizz(questionQuizzVM));
                 message = $"La ressource a bien été mise à jour";
             }
             catch (Exception e)
@@ -111,6 +112,14 @@ namespace FilRouge.API.Controllers
             }
 
             return Ok(message);
+        }
+
+        [Route("active/{id}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IHttpActionResult GetActiveQuestionQuizz(int id)
+        {
+            return Ok(_questionQuizzService.GetActiveQuestion(id));
         }
     }
 }
