@@ -50,15 +50,12 @@ namespace FilRouge.API.Models
         public string ConfirmPassword { get; set; }
 
         [MaxLength(20)]
-        [Required]
         [Display(Name = "Nom")]
         public string LastName { get; set; }
         [Display(Name = "Prénom")]
         [MaxLength(20)]
-        [Required]
         public string FirstName { get; set; }
         [MaxLength(256)]
-        [Required]
         public string Username { get; set; }
     }
 
