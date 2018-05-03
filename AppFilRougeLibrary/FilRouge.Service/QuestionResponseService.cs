@@ -179,12 +179,21 @@ namespace FilRouge.Service
             return _db.SaveChanges();
         }
 
-        // A CODERs
         public List<Response> GetAllResponseByQuizz(int idQuizz)
         {
-            var responses = new List<Response>();
-            return null;
+            throw new NotImplementedException();
         }
+
+        // A CODERs
+        //public List<Response> GetAllResponseByQuizz(int idQuizz)
+        //{
+        //    var responses = new List<Response>();
+        //    responses = _db.QuestionQuizz
+        //        .Where(e => e.QuizzId == idQuizz)
+        //        .Select(e => e.Question.Responses)
+        //        .ToList();
+        //    return null;
+        //}
         #endregion
 
 
