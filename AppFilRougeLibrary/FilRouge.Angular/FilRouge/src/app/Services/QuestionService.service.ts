@@ -6,6 +6,20 @@ export class QuestionServiceService {
     public server: string;
     public quizId: number;
     public questionQuiz: JSON;
+    
+    public userFirstName: string;
+    public userLastName: string;
+    public technology: string;
+    public activeQuestionNum: number;
+    public questionTotalCount: number;
+    public quizState: number;
+
+    public question: string;
+    public isFreeAnswer: boolean;
+
+    public comment: string;
+    public freeAnswer: string;
+    public refuseToAnswer: string;
 
 constructor(private httpClient: HttpClient) {
     //this.server = 'localhost:81';
@@ -36,21 +50,21 @@ getQuestionQuiz() {
         .get<any>('http://' + this.server + 'GET /api/questionquizz/active/' + this.quizId)
         .subscribe(
             (response) => {
-                this.questionQuiz = response;
+                //this.questionQuiz = response;
+    
+                this.userFirstName = response.UserFirstName;
+                this.userLastName = response.Quizz.UserLastName;
+                this.technology = response.Quizz.Technology;
+                this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
+                this.questionTotalCount = response.Quizz.QuestionCount;
+                this.quizState = response.Quizz.QuizzState;
 
-                // this.questionQuiz.Quizz.UserFirstName;
-                // this.questionQuiz.Quizz.UserLastName;
-                // this.questionQuiz.Quizz.TechnologyId;
-                // this.questionQuiz.Quizz.ActiveQuestionNum;
-                // this.questionQuiz.Quizz.QuestionCount;
-                // this.questionQuiz.Quizz.QuizzState;
+                this.question = response.Question.Content;
+                this.isFreeAnswer = response.Question.IsFreeAnswer;
 
-                // this.questionQuiz.Question.Content;
-                // this.questionQuiz.Question.IsFreeAnswer;
-
-                // this.questionQuiz.Comment;
-                // this.questionQuiz.FreeAnswer;
-                // this.questionQuiz.RefuseToAnswer;
+                this.comment = response.Comment;
+                this.freeAnswer = response.FreeAnswer;
+                this.refuseToAnswer = response.RefuseToAnswer;
             },
             (error) => {
                 this.questionQuiz = null;
