@@ -20,7 +20,7 @@ namespace FilRouge.Tests
 
 
             //Menu pour gérer les tests
-            Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}");
+            Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}2- Test api{Environment.NewLine}");
             
             while (again == "Y" || again == "O")
             {

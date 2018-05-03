@@ -36,6 +36,8 @@ namespace FilRouge.API.Controllers
         /// Controleur permettant d'obtenir toutes les technologies
         /// </summary>
         /// <returns>Le statut 200 OK et toutes les technologies au format JSON</returns>
+        /// 
+        [AllowAnonymous]
         [Route("technologies")]
         [HttpGet]
         public IHttpActionResult GetTechnologies()
