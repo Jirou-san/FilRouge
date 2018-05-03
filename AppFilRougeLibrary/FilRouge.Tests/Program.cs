@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FilRouge.Model;
+using FilRouge.HttpHandler;
 
 
 namespace FilRouge.Tests
@@ -19,23 +20,27 @@ namespace FilRouge.Tests
 
 
             //Menu pour gérer les tests
-
-
-            Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}");
+            Console.WriteLine($"1- Remplir les tables de la base{Environment.NewLine}2- Test api{Environment.NewLine}");
             
             while (again == "Y" || again == "O")
             {
                 Console.WriteLine($"Selectionnez une option");
                 int choix = int.Parse(Console.ReadLine());
                 again = again[0].ToString().ToUpper();
-
                 switch (choix)
                 {
                     case 1: // Chargement d'un jeu de données     
                         try
                         {
-                            dataset.FillAllTables();
-                            
+                            if(dataset.IsNull())
+                            {
+                                dataset.FillAllTables();
+                            }
+                            else
+                            {
+                                throw new Exception("La base de données contient déjà un jeu de données");
+
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -46,7 +51,24 @@ namespace FilRouge.Tests
                         Console.WriteLine($"{Environment.NewLine}Souhaitez vous continuer?");
                         again = Console.ReadLine();
                         break;
+                    case 2: // Consommation de l'API    
+                        try
+                        {
+                            var HttpHandler = new HttpQuestionQuizz();
+                            foreach (var item in HttpHandler.GetQuestionQuizz(1, "string","string"))
+                            {
+                                Console.WriteLine($@"L'id du quizz est:{item.QuizzId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
 
+                            Console.WriteLine($"ERROR: {ex.Message}{Environment.NewLine}");
+                        }
+
+                        Console.WriteLine($"{Environment.NewLine}Souhaitez vous continuer?");
+                        again = Console.ReadLine();
+                        break;
                     default:
                         Console.WriteLine("Fin des tests");
                         break;

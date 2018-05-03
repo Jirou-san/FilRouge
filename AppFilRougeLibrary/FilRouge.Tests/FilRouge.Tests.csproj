@@ -82,6 +82,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FilRouge.HttpHandler\FilRouge.HttpHandler.csproj">
+      <Project>{a4039032-2fba-4d80-aa27-588e31988a23}</Project>
+      <Name>FilRouge.HttpHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FilRouge.Model\FilRouge.Model.csproj">
       <Project>{59946157-45d1-433f-b580-d6db6b0160fb}</Project>
       <Name>FilRouge.Model</Name>
