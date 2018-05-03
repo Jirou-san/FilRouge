@@ -5,6 +5,7 @@ namespace FilRouge.API.Controllers
     using System;
     using System.Net;
     using System.Web.Http;
+    using System.Web.Http.Cors; // ajout MBa
     using FilRouge.API.Models;
     using FilRouge.Model.Entities;
     using FilRouge.Model.Interfaces;
@@ -38,6 +39,7 @@ namespace FilRouge.API.Controllers
         /// <returns>Le statut 200 OK et toutes les technologies au format JSON</returns>
         [Route("technologies")]
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetTechnologies()
         {
             return this.Ok(this._referenceService.GetAllTechnologies());

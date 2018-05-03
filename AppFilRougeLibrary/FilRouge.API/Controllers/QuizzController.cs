@@ -13,7 +13,7 @@ namespace FilRouge.API.Controllers
     /// Ou en tout cas les contrôles désirés
     /// </summary>
     [RoutePrefix("api/quizz")]
-    [Authorize]
+    //[Authorize] MBa désactivation de l'authentification
     public class QuizzController : ApiController
     {
         /// <summary>
