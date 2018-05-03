@@ -7,8 +7,10 @@ export class QuestionServiceService {
     public quizId: number;
     public questionQuiz: JSON;
 
-constructor(private httpClient: HttpClient) { }
-this.server = 'localhost:81';
+constructor(private httpClient: HttpClient) {
+    this.server = 'localhost:81';
+}
+
 // getQuiz() {
 //     this.httpClient
 //         .get<any>('http://' + this.server + '/api/Quizz/' + this.quizId )
@@ -27,6 +29,7 @@ this.server = 'localhost:81';
 //             }
 //         );
 // }
+
 getQuestionQuiz() {
     this.httpClient
         .get<any>('http://' + this.server + 'GET /api/questionquizz/active/' + this.quizId)
