@@ -7,10 +7,11 @@ import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import { QuestionsreponsesComponent } from './questionsreponses/questionsreponses.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ReponsesComponent } from './reponses/reponses.component';
 
 const appRoutes: Routes = [
   {
-    path: 'quizz', component: QuizzComponent
+    path: 'quizz/:id', component: QuizzComponent
   },
   {
     path: '', component: AppComponent
@@ -24,8 +25,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     QuizzComponent,
-    QuestionsreponsesComponent
-  ],
+    QuestionsreponsesComponent,
+    ReponsesComponent
+],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),

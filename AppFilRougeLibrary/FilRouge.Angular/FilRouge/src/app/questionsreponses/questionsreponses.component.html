@@ -1,3 +1,9 @@
-<p>
-  questionsreponses works!
-</p>
+<h4>{{ QuestionNumber }}Number :{{ QuestionContent }}Content</h4>
+<ngb-progressbar type="info" [value]="actualQuestionNumber()" [max]="maxQuestionNumer()" [striped]="true" [animated]="true">Label</ngb-progressbar>
+<ul>
+  <div class="panel panel-warning">
+    <app-reponses *ngFor="let reponse of reponses"
+      [reponseContent]="reponseContent">
+
+    </app-reponses>
+</ul>

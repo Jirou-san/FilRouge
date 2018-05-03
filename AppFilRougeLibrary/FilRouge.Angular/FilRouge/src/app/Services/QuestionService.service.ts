@@ -6,7 +6,7 @@ export class QuestionServiceService {
     public server: string;
     public quizId: number;
     public questionQuiz: JSON;
-
+    
 constructor(private httpClient: HttpClient) {
     //this.server = 'localhost:81';
     this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503

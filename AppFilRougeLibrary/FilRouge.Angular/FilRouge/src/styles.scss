@@ -1,18 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+//Header
 #navbar-content li
 {
     margin-left:5px;
 }
+//Footer
 .card-header, .card-body
 {
 
     text-align: center;
 }
+//Footer
 .card-header
 {
     font-size: 100%;
 }
+//Footer
 .card-body
 {
     margin:auto;
+}
+
+//Navbar quizz
+#navbar 
+{
+   align-content: center;
+}
+
+//QuestionReponse container
+.questionsreponsesContainer
+{
+    
 }
