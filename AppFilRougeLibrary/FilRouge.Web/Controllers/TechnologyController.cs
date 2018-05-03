@@ -166,17 +166,18 @@ namespace FilRouge.Web.Controllers
         {
 
            
-            var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
 
-            if (deletedTechnologyId == 0)
+
+            try
             {
-                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
+                var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
+
             }
-            else
+            catch (CustomDbUpdateException e)
             {
-                TempData["Alert"] = string.Format($"Suppression de la technologie (id: {technology.Id})");
+                TempData["Alert"] = e.Message;
             }
-        
+
             return RedirectToAction("Index");
         }
     }

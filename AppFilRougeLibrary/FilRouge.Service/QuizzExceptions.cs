@@ -15,11 +15,11 @@ namespace FilRouge.Service
             _msg = message;
         }
     }
-
+    
     public sealed class CustomDbUpdateException : DbUpdateException
     {
         public string _msg;
-
+       
         public CustomDbUpdateException(DbUpdateException dbUpdateException, string message) : base(message)
         {
             var sqlException = dbUpdateException.GetBaseException() as SqlException;
@@ -27,12 +27,11 @@ namespace FilRouge.Service
             switch (sqlException.Number)
             {
                 case 547:
-                    this._msg = ($"Erreur lors de {message}, car utilisé par un autre enregistrement");
+                    message = $"{dbUpdateException.Message} - (utilisé par un autre composant de l'application)";
                     break;
                 default:
-                    this._msg = "Exception non géré";
+                    message = "Exception non géré";
                     break;
-                    //TODO !!!
             }
         }
     }

@@ -72,12 +72,11 @@
                 _db.Technology.Remove(technology);
                 deletedId = _db.SaveChanges();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException ex)
             {
-                deletedId = 0;
+                throw new CustomDbUpdateException(ex, $"Problême lors de la mise à jour de la technologie (id: {id})"); 
             }
             return deletedId;
-
         }
 
         /// <summary>
@@ -89,9 +88,7 @@
             _db.Entry(technology).State = EntityState.Modified;
             return _db.SaveChanges();
         }
-
         #endregion
-
 
         #region Difficulty
 

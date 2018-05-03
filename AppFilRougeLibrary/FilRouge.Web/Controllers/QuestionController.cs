@@ -226,22 +226,6 @@
         }
         //TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
-
-
-        //POST: Technology/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(QuestionModels questionModel, List<ResponseModels> responsesModel)
-        //{
-        //    Question question = questionModel.MapToQuestion();
-        //    List<Response> responses = new List<Response>();
-
-        //    responsesModel.ForEach(r => responses.Add(r.MapToResponse()));
-
-        //    _questionService.UpdateQuestion(question);
-        //    return View(questionModel);
-        //}
-
         [HttpPost]
         public ActionResult Edit(QuestionModels questionModel)
         {
@@ -261,7 +245,6 @@
                     reponsesToUpdate.Add(oldResponse);
 
                 }
-
             }
             reponsesToUpdate.ForEach(r => _questionService.UpdateResponse(r));
 
