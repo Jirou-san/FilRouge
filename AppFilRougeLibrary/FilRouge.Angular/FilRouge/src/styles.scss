@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+#navbar-content li
+{
+    margin-left:5px;
+}
+.card-header, .card-body
+{
+
+    text-align: center;
+}
+.card-header
+{
+    font-size: 100%;
+}
+.card-body
+{
+    margin:auto;
+}
