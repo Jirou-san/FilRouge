@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class QuestionServiceService {
     public server: string;
     public quizId: number;
-    public questionQuiz: object;
+    public questionQuiz: any;
     
     public userFirstName: string;
     public userLastName: string;
@@ -86,6 +86,8 @@ getQuestionQuiz_origine(quizId) {
                 this.freeAnswer = response.FreeAnswer;
                 this.refuseToAnswer = response.RefuseToAnswer;
                 console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
+
+                
             },
             (error) => {
                 this.questionQuiz = null;
@@ -95,6 +97,7 @@ getQuestionQuiz_origine(quizId) {
 }
 
 getQuestionQuiz(quizId) {
+
     this.quizId = quizId;
     let url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
     let promise = new Promise(() =>{
@@ -117,10 +120,12 @@ getQuestionQuiz(quizId) {
                         this.comment = res.Comment;
                         this.freeAnswer = res.FreeAnswer;
                         this.refuseToAnswer = res.RefuseToAnswer;
-
+                        
+                        this.questionQuiz=res;
+                        
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
-                        //console.log(this.questionQuiz);
+                        console.log(this.questionQuiz);
                     }
                 );
 
