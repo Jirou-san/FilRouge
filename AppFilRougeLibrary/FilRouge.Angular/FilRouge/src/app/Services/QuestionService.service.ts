@@ -97,32 +97,6 @@ getQuestionQuiz_origine(quizId) {
 getQuestionQuiz(quizId) {
     this.quizId = quizId;
     let url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
-    // this.httpClient
-    //     .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
-    //     .subscribe(
-    //         (response) => {
-    //             //this.questionQuiz = JSON.parse(response);
-    
-    //             this.userFirstName = response.UserFirstName;
-    //             this.userLastName = response.Quizz.UserLastName;
-    //             this.technology = response.Quizz.Technology;
-    //             this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
-    //             this.questionTotalCount = response.Quizz.QuestionCount;
-    //             this.quizState = response.Quizz.QuizzState;
-
-    //             this.question = response.Question.Content;
-    //             this.isFreeAnswer = response.Question.IsFreeAnswer;
-
-    //             this.comment = response.Comment;
-    //             this.freeAnswer = response.FreeAnswer;
-    //             this.refuseToAnswer = response.RefuseToAnswer;
-    //             console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
-    //         },
-    //         (error) => {
-    //             this.questionQuiz = null;
-    //             console.log('Error service getQuestionQuiz ! :' + error);
-    //         }
-    //     );
     let promise = new Promise(() =>{
         this.httpClient.get(url)
                 .toPromise()
@@ -130,6 +104,20 @@ getQuestionQuiz(quizId) {
                     //Code à exécuter après récupération du résultat de la requête
                     res => { //success
                         console.log(res);
+                        this.userFirstName = res.UserFirstName;
+                        this.userLastName = res.Quizz.UserLastName;
+                        this.technology = res.Quizz.Technology;
+                        this.activeQuestionNum = res.Quizz.ActiveQuestionNum;
+                        this.questionTotalCount = res.Quizz.QuestionCount;
+                        this.quizState = res.Quizz.QuizzState;
+
+                        this.question = res.Question.Content;
+                        this.isFreeAnswer = res.Question.IsFreeAnswer;
+
+                        this.comment = res.Comment;
+                        this.freeAnswer = res.FreeAnswer;
+                        this.refuseToAnswer = res.RefuseToAnswer;
+
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
                         //console.log(this.questionQuiz);
