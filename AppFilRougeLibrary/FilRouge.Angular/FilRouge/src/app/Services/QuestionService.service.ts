@@ -59,36 +59,36 @@ constructor(private httpClient: HttpClient) {
 //         );
 // }
 
-getQuestionQuiz_origine(quizId) {
-    this.quizId = quizId;
-    this.httpClient
-        .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
-        .subscribe(
-            (response) => {
-                //this.questionQuiz = JSON.parse(response);
+// getQuestionQuiz_origine(quizId) {
+//     this.quizId = quizId;
+//     this.httpClient
+//         .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
+//         .subscribe(
+//             (response) => {
+//                 //this.questionQuiz = JSON.parse(response);
     
-                this.userFirstName = response.UserFirstName;
-                this.userLastName = response.Quizz.UserLastName;
-                this.technology = response.Quizz.Technology;
-                this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
-                this.questionTotalCount = response.Quizz.QuestionCount;
-                this.quizState = response.Quizz.QuizzState;
+//                 this.userFirstName = response.UserFirstName;
+//                 this.userLastName = response.Quizz.UserLastName;
+//                 this.technology = response.Quizz.Technology;
+//                 this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
+//                 this.questionTotalCount = response.Quizz.QuestionCount;
+//                 this.quizState = response.Quizz.QuizzState;
 
-                this.question = response.Question.Content;
-                this.isFreeAnswer = response.Question.IsFreeAnswer;
+//                 this.question = response.Question.Content;
+//                 this.isFreeAnswer = response.Question.IsFreeAnswer;
 
-                this.comment = response.Comment;
-                this.freeAnswer = response.FreeAnswer;
-                this.refuseToAnswer = response.RefuseToAnswer;
-                console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
+//                 this.comment = response.Comment;
+//                 this.freeAnswer = response.FreeAnswer;
+//                 this.refuseToAnswer = response.RefuseToAnswer;
+//                 console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
 
-            },
-            (error) => {
-                this.questionQuiz = null;
-                console.log('Error service getQuestionQuiz ! :' + error);
-            }
-        );
-}
+//             },
+//             (error) => {
+//                 this.questionQuiz = null;
+//                 console.log('Error service getQuestionQuiz ! :' + error);
+//             }
+//         );
+// }
 
 getQuestionQuiz(quizId) {
 
@@ -101,20 +101,20 @@ getQuestionQuiz(quizId) {
                     // Code à exécuter après récupération du résultat de la requête
                     res => { // success
                         console.log(res);
-                        this.userFirstName = res.UserFirstName;
-                        this.userLastName = res.Quizz.UserLastName;
-                        this.technology = res.Quizz.Technology;
-                        this.activeQuestionNum = res.Quizz.ActiveQuestionNum;
-                        this.questionTotalCount = res.Quizz.QuestionCount;
-                        this.quizState = res.Quizz.QuizzState;
+                        this.userFirstName = res[0].UserFirstName;
+                        this.userLastName = res[0].Quizz.UserLastName;
+                        this.technology = res[0].Quizz.Technology;
+                        this.activeQuestionNum = res[0].Quizz.ActiveQuestionNum;
+                        this.questionTotalCount = res[0].Quizz.QuestionCount;
+                        this.quizState = res[0].Quizz.QuizzState;
 
-                        this.question = res.Question.Content;
-                        this.isFreeAnswer = res.Question.IsFreeAnswer;
+                        this.question = res[0].Question.Content;
+                        this.isFreeAnswer = res[0].Question.IsFreeAnswer;
 
-                        this.comment = res.Comment;
-                        this.freeAnswer = res.FreeAnswer;
-                        this.refuseToAnswer = res.RefuseToAnswer;
-                        this.questionQuiz = res; 
+                        this.comment = res[0].Comment;
+                        this.freeAnswer = res[0].FreeAnswer;
+                        this.refuseToAnswer = res[0].RefuseToAnswer;
+                        this.questionQuiz = res[0];
                         // var data=res.constructor();
                         // this.questionQuiz= <QuestionQuiz[]>res.data;
                         console.log(this.questionQuiz);

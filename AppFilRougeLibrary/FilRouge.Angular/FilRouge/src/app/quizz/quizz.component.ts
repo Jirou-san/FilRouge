@@ -27,37 +27,37 @@ counterSubscription: Subscription;
     this.Minutes = 0;
     this.Heures = 0;
 
-    const counter = Observable.interval(1000);
-    this.counterSubscription =
-    counter.subscribe(
-      (value) => {
-        // if (this.Secondes === 59) {
-        //   this.Minutes ++;
-        //   value = 0;
-        //   if (this.Minutes === 59 && this.Secondes === 59) {
-        //     this.Heures++;
-        //     this.Minutes = 0;
-        //     this.Secondes = 0;
-        //     value = 0;
-        //   }
-        // }
-        // this.Secondes = value;
-        this.setTime(value);
-      },
-      (error) => {
-        console.log('Error: ' + error );
-      },
-      () => {
-        console.log('Observable complete!');
-      }
-    );
-
     this.QuizzId = this.route.snapshot.params['id'];
     const httpRequest = Observable.interval(1000);
     this.questionService.getQuestionQuiz(this.QuizzId);
-    // this.Technology = this.questionService.questionQuiz
-    this.UserFirstName = this.questionService.questionQuiz.UserFirstName;
-    this.UserLastName = this.questionService.questionQuiz.UserLastName;
+    this.Technology = this.questionService.questionQuiz.Quiz.Technology.Name;
+    this.UserFirstName = this.questionService.questionQuiz.Quiz.UserFirstName;
+    this.UserLastName = this.questionService.questionQuiz.Quiz.UserFirstName;
+
+    // const counter = Observable.interval(1000);
+    // this.counterSubscription =
+    // counter.subscribe(
+    //   (value) => {
+    //     // if (this.Secondes === 59) {
+    //     //   this.Minutes ++;
+    //     //   value = 0;
+    //     //   if (this.Minutes === 59 && this.Secondes === 59) {
+    //     //     this.Heures++;
+    //     //     this.Minutes = 0;
+    //     //     this.Secondes = 0;
+    //     //     value = 0;
+    //     //   }
+    //     // }
+    //     // this.Secondes = value;
+    //     this.setTime(value);
+    //   },
+    //   (error) => {
+    //     console.log('Error: ' + error );
+    //   },
+    //   () => {
+    //     console.log('Observable complete!');
+    //   }
+    // );
 
   }
   ngOnDestroy() {
