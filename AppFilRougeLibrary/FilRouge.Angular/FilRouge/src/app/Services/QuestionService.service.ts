@@ -67,7 +67,7 @@ getQuestionQuiz(quizId) {
         .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
         .subscribe(
             (response) => {
-                this.questionQuiz = JSON.parse(response);
+                //this.questionQuiz = JSON.parse(response);
     
                 this.userFirstName = response.UserFirstName;
                 this.userLastName = response.Quizz.UserLastName;
