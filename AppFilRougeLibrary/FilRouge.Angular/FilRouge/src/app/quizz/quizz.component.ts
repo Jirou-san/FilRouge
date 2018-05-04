@@ -23,7 +23,7 @@ Secondes: number;
     this.QuizzId = this.route.snapshot.params['id'];
     // const counterS = Observable.interval(1000);
     // const counterM = Observable.interval(60000);
-    this.questionService.getQuestionQuiz();
+    this.questionService.getQuestionQuiz(this.QuizzId);
     this.Technology = this.questionService.technology;
 this.UserFirstName = this.questionService.userFirstName;
 this.UserLastName = this.questionService.userLastName;
