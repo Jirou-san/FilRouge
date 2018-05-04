@@ -6,24 +6,19 @@ import { Subject } from 'rxjs/Subject';
 export class QuestionServiceService {
     public server: string;
     public quizId: number;
-    public questionQuiz: any;
-    
+    public questionQuiz: any; 
     public userFirstName: string;
     public userLastName: string;
     public technology: string;
     public activeQuestionNum: number;
     public questionTotalCount: number;
     public quizState: number;
-
     public question: string;
     public isFreeAnswer: boolean;
-
     public comment: string;
     public freeAnswer: string;
     public refuseToAnswer: string;
-
     public userResponses;
-
     QuestionSubject = new Subject<any[]>();
 
     // QuestionSubject = new Subject<any[]>();
@@ -85,9 +80,8 @@ getQuestionQuiz_origine(quizId) {
                 this.comment = response.Comment;
                 this.freeAnswer = response.FreeAnswer;
                 this.refuseToAnswer = response.RefuseToAnswer;
-                console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
+                console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
 
-                
             },
             (error) => {
                 this.questionQuiz = null;
@@ -99,13 +93,13 @@ getQuestionQuiz_origine(quizId) {
 getQuestionQuiz(quizId) {
 
     this.quizId = quizId;
-    let url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
-    let promise = new Promise(() =>{
+    const url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
+    let promise = new Promise(() => {
         this.httpClient.get(url)
                 .toPromise()
                 .then(
-                    //Code à exécuter après récupération du résultat de la requête
-                    res => { //success
+                    // Code à exécuter après récupération du résultat de la requête
+                    res => { // success
                         console.log(res);
                         this.userFirstName = res.UserFirstName;
                         this.userLastName = res.Quizz.UserLastName;
@@ -120,11 +114,17 @@ getQuestionQuiz(quizId) {
                         this.comment = res.Comment;
                         this.freeAnswer = res.FreeAnswer;
                         this.refuseToAnswer = res.RefuseToAnswer;
+<<<<<<< HEAD
                         
                         this.questionQuiz=<QuestionQuiz>res;
                         
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
+=======
+                        this.questionQuiz = res; 
+                        // var data=res.constructor();
+                        // this.questionQuiz= <QuestionQuiz[]>res.data;
+>>>>>>> 63238e3af7ba9514257fda3a5b4ede6c4ee46578
                         console.log(this.questionQuiz);
                     }
                 );
@@ -148,6 +148,7 @@ setQuestionQuiz(myQuestionQuiz) {
 
 class Quiz {
     public Id: number;
+<<<<<<< HEAD
     public TechnologyId: number;
     public ContactId: string;
     public DifficultyId: number;
@@ -159,6 +160,9 @@ class Quiz {
     public ExternalNum: string;
     public ActiveQuestionNum: number;
     public Technology: Technology;
+=======
+    public Technology;
+>>>>>>> 63238e3af7ba9514257fda3a5b4ede6c4ee46578
 }
 
 class QuestionQuiz {

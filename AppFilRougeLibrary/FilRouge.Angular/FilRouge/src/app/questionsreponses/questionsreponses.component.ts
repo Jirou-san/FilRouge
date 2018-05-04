@@ -12,14 +12,14 @@ export class QuestionsreponsesComponent implements OnInit {
   constructor(private quizzService: QuestionServiceService) { }
 
   ngOnInit() {
-    this.QuestionNumber = 0;
-    this.QuestionNumberMax = 0;
+    this.QuestionNumber = 50;
+    this.QuestionNumberMax = 100;
   }
   maxQuestionNumer() {
-   this.QuestionNumberMax = 50;
+   this.QuestionNumberMax = 100;
   }
   actualQuestionNumber() {
 
-    this.QuestionNumber = 15;
+    this.QuestionNumber = 50;
   }
 }

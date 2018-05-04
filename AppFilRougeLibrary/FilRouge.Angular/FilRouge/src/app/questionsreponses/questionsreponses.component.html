@@ -1,9 +1,13 @@
-<h4>{{ QuestionNumber }}Number :{{ QuestionContent }}Content</h4>
-<ngb-progressbar type="info" [value]="actualQuestionNumber()" [max]="maxQuestionNumer()" [striped]="true" [animated]="true">Label</ngb-progressbar>
-<!-- <ul>
+<!-- <h4>{{ QuestionNumber }}Number :{{ QuestionContent }}Content</h4> -->
+<ngb-progressbar showValue="true" type="danger" [value]="50" height="2rem" [max]="100" [striped]="true" [animated]="true"></ngb-progressbar>
   <div class="panel panel-warning">
-    <app-reponses *ngFor="let reponse of reponses"
-      [reponseContent]="reponseContent">
+      <nav class="navbar navbar-expand-sm|md|lg|-xl navbar-dark|light" style="text-align: center; color:rgb(241, 239, 238);background-color:#312121;" id="navbar-quizz">
+          <ul class="navbar nav" id="navbar-question">
+              <div class="col-3">
+                  <li class="nav-item ">{{QuestionContent}}ContentQuestion</li>
+              </div>                                                      
+          </ul>         
+      </nav>
+    <app-reponses>
 
     </app-reponses>
-</ul> -->

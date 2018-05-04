@@ -1,8 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+body
+{
+    background-color: rgb(214, 175, 175) !important;
+}
 //Header
 #navbar-content li
 {
     margin-left:5px;
+}
+.card
+{
+    position: fixed !important;
+    bottom: 0 !important;
+    width: 100%;
 }
 //Footer
 .card-header, .card-body
@@ -27,8 +37,22 @@
    align-content: center;
 }
 
-//QuestionReponse container
-.questionsreponsesContainer
+//Nav timer
+#timer
 {
-    
+    color: rgb(85, 61, 61);
+    font-size: 120%;
+}
+#navbar-question
+{
+    align-items: center;
+    font-size: 120%;
+}
+
+.list-answers
+{
+    height: 700px;
+    background-color:whitesmoke;
+    font-size: 130%;
+    padding: 5%;
 }
