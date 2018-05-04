@@ -121,7 +121,7 @@ getQuestionQuiz(quizId) {
                         this.freeAnswer = res.FreeAnswer;
                         this.refuseToAnswer = res.RefuseToAnswer;
                         
-                        this.questionQuiz=res;
+                        this.questionQuiz=<QuestionQuiz>res;
                         
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
@@ -148,13 +148,69 @@ setQuestionQuiz(myQuestionQuiz) {
 
 class Quiz {
     public Id: number;
-    public Technology
+    public TechnologyId: number;
+    public ContactId: string;
+    public DifficultyId: number;
+    public QuizzState: number;
+    public UserLastName: string;
+    public UserFirstName: string;
+    public HasFreeQuestion: boolean;
+    public QuestionCount: number;
+    public ExternalNum: string;
+    public ActiveQuestionNum: number;
+    public Technology: Technology;
 }
+
 class QuestionQuiz {
-    public quizId: number;
+    public Id: number;
+    public QuizzId: number;
+    public QuestionId: number;
+    public DisplayNum: number;
+    public FreeAnswer: string;
+    public Comment: string;
+    public RefuseToAnswer: string;
+    public Question: Question;
+    public Quizz: Quiz;
+    public UserResponses: UserResponse[];
 
 }
 
+class Technology {
+    public Id: number;
+    public DisplayNum: number;
+    public Name: string;
+    public IsActive: boolean;
+}
+
+class Question{
+    public Id: number;
+    public TechnologyId: number;
+    public DifficultyId: number;
+    public Content: string;
+    public IsEnable: boolean;
+    public IsFreeAnswer: boolean;
+    public UserResponses: UserResponse[];
+    public Responses: Response[];
+    public Technology: Technology;
+    //public Difficulty: Difficulty;
+}
+
+class Response{
+    public Id: number;
+    public QuestionId: number;
+    public Content: string;
+    public Explanation:  string;
+    public IsTrue: boolean;
+    //public Question Question
+}
+
+class UserResponse{
+    public QuestionQuizzId: number;
+    public ResponseId: number;
+    //public virtual Response Response { get; set; }
+    //public virtual Question Question { get; set; }
+    //public virtual QuestionQuizz QuestionQuizz{ get; set; }
+}
 
 // maFonction() {
 //     let promise = new Promise(() =>{
