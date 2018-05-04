@@ -34,7 +34,19 @@ namespace FilRouge.Service
 
             return question;
         }
-
+        public bool UpdateQuestion(Question question)
+        {
+            try
+            {
+                _db.Entry(question).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// Recuperer une question (avec son detail)
         /// </summary>
@@ -178,11 +190,24 @@ namespace FilRouge.Service
             _db.Response.Remove(reponse);
             return _db.SaveChanges();
         }
-
+        public bool UpdateResponse(Response reponse)
+        {
+            try
+            {
+                _db.Entry(reponse).State = EntityState.Modified;
+                 _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
         public List<Response> GetAllResponseByQuizz(int idQuizz)
         {
             throw new NotImplementedException();
         }
+
 
         // A CODERs
         //public List<Response> GetAllResponseByQuizz(int idQuizz)

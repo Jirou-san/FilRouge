@@ -45,7 +45,7 @@ namespace FilRouge.API.Controllers
         {
             return this.Ok(this._referenceService.GetAllTechnologies());
         }
-        
+
         /// <summary>
         /// Ce contrôleur permet d'ajouter une technologie
         /// </summary>
@@ -81,6 +81,7 @@ namespace FilRouge.API.Controllers
         /// <returns>Retourn OK 200 et la technologie</returns>
         [Route("technology/{id}")]
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetTechnology(int id)
         {
             return this.Ok(this._referenceService.GetTechnology(id));

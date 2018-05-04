@@ -115,5 +115,20 @@ namespace FilRouge.API.Controllers
         {
             return this.Ok(this.questionService.GetAllQuestions());
         }
+
+        [HttpPatch]
+        public IHttpActionResult UpdateQuestion(QuestionModel questionVM)
+        {
+            try
+            {
+                questionService.UpdateQuestion(mapping.MapToQuestion(questionVM));
+                message = "La ressource a bien été crée";
+            }
+            catch (Exception e)
+            {
+                message = $"ERROR: {e.Message}";
+            }
+            return Ok(message);
+        }
     }
 }

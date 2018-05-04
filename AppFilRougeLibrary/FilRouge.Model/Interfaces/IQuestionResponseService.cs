@@ -18,9 +18,10 @@ namespace FilRouge.Model.Interfaces
 
         List<Response> GetAllResponses();
         int AddResponse(Response response, int idQuestion);
-
+        bool UpdateResponse(Response response);
         int DeleteResponse(int id);
         List<Response> GetAllResponseByQuizz(int idQuizz);
+        
         #endregion
 
         #region Question
@@ -28,9 +29,11 @@ namespace FilRouge.Model.Interfaces
         List<Question> GetAllQuestions();
         int AddQuestion(Question question);
         int DeleteQuestion(int id);
+        bool UpdateQuestion(Question question);
         //Ne perçoit pas trop l'utilisé pour le moment, à expliquer ty
         Question ShowQuestion(int id);
         List<Question> GetQuestionsByQuizz(int idQuizz);
         #endregion
     }
 }
+

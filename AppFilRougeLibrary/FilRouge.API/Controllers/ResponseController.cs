@@ -32,22 +32,26 @@
 
         [HttpGet]
         [Route("{id")]
+        [AllowAnonymous]
         public IHttpActionResult GetReponseById(int id)
         {
             return Ok(_questionResponseService.GetResponse(id));
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetAllReponses()
         {
            return Ok(_questionResponseService.GetAllResponses());
         }
 
         [HttpPost]
-        public IHttpActionResult AddReponse(ReponseModel reponseVM)
+        [Route("{id}")]
+        public IHttpActionResult AddReponse(ResponseModel reponseVM, int id)
         {
             try
             {
+                _questionResponseService.AddResponse(mapping.MapToResponse(reponseVM),id);
                 message = "La ressource a bien été crée";
             }
             catch (Exception e)
@@ -63,6 +67,7 @@
         {
             try
             {
+                _questionResponseService.DeleteResponse(id);
                 message = "La ressource a bien été crée";
             }
             catch (Exception e)
@@ -73,10 +78,11 @@
         }
 
         [HttpPatch]
-        public IHttpActionResult UpdateReponse(ReponseModel reponseVM)
+        public IHttpActionResult UpdateReponse(ResponseModel reponseVM)
         {
             try
             {
+                _questionResponseService.UpdateResponse(mapping.MapToResponse(reponseVM));
                 message = "La ressource a bien été crée";
             }
             catch (Exception e)
