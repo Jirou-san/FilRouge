@@ -82,6 +82,7 @@ getQuestionQuiz(quizId) {
                 this.comment = response.Comment;
                 this.freeAnswer = response.FreeAnswer;
                 this.refuseToAnswer = response.RefuseToAnswer;
+                console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
             },
             (error) => {
                 this.questionQuiz = null;
