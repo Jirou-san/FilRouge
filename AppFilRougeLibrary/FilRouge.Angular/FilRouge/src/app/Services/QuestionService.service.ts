@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
+
 @Injectable()
 export class QuestionServiceService {
     public server: string;
@@ -22,8 +23,10 @@ export class QuestionServiceService {
     public refuseToAnswer: string;
 
     public userResponses;
-    
-    // Question Subject = new Subject<any[]>();
+
+    QuestionSubject = new Subject<any[]>();
+
+    // QuestionSubject = new Subject<any[]>();
     // emitQuestionSubject() {
     //     emitQuestionSubject.next(this.questionQuiz.slice());
     // }
@@ -61,7 +64,7 @@ constructor(private httpClient: HttpClient) {
 //         );
 // }
 
-getQuestionQuiz(quizId) {
+getQuestionQuiz_origine(quizId) {
     this.quizId = quizId;
     this.httpClient
         .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
@@ -90,6 +93,52 @@ getQuestionQuiz(quizId) {
             }
         );
 }
+
+getQuestionQuiz(quizId) {
+    this.quizId = quizId;
+    let url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
+    // this.httpClient
+    //     .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
+    //     .subscribe(
+    //         (response) => {
+    //             //this.questionQuiz = JSON.parse(response);
+    
+    //             this.userFirstName = response.UserFirstName;
+    //             this.userLastName = response.Quizz.UserLastName;
+    //             this.technology = response.Quizz.Technology;
+    //             this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
+    //             this.questionTotalCount = response.Quizz.QuestionCount;
+    //             this.quizState = response.Quizz.QuizzState;
+
+    //             this.question = response.Question.Content;
+    //             this.isFreeAnswer = response.Question.IsFreeAnswer;
+
+    //             this.comment = response.Comment;
+    //             this.freeAnswer = response.FreeAnswer;
+    //             this.refuseToAnswer = response.RefuseToAnswer;
+    //             console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
+    //         },
+    //         (error) => {
+    //             this.questionQuiz = null;
+    //             console.log('Error service getQuestionQuiz ! :' + error);
+    //         }
+    //     );
+    let promise = new Promise(() =>{
+        this.httpClient.get(url)
+                .toPromise()
+                .then(
+                    //Code à exécuter après récupération du résultat de la requête
+                    res => { //success
+                        console.log(res);
+                        //var data=res.constructor();
+                        //this.questionQuiz= <QuestionQuiz[]>res.data;
+                        //console.log(this.questionQuiz);
+                    }
+                );
+
+    });
+    return promise;
+}
 setQuestionQuiz(myQuestionQuiz) {
     this.httpClient
         .post('http://' + this.server + '/api/questionquizz', myQuestionQuiz)
@@ -103,3 +152,31 @@ setQuestionQuiz(myQuestionQuiz) {
         );
 }
 }
+
+class Quiz {
+    public Id: number;
+    public Technology
+}
+class QuestionQuiz {
+    public quizId: number;
+
+}
+
+
+// maFonction() {
+//     let promise = new Promise(() =>{
+//         httPClient.get(Url)
+//                 .toPromise()
+//                 .then(
+//                     //Code à exécuter après récupération du résultat de la requête
+//                     res => { //success
+//                         console.log(res);
+//                         var data=res.constructor();
+//                         this.questionQuiz= <QuestionQuiz[]>res.data;
+//                         console.log(this.questionQuiz);
+//                     }
+//                 );
+
+//     });
+//     return promise;
+// }
