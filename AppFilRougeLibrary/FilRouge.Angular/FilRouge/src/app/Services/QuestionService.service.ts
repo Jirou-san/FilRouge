@@ -6,18 +6,22 @@ import { Subject } from 'rxjs/Subject';
 export class QuestionServiceService {
     public server: string;
     public quizId: number;
-    public questionQuiz: object;
+    public questionQuiz: any;
+    
     public userFirstName: string;
     public userLastName: string;
     public technology: string;
     public activeQuestionNum: number;
     public questionTotalCount: number;
     public quizState: number;
+
     public question: string;
     public isFreeAnswer: boolean;
+
     public comment: string;
     public freeAnswer: string;
     public refuseToAnswer: string;
+
     public userResponses;
 
     QuestionSubject = new Subject<any[]>();
@@ -37,8 +41,8 @@ export class QuestionServiceService {
 // }
 
 constructor(private httpClient: HttpClient) {
-    // this.server = 'localhost:81';
-    this.server = '10.110.12.51:81'; // Server IIS Marc au 20180503
+    //this.server = 'localhost:81';
+    this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
 }
 
 // getQuiz() {
@@ -66,7 +70,8 @@ getQuestionQuiz_origine(quizId) {
         .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
         .subscribe(
             (response) => {
-                // this.questionQuiz = JSON.parse(response);
+                //this.questionQuiz = JSON.parse(response);
+    
                 this.userFirstName = response.UserFirstName;
                 this.userLastName = response.Quizz.UserLastName;
                 this.technology = response.Quizz.Technology;
@@ -80,7 +85,9 @@ getQuestionQuiz_origine(quizId) {
                 this.comment = response.Comment;
                 this.freeAnswer = response.FreeAnswer;
                 this.refuseToAnswer = response.RefuseToAnswer;
-                console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
+                console.log("Requete OK username : " + response.UserFirstName + response.UserLastName );
+
+                
             },
             (error) => {
                 this.questionQuiz = null;
@@ -90,16 +97,17 @@ getQuestionQuiz_origine(quizId) {
 }
 
 getQuestionQuiz(quizId) {
+
     this.quizId = quizId;
     let url = 'http://' + this.server + '/api/questionquizz/active/' + quizId;
     let promise = new Promise(() =>{
         this.httpClient.get(url)
                 .toPromise()
                 .then(
-                    // Code à exécuter après récupération du résultat de la requête
-                    res => { // success
+                    //Code à exécuter après récupération du résultat de la requête
+                    res => { //success
                         console.log(res);
-                        this.userFirstName = res['Quizz']['UserFirstName'];
+                        this.userFirstName = res.UserFirstName;
                         this.userLastName = res.Quizz.UserLastName;
                         this.technology = res.Quizz.Technology;
                         this.activeQuestionNum = res.Quizz.ActiveQuestionNum;
@@ -112,10 +120,12 @@ getQuestionQuiz(quizId) {
                         this.comment = res.Comment;
                         this.freeAnswer = res.FreeAnswer;
                         this.refuseToAnswer = res.RefuseToAnswer;
-
-                        // var data=res.constructor();
-                        // this.questionQuiz= <QuestionQuiz[]>res.data;
-                        // console.log(this.questionQuiz);
+                        
+                        this.questionQuiz=res;
+                        
+                        //var data=res.constructor();
+                        //this.questionQuiz= <QuestionQuiz[]>res.data;
+                        console.log(this.questionQuiz);
                     }
                 );
 
