@@ -144,6 +144,7 @@ namespace FilRouge.Service
                 //Récupération du numéro de la question active
                 var numQ = db.Quizz
                             .Where(e => e.Id == quizId)
+                            .Include(e=>e.Technology)
                             .First().ActiveQuestionNum;
 
                 var questionsQuiz = db.QuestionQuizz
