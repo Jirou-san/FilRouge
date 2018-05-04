@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionServiceService } from '../Services/QuestionService.service'
+import { QuestionServiceService } from '../Services/QuestionService.service';
 
 @Component({
   selector: 'app-questionsreponses',
@@ -15,12 +15,11 @@ export class QuestionsreponsesComponent implements OnInit {
     this.QuestionNumber = 0;
     this.QuestionNumberMax = 0;
   }
-  maxQuestionNumer()
-  {
-   this.QuestionNumberMax = this.quizzService.questionQuiz.Quizz.QuestionCount;
+  maxQuestionNumer() {
+   this.QuestionNumberMax = 50;
   }
-  actualQuestionNumber()
-  {
-    this.QuestionNumber = this.quizzService.questionQuiz.Quizz.ActiveQuestionNum;
+  actualQuestionNumber() {
+
+    this.QuestionNumber = 15;
   }
 }

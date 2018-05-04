@@ -8,13 +8,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuestionsreponsesComponent } from './questionsreponses/questionsreponses.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReponsesComponent } from './reponses/reponses.component';
+import { QuestionServiceService } from './Services/QuestionService.service';
 
 const appRoutes: Routes = [
   {
     path: 'quizz/:id', component: QuizzComponent
   },
   {
-    path: '', component: AppComponent
+    path: '', component: QuizzComponent
   },
   {
     path: 'doquizz', component: QuestionsreponsesComponent
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
   ],
   // tslint:disable-next-line:no-trailing-whitespace
   
-  providers: [],
+  providers: [QuestionServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

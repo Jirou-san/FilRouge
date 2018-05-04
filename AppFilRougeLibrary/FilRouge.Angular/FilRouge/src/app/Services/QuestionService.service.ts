@@ -50,7 +50,7 @@ constructor(private httpClient: HttpClient) {
 
 getQuestionQuiz() {
     this.httpClient
-        .get<any>('http://' + this.server + 'GET /api/questionquizz/active/' + this.quizId)
+        .get<any>('http://' + this.server + '/api/questionquizz/active/' + this.quizId)
         .subscribe(
             (response) => {
                 this.questionQuiz = JSON.parse(response);
