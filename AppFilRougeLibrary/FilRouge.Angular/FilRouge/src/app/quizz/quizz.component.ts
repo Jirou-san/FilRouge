@@ -52,12 +52,12 @@ counterSubscription: Subscription;
       }
     );
 
-    // this.QuizzId = this.route.snapshot.params['id'];
-    // const httpRequest = Observable.interval(1000);
-    // this.questionService.getQuestionQuiz(this.QuizzId);
-    // this.Technology = this.questionService.technology;
-    // this.UserFirstName = this.questionService.userFirstName;
-    // this.UserLastName = this.questionService.userLastName;
+    this.QuizzId = this.route.snapshot.params['id'];
+    const httpRequest = Observable.interval(1000);
+    this.questionService.getQuestionQuiz(this.QuizzId);
+    // this.Technology = this.questionService.questionQuiz
+    this.UserFirstName = this.questionService.questionQuiz.UserFirstName;
+    this.UserLastName = this.questionService.questionQuiz.UserLastName;
 
   }
   ngOnDestroy() {
