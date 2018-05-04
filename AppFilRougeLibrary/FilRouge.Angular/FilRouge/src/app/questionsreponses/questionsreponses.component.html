@@ -1,9 +1,6 @@
-<h4>{{ QuestionNumber }}Number :{{ QuestionContent }}Content</h4>
-<ngb-progressbar type="info" [value]="actualQuestionNumber()" [max]="maxQuestionNumer()" [striped]="true" [animated]="true">Label</ngb-progressbar>
-<!-- <ul>
+<!-- <h4>{{ QuestionNumber }}Number :{{ QuestionContent }}Content</h4> -->
+<ngb-progressbar showValue="true" type="danger" [value]="50" height="2rem" [max]="100" [striped]="true" [animated]="true"></ngb-progressbar>
   <div class="panel panel-warning">
-    <app-reponses *ngFor="let reponse of reponses"
-      [reponseContent]="reponseContent">
+    <app-reponses>
 
     </app-reponses>
-</ul> -->
