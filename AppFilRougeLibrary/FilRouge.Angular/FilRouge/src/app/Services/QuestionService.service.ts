@@ -61,9 +61,10 @@ constructor(private httpClient: HttpClient) {
 //         );
 // }
 
-getQuestionQuiz() {
+getQuestionQuiz(quizId) {
+    this.quizId = quizId;
     this.httpClient
-        .get<any>('http://' + this.server + '/api/questionquizz/active/' + this.quizId)
+        .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
         .subscribe(
             (response) => {
                 this.questionQuiz = JSON.parse(response);
