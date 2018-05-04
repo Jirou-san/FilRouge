@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class QuestionServiceService {
     public server: string;
@@ -23,6 +23,19 @@ export class QuestionServiceService {
 
     public userResponses;
     
+    // Question Subject = new Subject<any[]>();
+    // emitQuestionSubject() {
+    //     emitQuestionSubject.next(this.questionQuiz.slice());
+    // }
+
+// dans app.componenet
+// ngOnInit(){
+//     this.biduleSubscription = this.QuestionService.biduleSubject.subscribe(
+//         (bidules : any[] => {
+//             this.bidules
+//         })
+//     )
+// }
 
 constructor(private httpClient: HttpClient) {
     //this.server = 'localhost:81';
@@ -50,7 +63,7 @@ constructor(private httpClient: HttpClient) {
 
 getQuestionQuiz() {
     this.httpClient
-        .get<any>('http://' + this.server + 'GET /api/questionquizz/active/' + this.quizId)
+        .get<any>('http://' + this.server + '/api/questionquizz/active/' + this.quizId)
         .subscribe(
             (response) => {
                 this.questionQuiz = JSON.parse(response);
@@ -77,7 +90,7 @@ getQuestionQuiz() {
 }
 setQuestionQuiz(myQuestionQuiz) {
     this.httpClient
-        .post('http://' + this.server + 'GET /api/questionquizz', myQuestionQuiz)
+        .post('http://' + this.server + '/api/questionquizz', myQuestionQuiz)
         .subscribe(
             () => {
                 console.log('Enregistrement réponses ok');
