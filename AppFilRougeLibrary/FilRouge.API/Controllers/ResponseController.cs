@@ -30,14 +30,23 @@
             this._questionResponseService = questionResponseService;
         }
 
+        /// <summary>
+        /// Contrôleur permettant d'obtenir une réponse par son ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("{id")]
+        [Route("{id}")]
         [AllowAnonymous]
         public IHttpActionResult GetReponseById(int id)
         {
             return Ok(_questionResponseService.GetResponse(id));
         }
 
+        /// <summary>
+        /// Permet d'obtenir toutes les réponses
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IHttpActionResult GetAllReponses()
@@ -45,6 +54,12 @@
            return Ok(_questionResponseService.GetAllResponses());
         }
 
+        /// <summary>
+        /// Permet d'ajouter une réponse associé à une question
+        /// </summary>
+        /// <param name="reponseVM"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{id}")]
         public IHttpActionResult AddReponse(ResponseModel reponseVM, int id)
@@ -61,8 +76,13 @@
             return Ok(message);
         }
 
+        /// <summary>
+        /// Permet de supprimer une question
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
-        [Route("{id")]
+        [Route("{id}")]
         public IHttpActionResult DeleteReponse(int id)
         {
             try
