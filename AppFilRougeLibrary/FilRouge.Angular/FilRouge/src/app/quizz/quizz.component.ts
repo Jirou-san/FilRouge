@@ -28,11 +28,13 @@ counterSubscription: Subscription;
     this.Heures = 0;
 
     this.QuizzId = this.route.snapshot.params['id'];
-    const httpRequest = Observable.interval(1000);
-    this.questionService.getQuestionQuiz(this.QuizzId);
-    this.Technology = this.questionService.questionQuiz.Quiz.Technology.Name;
-    this.UserFirstName = this.questionService.questionQuiz.Quiz.UserFirstName;
-    this.UserLastName = this.questionService.questionQuiz.Quiz.UserFirstName;
+    //const httpRequest = Observable.interval(1000);
+    this.questionService.getQuestionQuiz(1);
+    console.log(this.questionService.questionQuiz);
+    console.log(this.questionService.questionQuiz.Quizz);
+    this.Technology = this.questionService.questionQuiz.Quizz.Technology.Name;
+    this.UserFirstName = this.questionService.questionQuiz.Quizz.UserFirstName;
+    this.UserLastName = this.questionService.questionQuiz.Quizz.UserFirstName;
 
     // const counter = Observable.interval(1000);
     // this.counterSubscription =

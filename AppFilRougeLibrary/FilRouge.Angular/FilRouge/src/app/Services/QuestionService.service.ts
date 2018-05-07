@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class QuestionServiceService {
     public server: string;
     public quizId: number;
-    public questionQuiz: any;
+    public questionQuiz: any; 
     public userFirstName: string;
     public userLastName: string;
     public technology: string;
@@ -36,8 +36,8 @@ export class QuestionServiceService {
 // }
 
 constructor(private httpClient: HttpClient) {
-    this.server = 'localhost:81';
-    //this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
+    //this.server = 'localhost:81';
+    this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
 }
 
 // getQuiz() {
@@ -59,36 +59,36 @@ constructor(private httpClient: HttpClient) {
 //         );
 // }
 
-// getQuestionQuiz_origine(quizId) {
-//     this.quizId = quizId;
-//     this.httpClient
-//         .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
-//         .subscribe(
-//             (response) => {
-//                 //this.questionQuiz = JSON.parse(response);
+getQuestionQuiz_origine(quizId) {
+    this.quizId = quizId;
+    this.httpClient
+        .get<any>('http://' + this.server + '/api/questionquizz/active/' + quizId)
+        .subscribe(
+            (response) => {
+                //this.questionQuiz = JSON.parse(response);
     
-//                 this.userFirstName = response.UserFirstName;
-//                 this.userLastName = response.Quizz.UserLastName;
-//                 this.technology = response.Quizz.Technology;
-//                 this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
-//                 this.questionTotalCount = response.Quizz.QuestionCount;
-//                 this.quizState = response.Quizz.QuizzState;
+                this.userFirstName = response.UserFirstName;
+                this.userLastName = response.Quizz.UserLastName;
+                this.technology = response.Quizz.Technology;
+                this.activeQuestionNum = response.Quizz.ActiveQuestionNum;
+                this.questionTotalCount = response.Quizz.QuestionCount;
+                this.quizState = response.Quizz.QuizzState;
 
-//                 this.question = response.Question.Content;
-//                 this.isFreeAnswer = response.Question.IsFreeAnswer;
+                this.question = response.Question.Content;
+                this.isFreeAnswer = response.Question.IsFreeAnswer;
 
-//                 this.comment = response.Comment;
-//                 this.freeAnswer = response.FreeAnswer;
-//                 this.refuseToAnswer = response.RefuseToAnswer;
-//                 console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
+                this.comment = response.Comment;
+                this.freeAnswer = response.FreeAnswer;
+                this.refuseToAnswer = response.RefuseToAnswer;
+                console.log('Requete OK username : ' + response.UserFirstName + response.UserLastName );
 
-//             },
-//             (error) => {
-//                 this.questionQuiz = null;
-//                 console.log('Error service getQuestionQuiz ! :' + error);
-//             }
-//         );
-// }
+            },
+            (error) => {
+                this.questionQuiz = null;
+                console.log('Error service getQuestionQuiz ! :' + error);
+            }
+        );
+}
 
 getQuestionQuiz(quizId) {
 
@@ -114,9 +114,9 @@ getQuestionQuiz(quizId) {
                         this.comment = res[0].Comment;
                         this.freeAnswer = res[0].FreeAnswer;
                         this.refuseToAnswer = res[0].RefuseToAnswer;
-                        this.questionQuiz = res[0];
-                        // var data=res.constructor();
-                        // this.questionQuiz= <QuestionQuiz[]>res.data;
+                        this.questionQuiz=<QuestionQuiz>res;
+                        //var data=res.constructor();
+                        //this.questionQuiz= <QuestionQuiz[]>res.data;
                         console.log(this.questionQuiz);
                     }
                 );
@@ -138,15 +138,71 @@ setQuestionQuiz(myQuestionQuiz) {
 }
 }
 
-class Quiz {
+class Quizz {
     public Id: number;
-    public Technology;
+    public TechnologyId: number;
+    public ContactId: string;
+    public DifficultyId: number;
+    public QuizzState: number;
+    public UserLastName: string;
+    public UserFirstName: string;
+    public HasFreeQuestion: boolean;
+    public QuestionCount: number;
+    public ExternalNum: string;
+    public ActiveQuestionNum: number;
+    public Technology: Technology;
 }
+
 class QuestionQuiz {
-    public quizId: number;
+    public Id: number;
+    public QuizzId: number;
+    public QuestionId: number;
+    public DisplayNum: number;
+    public FreeAnswer: string;
+    public Comment: string;
+    public RefuseToAnswer: string;
+    public Question: Question;
+    public Quizz: Quizz;
+    public UserResponses: UserResponse[];
 
 }
 
+class Technology {
+    public Id: number;
+    public DisplayNum: number;
+    public Name: string;
+    public IsActive: boolean;
+}
+
+class Question{
+    public Id: number;
+    public TechnologyId: number;
+    public DifficultyId: number;
+    public Content: string;
+    public IsEnable: boolean;
+    public IsFreeAnswer: boolean;
+    public UserResponses: UserResponse[];
+    public Responses: Response[];
+    public Technology: Technology;
+    //public Difficulty: Difficulty;
+}
+
+class Response{
+    public Id: number;
+    public QuestionId: number;
+    public Content: string;
+    public Explanation:  string;
+    public IsTrue: boolean;
+    //public Question Question
+}
+
+class UserResponse{
+    public QuestionQuizzId: number;
+    public ResponseId: number;
+    //public virtual Response Response { get; set; }
+    //public virtual Question Question { get; set; }
+    //public virtual QuestionQuizz QuestionQuizz{ get; set; }
+}
 
 // maFonction() {
 //     let promise = new Promise(() =>{
