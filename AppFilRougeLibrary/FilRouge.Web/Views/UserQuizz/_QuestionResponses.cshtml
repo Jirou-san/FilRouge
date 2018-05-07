@@ -1,11 +1,71 @@
-﻿@model FilRouge.Web.Models.UserQuizzModel
-@{
-    ViewBag.Title = "_QuestionResponses";
-}
+﻿@model FilRouge.Web.Models.UserQuestionResponseModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-<h2>_QuestionResponses</h2>
+</head>
+<body>
 
-Réponse
+
+    <h2>
+        @ViewBag.TitlePartialView
+    </h2>
+
+    @Html.LabelFor(model => model.Content):
+    @Html.DisplayFor(model => model.Content)
+    <br />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+
+
+            @for (var i = 0; i < Model.Responses.Count(); i++)
+
+            {
+            <div class="form-group">
+                @Html.Name(Model.Responses.ElementAt(i).Content)
+
+                <div class="col-md-10">
+                    <div class="checkbox">
+
+
+                        <input type="hidden" name="QuestionQuizzId" value="@TempData["quizzId"]" id="UserResponses[@i].QuestionQuizzId" />
+                        <input type="hidden" name="ResponseId" value="@Model.Responses.ElementAt(i).Id" id="UserResponses[@i].ResponseId" />
+
+                        @Html.Display(Model.Responses.ElementAt(i).Content)
+
+
+
+
+                        @Html.CheckBox(Model.Responses.ElementAt(i).Content)
+                        @Html.Display(Model.Responses.ElementAt(i).Content)
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+
+
+
 
 
 

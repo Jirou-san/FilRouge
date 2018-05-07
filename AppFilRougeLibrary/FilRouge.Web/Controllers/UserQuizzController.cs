@@ -26,25 +26,38 @@ namespace FilRouge.Web.Controllers
         public ActionResult Index(int quizzId)
         {
             var Quizz = _quizzService.GetQuizzById(quizzId);
-
             ViewBag.quizzId = quizzId;
             ViewBag.username = $"{Quizz.UserFirstName} {Quizz.UserLastName}";
             ViewBag.technology = Quizz.Technology.Name;
             ViewBag.date = $"{DateTime.Now.ToShortDateString()} {DateTime.Now.Hour.ToString()}:{DateTime.Now.Minute.ToString()}";
+            ViewBag.Title = $"Quizz: {Quizz.Technology.Name}";
 
-            int CurrentQuestionId = _quizzService.GetActiveQuestion(quizzId);
+            var CurrentQuestionId = _quizzService.GetActiveQuestion(quizzId);
+            var CurrentQuestion = _quizzService.getQuestionQuizz(quizzId, CurrentQuestionId);
 
-            QuestionQuizz questionQuizz = Quizz.QuestionQuizz.Find(q => q.Id == CurrentQuestionId);
-            UserQuestionResponseModel userQuestionResponseModel = questionQuizz.MapToquestionResponseQuizzModel();
+            ViewBag.TitlePartialView = $"Question n°{CurrentQuestion.DisplayNum}";
+
+            UserQuestionResponseModel userQuestionResponseModel = CurrentQuestion.MapToquestionResponseQuizzModel();
 
 
             return View(userQuestionResponseModel);
         }
 
-        public ActionResult Play( )
+        public ActionResult Play()
         {
             return View("");
         }
 
+
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+
+            int idQuizz = (int)TempData["quizzId"];
+
+            return RedirectToAction("Index");
+        }
+
     }
-} 
+}

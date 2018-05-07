@@ -16,7 +16,7 @@ namespace FilRouge.Model.Interfaces
        
         Response GetResponse(int id);
         List<Response> GetAllResponses();
-        int AddResponse(Response response, int idQuestion);
+        int AddResponse(Response response);
         int DeleteResponse(int id);
         List<Response> GetAllResponseByQuizz(int idQuizz);
         int UpdateResponse(Response response);

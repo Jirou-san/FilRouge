@@ -32,5 +32,7 @@ namespace FilRouge.Model.Interfaces
         void SetQuestionQuizzAnswer(QuestionQuizz questionQuizz, List<UserResponse> userResponses);
 
         int GetActiveQuestion(int quizzId);
+
+        QuestionQuizz getQuestionQuizz(int idQuizz, int idQuestion);
     }
 }

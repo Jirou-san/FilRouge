@@ -165,7 +165,6 @@ namespace FilRouge.Web.Controllers
         public ActionResult Delete(TechnologyModel technology)
         {
 
-           
             var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
 
             if (deletedTechnologyId == 0)

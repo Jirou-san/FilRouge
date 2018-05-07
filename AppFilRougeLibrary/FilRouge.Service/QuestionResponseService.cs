@@ -125,6 +125,11 @@ namespace FilRouge.Service
             //TODO: A faire
             return true;
         }
+        public int AddResponse(Response response)
+        {
+            _db.Response.Add(response);
+            return _db.SaveChanges();
+        }
 
         /// <summary>
         /// Récupérer une reponse par son id

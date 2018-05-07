@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using FilRouge.Model.Interfaces;
+using System.Data.Entity;
 /// <summary>
 /// Services liés au quizz, pdf, gestion, mails, CRUD...
 /// </summary>
@@ -270,8 +271,8 @@ public class QuizzService : IQuizzService
             //On n'est pas des fénéant ! On récupère jusqu'aux rréponses de l'utilisateur
             
             returnedQuiz = db.Quizz
-                            .Include(nameof(QuestionQuizz))
-                            .Include(nameof(Technology))
+                            .Include(q=>q.QuestionQuizz)
+                            .Include(t=>t.Technology)
                             .Where(e => e.Id == id)
                             .FirstOrDefault();
         }     
@@ -378,7 +379,6 @@ public class QuizzService : IQuizzService
                         .First().ActiveQuestionNum;
 
             var questionsQuiz = db.QuestionQuizz
-                        .Include(nameof(Response))
                         .Where(e => e.QuizzId == quizzId)
                         .OrderBy(e => e.DisplayNum)
                         .ToList();
@@ -519,6 +519,18 @@ public class QuizzService : IQuizzService
         return returnedResponses;
     }
     #endregion
+
+    public QuestionQuizz getQuestionQuizz(int idQuizz, int idQuestion)
+    {
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            var question = new QuestionQuizz();
+            question = db.QuestionQuizz.Include(i=>i.Question.Responses).Where(questionQuizz => questionQuizz.QuizzId == idQuizz && questionQuizz.Question.Id == idQuestion).Single() ;
+
+            return question;
+        }
+
+    }
 }
 
 
@@ -568,3 +580,6 @@ public class QuizzService : IQuizzService
 
 
 //        }
+
+
+

@@ -28,7 +28,7 @@ namespace FilRouge.Web.Models
         }
     }
 
-        public class QuestionModels
+    public class QuestionModels
     {
         public int QuestionId { get; set; }
         //[Display(Name = "Question", Prompt = "Entrez une question", Description = "Question unique ou multiple")]

@@ -11,6 +11,7 @@
     using PagedList;
     using FilRouge.Web.Models;
     using FilRouge.Service;
+    using System.Collections.Concurrent;
 
     public class QuestionController : Controller
     {
@@ -242,29 +243,62 @@
         //    return View(questionModel);
         //}
 
+        // pour enregistrer : context.Entry(existingBlog).State = EntityState.Modified; 
+
+        //ConcurrentDictionary<string, bool> cd = new ConcurrentDictionary<string, bool>();
+        //cd.AddOrUpdate(respon, true, (content, isTrue) => );
+        //    return true;
+
+
         [HttpPost]
         public ActionResult Edit(QuestionModels questionModel)
         {
             Question question = questionModel.MapToQuestion();
 
-           
-            List <Response> originResponse = (List<Response>)TempData["responses"];
+
+            List<Response> originResponses = (List<Response>)TempData["responses"];
             List<Response> reponsesToUpdate = new List<Response>();
-            var oldResponses = questionModel.Responses.Where(r => r.Id != 0);
+
+            var responses = questionModel.Responses;
 
             _questionService.UpdateQuestion(question);
 
-            foreach (Response oldResponse in oldResponses)
-            {
-                if ((originResponse.Where(x=>x.Content != oldResponse.Content)).Count() == oldResponses.Count())
-                {
-                    reponsesToUpdate.Add(oldResponse);
+            //gestion des reponse supprimés
+            //foreach (Response rep in originResponses)
+            //{
+            //    if (responses.Find(r=>rep.Id == r.Id) == null)
+            //    {
+            //        _questionService.DeleteResponse(rep.Id);
+            //    }
+            //}
 
+
+                foreach (Response response in responses)
+            {
+                //si réponse est differente des reponses d'origine
+                if ((originResponses.Find(x=>x.Content == response.Content)) == null)
+                {
+                    //si la reponse existe.. (update)
+                    if (originResponses.Find(x=>x.Id == response.Id) != null)
+                    {
+                        _questionService.UpdateResponse(response);
+
+                    }
+                    else
+                    {
+                        _questionService.AddResponse(response);
+                    }
+                }
+                else
+                {
+                    //si la reponse existe, que le contenu n'a pas changé, si checkbox a changé (create)
+                    if (response.IsTrue != originResponses.Find(r => r.Id == response.Id).IsTrue)
+                    {
+                        _questionService.UpdateResponse(response);
+                    }
                 }
 
             }
-            reponsesToUpdate.ForEach(r => _questionService.UpdateResponse(r));
-
             return RedirectToAction("Details", new { id = questionModel.QuestionId });
         }
 
