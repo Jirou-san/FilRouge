@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
+import { resolve } from 'path';
 
 @Injectable()
 export class QuestionServiceService {
@@ -22,8 +23,8 @@ export class QuestionServiceService {
     QuestionSubject = new Subject<any>();
 
     // QuestionSubject = new Subject<any[]>();
-    emitQuestionSubject() {
-         this.emitQuestionSubject.next(this.questionQuiz.slice());
+    public emitQuestionSubject() {
+    //     this.emitQuestionSubject.next(this.questionQuiz.slice());
      }
 
 // dans app.componenet
@@ -114,11 +115,21 @@ getQuestionQuiz(quizId) {
                         // this.comment = res.Comment;
                         // this.freeAnswer = res.FreeAnswer;
                         // this.refuseToAnswer = res.RefuseToAnswer;
-                        this.questionQuiz = < QuestionQuiz>res;
-                        this.emitQuestionSubject();
+                        
+                        
+                        //this.questionQuiz.map(<QuestionQuiz>res());
+                        //this.emitQuestionSubject();
+                        //this.questionQuiz.
+
+                        this.questionQuiz = res.JSON().results;
+
+
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
+                        console.log('ci-dessous question qiz');
                         console.log(this.questionQuiz);
+                        console.log('avant la sortie');
+                        resolve();
                     }
                 );
 
