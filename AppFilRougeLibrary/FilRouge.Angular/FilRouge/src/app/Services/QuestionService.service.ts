@@ -19,12 +19,12 @@ export class QuestionServiceService {
     public freeAnswer: string;
     public refuseToAnswer: string;
     public userResponses;
-    QuestionSubject = new Subject<any[]>();
+    QuestionSubject = new Subject<any>();
 
     // QuestionSubject = new Subject<any[]>();
-    // emitQuestionSubject() {
-    //     emitQuestionSubject.next(this.questionQuiz.slice());
-    // }
+    emitQuestionSubject() {
+         this.emitQuestionSubject.next(this.questionQuiz.slice());
+     }
 
 // dans app.componenet
 // ngOnInit(){
@@ -115,6 +115,7 @@ getQuestionQuiz(quizId) {
                         // this.freeAnswer = res.FreeAnswer;
                         // this.refuseToAnswer = res.RefuseToAnswer;
                         this.questionQuiz = < QuestionQuiz>res;
+                        this.emitQuestionSubject();
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
                         console.log(this.questionQuiz);
