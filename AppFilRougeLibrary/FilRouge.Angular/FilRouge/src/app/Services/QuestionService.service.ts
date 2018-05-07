@@ -151,6 +151,21 @@ class Quizz {
     public ExternalNum: string;
     public ActiveQuestionNum: number;
     public Technology: Technology;
+
+    constructor(Id: number
+        , TechnologyId: number
+        , ContactId: string
+        , DifficultyId: number
+        , QuizzState: number
+        , UserLastName: string
+        , UserFirstName: string
+        , HasFreeQuestion: boolean
+        , QuestionCount: number
+        , ExternalNum: string
+        , ActiveQuestionNum: number
+        , Technology: Technology){
+
+    }
 }
 
 class QuestionQuiz {
@@ -165,6 +180,18 @@ class QuestionQuiz {
     public Quizz: Quizz;
     public UserResponses: UserResponse[];
 
+    constructor(Id: number
+        , QuizzId: number
+        , QuestionId: number
+        , DisplayNum: number
+        , FreeAnswer: string
+        , Comment: string
+        , RefuseToAnswer: string
+        , Question: Question
+        , Quizz: Quizz
+        , UserResponses: UserResponse[]){
+
+    }
 }
 
 class Technology {
@@ -172,6 +199,14 @@ class Technology {
     public DisplayNum: number;
     public Name: string;
     public IsActive: boolean;
+
+    constructor(Id: number
+        , DisplayNum: number
+        , Name: string
+        , IsActive: boolean
+    ){
+
+    }
 }
 
 class Question{
@@ -185,6 +220,19 @@ class Question{
     public Responses: Response[];
     public Technology: Technology;
     //public Difficulty: Difficulty;
+
+    constructor(Id: number
+        , TechnologyId: number
+        , DifficultyId: number
+        , Content: string
+        , IsEnable: boolean
+        , IsFreeAnswer: boolean
+        , UserResponses: UserResponse[]
+        , Responses: Response[]
+        , Technology: Technology
+    ){
+
+    }
 }
 
 class Response{
@@ -194,6 +242,14 @@ class Response{
     public Explanation:  string;
     public IsTrue: boolean;
     //public Question Question
+
+    constructor(Id: number
+        , QuestionId: number
+        , Content: string
+        , Explanation:  string
+        , IsTrue: boolean){
+
+    }
 }
 
 class UserResponse{
@@ -202,6 +258,11 @@ class UserResponse{
     //public virtual Response Response { get; set; }
     //public virtual Question Question { get; set; }
     //public virtual QuestionQuizz QuestionQuizz{ get; set; }
+
+    constructor(QuestionQuizzId: number
+        , ResponseId: number){
+
+    }
 }
 
 // maFonction() {
