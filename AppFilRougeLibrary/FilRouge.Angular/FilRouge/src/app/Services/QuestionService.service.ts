@@ -36,8 +36,8 @@ export class QuestionServiceService {
 // }
 
 constructor(private httpClient: HttpClient) {
-    //this.server = 'localhost:81';
-    this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
+    this.server = 'localhost:81';
+    //this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
 }
 
 // getQuiz() {
@@ -101,20 +101,20 @@ getQuestionQuiz(quizId) {
                     // Code à exécuter après récupération du résultat de la requête
                     res => { // success
                         console.log(res);
-                        this.userFirstName = res[0].UserFirstName;
-                        this.userLastName = res[0].Quizz.UserLastName;
-                        this.technology = res[0].Quizz.Technology;
-                        this.activeQuestionNum = res[0].Quizz.ActiveQuestionNum;
-                        this.questionTotalCount = res[0].Quizz.QuestionCount;
-                        this.quizState = res[0].Quizz.QuizzState;
+                        // this.userFirstName = res.UserFirstName;
+                        // this.userLastName = res.Quizz.UserLastName;
+                        // this.technology = res.Quizz.Technology;
+                        // this.activeQuestionNum = res.Quizz.ActiveQuestionNum;
+                        // this.questionTotalCount = res.Quizz.QuestionCount;
+                        // this.quizState = res.Quizz.QuizzState;
 
-                        this.question = res[0].Question.Content;
-                        this.isFreeAnswer = res[0].Question.IsFreeAnswer;
+                        // this.question = res.Question.Content;
+                        // this.isFreeAnswer = res.Question.IsFreeAnswer;
 
-                        this.comment = res[0].Comment;
-                        this.freeAnswer = res[0].FreeAnswer;
-                        this.refuseToAnswer = res[0].RefuseToAnswer;
-                        this.questionQuiz=<QuestionQuiz>res;
+                        // this.comment = res.Comment;
+                        // this.freeAnswer = res.FreeAnswer;
+                        // this.refuseToAnswer = res.RefuseToAnswer;
+                        this.questionQuiz = < QuestionQuiz>res;
                         //var data=res.constructor();
                         //this.questionQuiz= <QuestionQuiz[]>res.data;
                         console.log(this.questionQuiz);

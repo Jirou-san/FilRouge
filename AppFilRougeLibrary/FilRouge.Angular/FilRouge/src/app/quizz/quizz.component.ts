@@ -29,7 +29,9 @@ counterSubscription: Subscription;
 
     this.QuizzId = this.route.snapshot.params['id'];
     //const httpRequest = Observable.interval(1000);
+    console.log('toto1');
     this.questionService.getQuestionQuiz(1);
+    console.log('toto2');
     console.log(this.questionService.questionQuiz);
     console.log(this.questionService.questionQuiz.Quizz);
     this.Technology = this.questionService.questionQuiz.Quizz.Technology.Name;
