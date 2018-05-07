@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class QuestionServiceService {
     public server: string;
     public quizId: number;
-    public questionQuiz: any; 
+    public questionQuiz: any;
     public userFirstName: string;
     public userLastName: string;
     public technology: string;
@@ -36,8 +36,8 @@ export class QuestionServiceService {
 // }
 
 constructor(private httpClient: HttpClient) {
-    //this.server = 'localhost:81';
-    this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
+    this.server = 'localhost:81';
+    //this.server = '10.110.12.51:81'; //Server IIS Marc au 20180503
 }
 
 // getQuiz() {
