@@ -262,17 +262,7 @@
             var responses = questionModel.Responses;
 
             _questionService.UpdateQuestion(question);
-
-            //gestion des reponse supprimés
-            //foreach (Response rep in originResponses)
-            //{
-            //    if (responses.Find(r=>rep.Id == r.Id) == null)
-            //    {
-            //        _questionService.DeleteResponse(rep.Id);
-            //    }
-            //}
-
-
+            
                 foreach (Response response in responses)
             {
                 //si réponse est differente des reponses d'origine

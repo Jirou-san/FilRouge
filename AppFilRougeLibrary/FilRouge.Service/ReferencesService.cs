@@ -64,7 +64,7 @@
         public int DeleteTechnology(int id)
         {
             var technology = new Technology() { Id = id };
-            int deletedId;
+            var deletedId = 0;
 
             try
             {
@@ -74,7 +74,7 @@
             }
             catch (DbUpdateException e)
             {
-                deletedId = 0;
+                throw new CustomDbUpdateException(e, $"Probleme lors de la suppression de la technologie (id:{id})");
             }
             return deletedId;
 

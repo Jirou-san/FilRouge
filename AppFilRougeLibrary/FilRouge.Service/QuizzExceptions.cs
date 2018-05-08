@@ -27,7 +27,7 @@ namespace FilRouge.Service
             switch (sqlException.Number)
             {
                 case 547:
-                    this._msg = ($"Erreur lors de {message}, car utilisé par un autre enregistrement");
+                    this._msg = ($"{message}, car utilisé par un autre enregistrement");
                     break;
                 default:
                     this._msg = "Exception non géré";

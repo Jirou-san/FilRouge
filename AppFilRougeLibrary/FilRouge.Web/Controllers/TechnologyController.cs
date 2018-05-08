@@ -164,17 +164,24 @@ namespace FilRouge.Web.Controllers
         [HttpPost]
         public ActionResult Delete(TechnologyModel technology)
         {
+            try
+            {
 
+            }
+            catch (CustomDbUpdateException e)
+            {
+                TempData["Alert"] = e.Message;
+            }
             var deletedTechnologyId = _referenceService.DeleteTechnology(technology.Id);
 
-            if (deletedTechnologyId == 0)
-            {
-                TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
-            }
-            else
-            {
-                TempData["Alert"] = string.Format($"Suppression de la technologie (id: {technology.Id})");
-            }
+            //if (deletedTechnologyId == 0)
+            //{
+            //    TempData["Alert"] = "Error: Problême durant la suppression de la technologie";
+            //}
+            //else
+            //{
+            //    TempData["Alert"] = string.Format($"Suppression de la technologie (id: {technology.Id})");
+            //}
         
             return RedirectToAction("Index");
         }
