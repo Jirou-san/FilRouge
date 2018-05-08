@@ -531,55 +531,40 @@ public class QuizzService : IQuizzService
         }
 
     }
+
+
+    public int AnswerToQuizz(QuestionQuizz questionQuizz)
+    {
+        using (FilRougeDBContext db = new FilRougeDBContext())
+        {
+            var  responses = new List<UserResponse>();
+            responses.AddRange(questionQuizz.UserResponses);
+
+            //responses.ForEach(response => db.UserResponse.Add(response));
+
+            db.Entry(questionQuizz).State = EntityState.Modified;
+            return db.SaveChanges();
+         
+        }
+
+    }
+
+    //public int AnswerToQuizz(UserResponse userResponse)
+    //{
+    //    using (FilRougeDBContext db = new FilRougeDBContext())
+    //    {
+    //        db.UserResponse.Add(userResponse);
+    //        var responses = new List<UserResponse>();
+    //        responses.AddRange(questionQuizz.UserResponses);
+
+    //        responses.ForEach(response => db.UserResponse
+
+    //        //db.Entry(questionQuizz).State = EntityState.Modified;
+    //        return db.SaveChanges();
+
+    //    }
+
+    //}
 }
-
-
-
-//        public Question GetLastQuestion(int idQuizz)
-//        {
-//            //var lastAnswerId = quizz.Questions.Where(question => question.Active == true).Select(p=>p.QuestionId).FirstOrDefault();
-//            using (var db = new FilRougeDBContext())
-//            {
-
-//                var last = db.Quizz
-//                    .FirstOrDefault(q => q.QuizzId == idQuizz)
-//                    .UserReponse.FirstOrDefault().Quizz.Questions.FirstOrDefault();
-
-
-
-//                return last;
-
-
-
-
-//                //db.UserReponse.Join(db.Quizz,
-//                //                        userReponse => userReponse.QuizzId,
-//                //                        quizz=>quizz.QuizzId,
-//                //                        (userReponse, quizz) => new { userReponse, quizz })
-//                //                        .Join(db.Question,
-//                //                            question=> question.quizz.Questions.Select(q=>q.QuestionId).FirstOrDefault(),
-//                //                            quizz=>quizz.QuestionId,
-//                //                             (userReponse, quizz) => new { userReponse, quizz }).
-
-
-
-
-//                //    db.Question.Select(q => q.Content != null).FirstOrDefault();
-
-//                //         var UserInRole = db.Question.
-//                //                Join(db.Quizz, 
-//                //                        u => u.QuestionId,
-//                //                        uir => uir.Questions.Select(q=>q.QuestionId),
-//                //                        (u, uir) => new { u, uir }).
-//                //                        return db.Quizz.Find(idQuizz)
-//                //        //.Questions.Where(question => question.Active == true).FirstOrDefault();
-//            }
-
-
-
-
-
-//        }
-
 
 

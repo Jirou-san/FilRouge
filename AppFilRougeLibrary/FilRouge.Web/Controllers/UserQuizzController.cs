@@ -25,6 +25,10 @@ namespace FilRouge.Web.Controllers
         // GET: UserQuizz
         public ActionResult Index(int quizzId)
         {
+            var test = TempData["toto"];
+            //ne fonctionne pas si nommé : quizzId ?!
+            TempData["idQuizz"] = quizzId.ToString();
+
             var Quizz = _quizzService.GetQuizzById(quizzId);
             ViewBag.quizzId = quizzId;
             ViewBag.username = $"{Quizz.UserFirstName} {Quizz.UserLastName}";
@@ -49,14 +53,16 @@ namespace FilRouge.Web.Controllers
         }
 
 
-
+        //tempData mis a null si appele dans la vue ?
         [HttpPost]
-        public ActionResult Index(FormCollection form)
+        public ActionResult Index(UserQuestionResponseModel userQuestionResponseModel)
         {
+            var idQuizz = userQuestionResponseModel.UserQuizzId.ToString();
 
-            int idQuizz = (int)TempData["quizzId"];
+            var userQuestionQuizz = userQuestionResponseModel.MapToQuestionQuizz();
+            _quizzService.AnswerToQuizz(userQuestionQuizz);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { quizzId = idQuizz});
         }
 
     }

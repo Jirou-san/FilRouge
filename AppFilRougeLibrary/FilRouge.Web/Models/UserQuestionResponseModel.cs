@@ -12,7 +12,9 @@ namespace FilRouge.Web.Models
     public struct UserQuestionResponseModel
     {
 
-        public int UserQuestionQuizzId { get; set; }
+        public int UserQuizzId { get; set; }
+        public int QuestionId { get; set; }
+        public int Id { get; set; }
 
         public string Content { get; set; }
         public ICollection<Response> Responses { get; set; }
@@ -23,6 +25,8 @@ namespace FilRouge.Web.Models
         [DisplayName("Commentaire")]
         public string Comment { get; set; }
         public bool RefuseToAnswer { get; set; }
+        public string FreeAnswer { get; set; }
+        public int DisplayNum { get; set; }
     }
 
     public static partial class Map
@@ -31,14 +35,18 @@ namespace FilRouge.Web.Models
         public static QuestionQuizz MapToQuestionQuizz(this UserQuestionResponseModel questionResponseQuizzModel)
         {
             var question = new QuestionQuizz();
-
-            question.Id = questionResponseQuizzModel.UserQuestionQuizzId;
-            question.Question.Content = questionResponseQuizzModel.Content;
-            question.Question.IsFreeAnswer =questionResponseQuizzModel.IsFreeAnswer;
-            question.RefuseToAnswer = questionResponseQuizzModel.RefuseToAnswer;
-            question.Question.Responses = questionResponseQuizzModel.Responses;
-            question.UserResponses = questionResponseQuizzModel.UserResponses;
+            question.Id = questionResponseQuizzModel.Id;
             question.Comment = questionResponseQuizzModel.Comment;
+
+            if (questionResponseQuizzModel.FreeAnswer!=null)
+                question.FreeAnswer = questionResponseQuizzModel.FreeAnswer;
+
+            question.QuestionId = questionResponseQuizzModel.QuestionId;
+            question.QuizzId = questionResponseQuizzModel.UserQuizzId;
+            question.RefuseToAnswer = questionResponseQuizzModel.RefuseToAnswer;
+            question.DisplayNum = questionResponseQuizzModel.DisplayNum;
+            
+            question.UserResponses = questionResponseQuizzModel.UserResponses;
 
             return question;
 
@@ -51,13 +59,16 @@ namespace FilRouge.Web.Models
             {
                 return questionResponseQuizzModel;
             }
-            questionResponseQuizzModel.UserQuestionQuizzId = questionQuizz.Id;
+            questionResponseQuizzModel.Id = questionQuizz.Id;
+
+            questionResponseQuizzModel.UserQuizzId = questionQuizz.Id;
             questionResponseQuizzModel.Content = questionQuizz.Question.Content;
             questionResponseQuizzModel.IsFreeAnswer = questionQuizz.Question.IsFreeAnswer;
             questionResponseQuizzModel.RefuseToAnswer = questionQuizz.RefuseToAnswer;
             questionResponseQuizzModel.Responses = questionQuizz.Question.Responses;
             questionResponseQuizzModel.UserResponses = questionQuizz.UserResponses;
             questionResponseQuizzModel.Comment = questionQuizz.Comment;
+            questionResponseQuizzModel.DisplayNum = questionQuizz.DisplayNum;
 
             return questionResponseQuizzModel;
 

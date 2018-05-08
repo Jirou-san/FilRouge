@@ -25,40 +25,65 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
+    <div class="form-horizontal">
+        <hr />
 
 
-            @for (var i = 0; i < Model.Responses.Count(); i++)
+        @for (var i = 0; i < Model.Responses.Count(); i++)
 
-            {
-            <div class="form-group">
-                @Html.Name(Model.Responses.ElementAt(i).Content)
+    {
+        <div class="form-group">
+            @Html.Name(Model.Responses.ElementAt(i).Content)
 
-                <div class="col-md-10">
-                    <div class="checkbox">
+            <div class="col-md-10">
+                <div class="checkbox">
 
-
-                        <input type="hidden" name="QuestionQuizzId" value="@TempData["quizzId"]" id="UserResponses[@i].QuestionQuizzId" />
-                        <input type="hidden" name="ResponseId" value="@Model.Responses.ElementAt(i).Id" id="UserResponses[@i].ResponseId" />
-
-                        @Html.Display(Model.Responses.ElementAt(i).Content)
-
-
+                    @*@Html.HiddenFor(model => model.UserResponses[i].QuestionQuizz.QuestionId, new { Value = @Model.Responses.ElementAt(i).QuestionId })
+                    @Html.HiddenFor(model => model.UserResponses[i].QuestionQuizz.QuizzId, new { Value = @TempData["idQuizz"] })*@
+                    @*@Html.HiddenFor(model => model.UserResponses[i].QuestionQuizz.Id, new { Value = @Model.Id })*@
+                    @Html.HiddenFor(model => model.UserResponses[i].ResponseId, new { id = "UserResponses[" + i + "].ResponseId", Value = @Model.Responses.ElementAt(i).Id })
+                    @Html.HiddenFor(model => model.UserResponses[i].QuestionQuizzId, new { id = "UserResponses[" + i + "].Question_Id", Value = @Model.Responses.ElementAt(i).QuestionId })
 
 
-                        @Html.CheckBox(Model.Responses.ElementAt(i).Content)
-                        @Html.Display(Model.Responses.ElementAt(i).Content)
-                    </div>
-                </div>
-            </div>
-            }
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    @Html.HiddenFor(model => model.Id, new { Value = Model.Id })
+                    @Html.HiddenFor(model => model.UserQuizzId, new { Value = @TempData["idQuizz"] })
+                    @Html.HiddenFor(model => model.QuestionId, new { Value = @Model.Responses.ElementAt(i).QuestionId })
+                    @Html.HiddenFor(model => model.DisplayNum, new { Value = @Model.DisplayNum })
+
+
+                    @Html.Display(Model.Responses.ElementAt(i).Content)
+                    @Html.EditorFor(model => model.Responses.ElementAt(i).Content)
+
+
+
+
+                    @Html.CheckBox(Model.Responses.ElementAt(i).Content)
+                    @Html.Display(Model.Responses.ElementAt(i).Content)
                 </div>
             </div>
         </div>
+}
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label>Ajoutez un commentaire: </label>
+                @Html.EditorFor(model => model.Comment)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label>Refus de répondre</label>
+                @Html.CheckBoxFor(model=>model.RefuseToAnswer)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
     }
 </body>
 </html>

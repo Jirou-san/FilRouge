@@ -34,5 +34,8 @@ namespace FilRouge.Model.Interfaces
         int GetActiveQuestion(int quizzId);
 
         QuestionQuizz getQuestionQuizz(int idQuizz, int idQuestion);
+        int AnswerToQuizz(QuestionQuizz questionQuizz);
+        //int AddUserResponse(UserResponse userResponse);
+
     }
 }
